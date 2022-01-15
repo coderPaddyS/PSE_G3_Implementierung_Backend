@@ -1,0 +1,47 @@
+
+# Root
+type Query {
+    getAlias(mapID : int!, user : String) : [Alias]
+    getUpdates(version : int!) : aliasUpdate
+    getBlacklist() : [String]
+
+    getAliasSuggestions(minValToShowPos : int!, minValToShowNeg : int!) : [AliasSuggestions]
+
+    getMapObject(mapID : int!) : String
+    getMapIDByName(mapObject : String!) : int
+    getAllMapIDs() : [int]
+}
+
+# Root
+type Mutation {
+    approveAliasSuggestion(aliasSuggestion : String!, mapID : int!) : Boolean
+    disapproveAliasSuggestion(aliasSuggestion : String!, mapID : int!) : Boolean
+    voteForAliasSuggestion(aliasSuggestion : String!, mapID : int!, user : String!, vote : Boolean!) : Boolean
+    removeAliasSuggestion(aliasSuggestion : String!, mapID : int!) : Boolean
+    suggestAlias(aliasSuggestion : String!, mapID : int!, user : String!) : Boolean
+
+    registerUser(accessToken : String) : String
+
+    removeAlias(alias : String!) : Boolean
+    blackListAlias(toBlacklist : String!) : Boolean
+    removeFromBlacklist(blacklistedToRem : String!) : Boolean
+}
+
+type aliasUpdate {
+    DeleteList : [Alias]
+    toAddList : [Alias]
+    newVersion : int!
+}
+
+type Alias{
+    name : int!
+    mapID : int
+}
+
+type AliasSuggestion{
+    suggester : String
+    name : String!
+    getVoters : [String]
+    mapID : int
+}
+
