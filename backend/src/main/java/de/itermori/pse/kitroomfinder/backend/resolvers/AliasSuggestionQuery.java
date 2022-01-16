@@ -9,7 +9,7 @@ public class AliasSuggestionQuery implements GraphQLQueryResolver{
     private AliasSuggestionService aliasSuggestionService;
 
     @Autowired
-    public AliasSuggestionQuery(AliasSuggestionService  aliasSuggestionService) {
+    public AliasSuggestionQuery(AliasSuggestionService aliasSuggestionService) {
         this.aliasSuggestionService = aliasSuggestionService;
     }
 
