@@ -27,6 +27,9 @@ public class AliasSuggestion {
     @ElementCollection
     private List<String> voters = new ArrayList<>();
 
+    @Column(name = "posVotes", nullable = false)
+    private Integer posVotes;
+
     public Long getId() {
         return id;
     }
@@ -66,5 +69,13 @@ public class AliasSuggestion {
     private void setVoters(List<String> voters) {
         this.voters = voters;
     }
-    
+
+    public Integer getPosVotes() {
+        return posVotes;
+    }
+
+    // Hibernate requires the setter for reading values from the database.
+    private void setPosVotes(Integer posVotes) {
+        this.posVotes = posVotes;
+    }
 }
