@@ -25,6 +25,11 @@ public class User {
     public User() {
     }
 
+    public User(String name, List<GrantedAuthority> authorities) {
+        this.name = name;
+        this.authorities = authorities;
+    }
+
     public Long getId() {
         return id;
     }
