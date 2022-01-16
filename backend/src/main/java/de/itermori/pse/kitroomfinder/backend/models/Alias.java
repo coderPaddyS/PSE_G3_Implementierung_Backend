@@ -22,6 +22,11 @@ public class Alias {
     public Alias() {
     }
 
+    public Alias(String name, Integer mapID) {
+        this.name = name;
+        this.mapID = mapID;
+    }
+
     public Long getId() {
         return id;
     }
