@@ -49,4 +49,14 @@ public class MapID {
     private void setAppID(Integer appID) {
         this.appID = appID;
     }
+
+    @Override
+    public String toString() {
+        return "MapID{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", appID=" + appID +
+                '}';
+    }
+
 }
