@@ -51,4 +51,13 @@ public class User {
         this.authorities = authorities;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", authorities=" + authorities +
+                '}';
+    }
+    
 }
