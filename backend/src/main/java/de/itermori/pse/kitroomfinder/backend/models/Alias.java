@@ -48,4 +48,14 @@ public class Alias {
     private void setMapID(Integer mapID) {
         this.mapID = mapID;
     }
+
+    @Override
+    public String toString() {
+        return "Alias{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", mapID=" + mapID +
+                '}';
+    }
+    
 }
