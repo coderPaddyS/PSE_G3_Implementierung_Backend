@@ -90,4 +90,8 @@ public class AliasSuggestion {
     private void setNegVotes(Integer negVotes) {
         this.negVotes = negVotes;
     }
+
+    public boolean addVoter(String user) {
+        return voters.add(user);
+    }
 }
