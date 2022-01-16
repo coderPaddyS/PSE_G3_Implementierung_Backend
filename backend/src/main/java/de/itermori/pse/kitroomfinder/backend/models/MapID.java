@@ -19,6 +19,10 @@ public class MapID {
     @Column(name = "app_id", nullable = false)
     private Integer appID;
 
+    // Hibernate requires an explicit written standard constructor.
+    public MapID() {
+    }
+
     public Long getId() {
         return id;
     }
