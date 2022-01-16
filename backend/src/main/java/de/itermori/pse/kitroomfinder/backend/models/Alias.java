@@ -15,6 +15,9 @@ public class Alias {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "mapID", nullable = false)
+    private Integer mapID;
+
     public Long getId() {
         return id;
     }
@@ -26,5 +29,14 @@ public class Alias {
     // Hibernate requires the setter for reading values from the database.
     private void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getMapID() {
+        return mapID;
+    }
+
+    // Hibernate requires the setter for reading values from the database.
+    private void setMapID(Integer mapID) {
+        this.mapID = mapID;
     }
 }
