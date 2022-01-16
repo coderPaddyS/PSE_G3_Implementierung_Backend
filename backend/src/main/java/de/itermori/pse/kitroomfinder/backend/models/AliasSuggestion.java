@@ -30,6 +30,9 @@ public class AliasSuggestion {
     @Column(name = "posVotes", nullable = false)
     private Integer posVotes;
 
+    @Column(name = "negVotes", nullable = false)
+    private Integer negVotes;
+
     public Long getId() {
         return id;
     }
@@ -77,5 +80,14 @@ public class AliasSuggestion {
     // Hibernate requires the setter for reading values from the database.
     private void setPosVotes(Integer posVotes) {
         this.posVotes = posVotes;
+    }
+
+    public Integer getNegVotes() {
+        return negVotes;
+    }
+
+    // Hibernate requires the setter for reading values from the database.
+    private void setNegVotes(Integer negVotes) {
+        this.negVotes = negVotes;
     }
 }
