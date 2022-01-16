@@ -94,4 +94,9 @@ public class AliasSuggestion {
     public boolean addVoter(String user) {
         return voters.add(user);
     }
+
+    public boolean addPosVote() {
+        ++posVotes;
+        return true;
+    }
 }
