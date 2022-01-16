@@ -99,4 +99,9 @@ public class AliasSuggestion {
         ++posVotes;
         return true;
     }
+
+    public boolean addNegVote() {
+        ++negVotes;
+        return true;
+    }
 }
