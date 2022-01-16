@@ -21,6 +21,10 @@ public class User {
     @ElementCollection
     private List<GrantedAuthority> authorities;
 
+    // Hibernate requires an explicit written standard constructor.
+    public User() {
+    }
+
     public Long getId() {
         return id;
     }
