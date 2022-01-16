@@ -20,14 +20,14 @@ public class AliasQuery implements GraphQLQueryResolver {
 
     public Iterable<Alias> getAlias(int mapID, String user) {
         if (user != null) {
-            return aliasService.getAlias( int mapID, String user);
+            return aliasService.getAlias(int mapID, String user);
         }
-        return aliasService.getAlias( int mapID);
+        return aliasService.getAlias(int mapID);
     }
 
     public getUpdates(int version) {
         return new AliasUpdate(int version, aliasService.getAliasUpdates(int version),
-            deletedAliasService.getDeletedAllias(version));
+            deletedAliasService.getDeletedAlias(version));
     }
 
     public Iterable<String> getBlacklist() {
