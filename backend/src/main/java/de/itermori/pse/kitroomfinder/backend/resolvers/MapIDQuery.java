@@ -5,12 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class mapIDQuery implements GraphQLQueryResolver{
+public class MapIDQuery implements GraphQLQueryResolver{
 
     private MapIDServie mapIDService;
 
     @Autowired
-    public mapIDQuery(MapIDService  mapIDService) {
+    public MapIDQuery(MapIDService  mapIDService) {
         this.mapIDService = mapIDService;
     }
 
