@@ -37,6 +37,12 @@ public class AliasSuggestion {
     public AliasSuggestion() {
     }
 
+    public AliasSuggestion(String name, String suggester, Integer appMapID) {
+        this.name = name;
+        this.suggester = suggester;
+        this.appMapID = appMapID;
+    }
+
     public Long getId() {
         return id;
     }
