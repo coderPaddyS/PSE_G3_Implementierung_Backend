@@ -16,7 +16,7 @@ public class MapID {
     private String name;
 
     // ID that is stored in the database in the frontend
-    @Column(name = "app_id", nullable = false)
+    @Column(name = "appID", nullable = false)
     private Integer appID;
 
     // Hibernate requires an explicit written standard constructor.
