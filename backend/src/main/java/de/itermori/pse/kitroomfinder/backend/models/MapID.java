@@ -15,6 +15,10 @@ public class MapID {
     @Column(name = "name", nullable = false)
     private String name;
 
+    // ID that is stored in the database in the frontend
+    @Column(name = "app_id", nullable = false)
+    private Integer appID;
+
     public Long getId() {
         return id;
     }
@@ -26,5 +30,14 @@ public class MapID {
     // Hibernate requires the setter for reading values from the database.
     private void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getAppID() {
+        return appID;
+    }
+
+    // Hibernate requires the setter for reading values from the database.
+    private void setAppID(Integer appID) {
+        this.appID = appID;
     }
 }
