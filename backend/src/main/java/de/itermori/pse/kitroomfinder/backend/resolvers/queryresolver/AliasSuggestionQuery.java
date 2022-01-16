@@ -1,4 +1,4 @@
-package de.itermori.pse.kitroomfinder.backend.resolvers;
+package de.itermori.pse.kitroomfinder.backend.resolvers.queryresolver;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
