@@ -1,4 +1,4 @@
-package de.itermori.pse.kitroomfinder.backend.resolvers;
+package de.itermori.pse.kitroomfinder.backend.resolvers.queryresolver;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -25,7 +25,7 @@ public class AliasQuery implements GraphQLQueryResolver {
         return aliasService.getAlias(int mapID);
     }
 
-    public getUpdates(int version) {
+    public AliasUpdate getUpdates(int version) {
         return new AliasUpdate(int version, aliasService.getAliasUpdates(int version),
             deletedAliasService.getDeletedAlias(version));
     }
