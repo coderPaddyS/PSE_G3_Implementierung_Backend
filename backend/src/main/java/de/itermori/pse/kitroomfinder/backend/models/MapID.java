@@ -23,6 +23,11 @@ public class MapID {
     public MapID() {
     }
 
+    public MapID(String name, Integer appID) {
+        this.name = name;
+        this.appID = appID;
+    }
+
     public Long getId() {
         return id;
     }
