@@ -18,6 +18,9 @@ public class AliasSuggestion {
     @Column(name = "suggester", nullable = false)
     private String suggester;
 
+    @Column(name = "appMapID", nullable = false)
+    private Integer appMapID;
+
     public Long getId() {
         return id;
     }
@@ -38,5 +41,14 @@ public class AliasSuggestion {
     // Hibernate requires the setter for reading values from the database.
     private void setSuggester(String suggester) {
         this.suggester = suggester;
+    }
+
+    public Integer getAppMapID() {
+        return appMapID;
+    }
+
+    // Hibernate requires the setter for reading values from the database.
+    private void setAppMapID(Integer appMapID) {
+        this.appMapID = appMapID;
     }
 }
