@@ -1,10 +1,13 @@
 package de.itermori.pse.kitroomfinder.backend.models;
 
+import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import org.springframework.security.core.GrantedAuthority;
 
 @Entity
 public class User {
@@ -14,6 +17,9 @@ public class User {
 
     @Column(name = "name", nullable = false)
     private String name;
+
+    @ElementCollection
+    private List<GrantedAuthority> authorities;
 
     public Long getId() {
         return id;
@@ -26,6 +32,14 @@ public class User {
     // Hibernate requires the setter for reading values from the database.
     private void setName(String name) {
         this.name = name;
+    }
+
+    public List<GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(List<GrantedAuthority> authorities) {
+        this.authorities = authorities;
     }
 
 }
