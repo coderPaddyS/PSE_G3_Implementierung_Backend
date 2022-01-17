@@ -19,4 +19,9 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
     public boolean addAliasSuggestion(String aliasSuggestion, int mapID, String user) {
         return aliasSuggestionRepository.save(new AliasSuggestion(aliasSuggestion, mapID, user));
     }
+
+    @Override
+    public boolean removeAliasSuggestion(String aliasSuggestion, int mapID) {
+        return aliasSuggestionRepository.deleteByNameAndID(aliasSuggestion, mapID);
+    }
 }
