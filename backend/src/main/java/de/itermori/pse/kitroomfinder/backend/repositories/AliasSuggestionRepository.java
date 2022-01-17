@@ -14,7 +14,7 @@ public class AliasSuggestionRepository {
         return null;
     }
 
-    public boolean updateVotes(int mapID, String alias, boolean vote) {
+    public boolean updateVotes(String aliasSuggestion, int mapID, boolean vote) {
         return true;
     }
 
