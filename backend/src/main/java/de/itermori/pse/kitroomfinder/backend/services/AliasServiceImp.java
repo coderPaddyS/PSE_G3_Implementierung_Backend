@@ -35,4 +35,10 @@ public class AliasServiceImp implements AliasService {
     public AliasUpdate getAliasUpdates(int version) {
         return aliasRepository.getAliasUpdates(version);
     }
+
+    @Override
+    public boolean removeAlias(String name) {
+        return aliasRepository.deleteByName(name);
+    }
+    
 }
