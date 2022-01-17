@@ -53,11 +53,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", authorities=" + authorities +
-                '}';
+        return this.getClass().getSimpleName() + "-" + this.getId();
     }
     
 }
