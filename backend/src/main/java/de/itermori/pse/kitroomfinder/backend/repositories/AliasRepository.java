@@ -1,6 +1,7 @@
 package de.itermori.pse.kitroomfinder.backend.repositories;
 
 import de.itermori.pse.kitroomfinder.backend.models.Alias;
+import de.itermori.pse.kitroomfinder.backend.utilwrapper.AliasUpdate;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -11,6 +12,10 @@ public class AliasRepository {
     }
 
     public Iterable<Alias> findByMapIDAndUser(int mapID, String user) {
+        return null;
+    }
+
+    public AliasUpdate findUpdatesByVersion(int version) {
         return null;
     }
 
