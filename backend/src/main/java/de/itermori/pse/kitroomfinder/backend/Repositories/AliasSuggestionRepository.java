@@ -24,7 +24,7 @@ public class AliasSuggestionRepository {
     }
 
     //deleteAfter
-    public boolean safe(AliasSuggestion alias) {
+    public boolean save(AliasSuggestion alias) {
         return true;
     }
 
