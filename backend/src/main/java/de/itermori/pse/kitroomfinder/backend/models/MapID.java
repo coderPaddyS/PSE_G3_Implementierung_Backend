@@ -52,11 +52,7 @@ public class MapID {
 
     @Override
     public String toString() {
-        return "MapID{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", appID=" + appID +
-                '}';
+        return this.getClass().getSimpleName() + "-" + this.getId();
     }
 
 }
