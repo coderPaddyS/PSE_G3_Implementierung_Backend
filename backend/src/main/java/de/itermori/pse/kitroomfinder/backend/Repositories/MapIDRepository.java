@@ -16,7 +16,7 @@ public class MapIDRepository {
     }
 
     //deleteAfter
-    public boolean safe(MapID alias) {
+    public boolean save(MapID alias) {
         return true;
     }
 
