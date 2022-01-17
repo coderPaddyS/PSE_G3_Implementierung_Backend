@@ -6,11 +6,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class AliasRepository {
 
-    public Iterable<String> findByMapID(int mapID) {
+    public Iterable<Alias> findByMapID(int mapID) {
         return null;
     }
 
-    public Iterable<String> findByMapIDAndUser(int mapID, String user) {
+    public Iterable<Alias> findByMapIDAndUser(int mapID, String user) {
         return null;
     }
 
