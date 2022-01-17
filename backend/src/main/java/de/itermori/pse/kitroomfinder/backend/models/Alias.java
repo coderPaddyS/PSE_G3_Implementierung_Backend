@@ -18,7 +18,7 @@ public class Alias {
     @Column(name = "mapID", nullable = false)
     private Integer mapID;
 
-    // Hibernate requires an explicit written standard constructor.
+    // Hibernate requires an explicitly written standard constructor.
     public Alias() {
     }
 
