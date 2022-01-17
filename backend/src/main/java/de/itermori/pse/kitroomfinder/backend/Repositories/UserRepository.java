@@ -12,7 +12,7 @@ public class UserRepository {
     }
 
     //deleteAfter
-    public boolean safe(User alias) {
+    public boolean save(User alias) {
         return true;
     }
 
