@@ -117,15 +117,7 @@ public class AliasSuggestion {
 
     @Override
     public String toString() {
-        return "AliasSuggestion{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", suggester='" + suggester + '\'' +
-                ", appMapID=" + appMapID +
-                ", voters=" + voters +
-                ", posVotes=" + posVotes +
-                ", negVotes=" + negVotes +
-                '}';
+        return this.getClass().getSimpleName() + "-" + this.getId();
     }
     
 }
