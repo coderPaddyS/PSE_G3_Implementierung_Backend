@@ -15,17 +15,16 @@ public class MapID {
     @Column(name = "name", nullable = false)
     private String name;
 
-    // ID that is stored in the database in the frontend
-    @Column(name = "appID", nullable = false)
-    private Integer appID;
+    @Column(name = "mapID", nullable = false)
+    private Integer mapID;
 
     // Hibernate requires an explicitly written standard constructor.
     public MapID() {
     }
 
-    public MapID(String name, Integer appID) {
+    public MapID(String name, Integer mapID) {
         this.name = name;
-        this.appID = appID;
+        this.mapID = mapID;
     }
 
     public Long getId() {
@@ -41,13 +40,13 @@ public class MapID {
         this.name = name;
     }
 
-    public Integer getAppID() {
-        return appID;
+    public Integer getMapID() {
+        return mapID;
     }
 
     // Hibernate requires the setter for reading values from the database.
-    private void setAppID(Integer appID) {
-        this.appID = appID;
+    private void setMapID(Integer mapID) {
+        this.mapID = mapID;
     }
 
     @Override
