@@ -22,12 +22,12 @@ public class AliasServiceImp implements AliasService {
     }
 
     @Override
-    public Iterable<String> getAlias(int mapID) {
+    public Iterable<Alias> getAlias(int mapID) {
         return aliasRepository.findByMapID(mapID);
     }
 
     @Override
-    public Iterable<String> getAlias(int mapID, String user) {
+    public Iterable<Alias> getAlias(int mapID, String user) {
         return aliasRepository.findByMapIDAndUser(mapID, user);
     }
 
@@ -40,5 +40,5 @@ public class AliasServiceImp implements AliasService {
     public boolean removeAlias(String name) {
         return aliasRepository.deleteByName(name);
     }
-    
+
 }
