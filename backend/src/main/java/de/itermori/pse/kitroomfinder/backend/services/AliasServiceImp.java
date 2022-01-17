@@ -13,4 +13,9 @@ public class AliasServiceImp implements AliasService {
     public AliasServiceImp(AliasRepository aliasRepository) {
         this.aliasRepository = aliasRepository;
     }
+
+    @Override
+    public boolean addAlias(String alias, int mapID) {
+        aliasRepository.save(alias, mapID);
+    }
 }
