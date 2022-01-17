@@ -27,6 +27,7 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
 
     @Override
     public boolean voteForAlias(String aliasSuggestion, int mapID, String user, boolean vote) {
-        return aliasSuggestionRepository.updateVotes(aliasSuggestion, mapID, vote);
+        boolean success = aliasSuggestionRepository.updateVotes(aliasSuggestion, mapID, vote);
+        return success && aliasSuggestionRepository.addVoter(user, aliasSuggestion, mapID);
     }
 }
