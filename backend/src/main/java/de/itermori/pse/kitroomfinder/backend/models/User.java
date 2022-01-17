@@ -1,6 +1,6 @@
 package de.itermori.pse.kitroomfinder.backend.models;
 
-import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -19,13 +19,13 @@ public class User {
     private String name;
 
     @ElementCollection
-    private List<GrantedAuthority> authorities;
+    private Set<? extends GrantedAuthority> authorities;
 
     // Hibernate requires an explicitly written standard constructor.
     public User() {
     }
 
-    public User(String name, List<GrantedAuthority> authorities) {
+    public User(String name, Set<GrantedAuthority> authorities) {
         this.name = name;
         this.authorities = authorities;
     }
@@ -43,11 +43,11 @@ public class User {
         this.name = name;
     }
 
-    public List<GrantedAuthority> getAuthorities() {
+    public Set<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }
 
-    public void setAuthorities(List<GrantedAuthority> authorities) {
+    public void setAuthorities(Set<? extends GrantedAuthority> authorities) {
         this.authorities = authorities;
     }
 
