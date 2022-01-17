@@ -6,12 +6,12 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class BlacklistRepository {
 
-    public boolean deleteByName() {
+    public boolean deleteByName(String alias) {
         return true;
     }
 
     //deleteAfter
-    public boolean safe(String alias) {
+    public boolean save(String alias) {
         return true;
     }
 
