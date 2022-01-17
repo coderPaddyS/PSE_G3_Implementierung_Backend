@@ -24,4 +24,9 @@ public class DeletedAliasServiceImp implements DeletedAliasService {
     public Iterable<Alias> getDeletedAlias(int version) {
         return deletedAliasRepository.findNewerThanVersion(version);
     }
+
+    @Override
+    public boolean removeDeletedAlias(String alias, int mapID) {
+        return deletedAliasRepository.deleteByNameAndMapID(alias, mapID);
+    }
 }
