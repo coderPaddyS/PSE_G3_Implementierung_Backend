@@ -24,4 +24,9 @@ public class AliasServiceImp implements AliasService {
     public Iterable<String> getAlias(int mapID) {
         return aliasRepository.findByMapID(mapID);
     }
+
+    @Override
+    public Iterable<String> getAlias(int mapID, String user) {
+        return aliasRepository.findByMapIDAndUser(mapID, user);
+    }
 }
