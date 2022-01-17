@@ -51,11 +51,7 @@ public class Alias {
 
     @Override
     public String toString() {
-        return "Alias{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", mapID=" + mapID +
-                '}';
+        return this.getClass().getSimpleName() + "-" + this.getId();
     }
     
 }
