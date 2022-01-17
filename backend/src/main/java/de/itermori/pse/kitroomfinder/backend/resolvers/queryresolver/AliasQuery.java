@@ -1,6 +1,11 @@
 package de.itermori.pse.kitroomfinder.backend.resolvers.queryresolver;
 
 import com.coxautodev.graphql.tools.GraphQLQueryResolver;
+import de.itermori.pse.kitroomfinder.backend.models.Alias;
+import de.itermori.pse.kitroomfinder.backend.services.AliasService;
+import de.itermori.pse.kitroomfinder.backend.services.BlacklistService;
+import de.itermori.pse.kitroomfinder.backend.services.DeletedAliasService;
+import de.itermori.pse.kitroomfinder.backend.utilwrapper.AliasUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -21,13 +26,13 @@ public class AliasQuery implements GraphQLQueryResolver {
 
     public Iterable<Alias> getAlias(int mapID, String user) {
         if (user != null) {
-            return aliasService.getAlias(int mapID, String user);
+            return aliasService.getAlias(mapID, user);
         }
-        return aliasService.getAlias(int mapID);
+        return aliasService.getAlias(mapID);
     }
 
     public AliasUpdate getUpdates(int version) {
-        return new AliasUpdate(int version, aliasService.getAliasUpdates(int version),
+        return new AliasUpdate(version, aliasService.getAliasUpdates(version),
             deletedAliasService.getDeletedAlias(version));
     }
 

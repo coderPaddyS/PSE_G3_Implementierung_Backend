@@ -1,5 +1,6 @@
 package de.itermori.pse.kitroomfinder.backend.security;
 
+import de.itermori.pse.kitroomfinder.backend.models.User;
 import lombok.Builder;
 import lombok.Getter;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;

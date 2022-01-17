@@ -4,7 +4,7 @@ public interface BlacklistService {
 
     public boolean addToBlacklist(String toBlacklkist);
     public boolean removeFromBlacklist(String blacklistedToRem);
-    public boolean isBlacklisted(STrign word);
+    public boolean isBlacklisted(String word);
     public Iterable<String> getBlacklist();
 
 }
