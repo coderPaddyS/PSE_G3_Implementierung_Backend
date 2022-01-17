@@ -33,7 +33,8 @@ import static java.util.function.Predicate.not;
         }
 
         @Override
-        protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+        protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
+                                        FilterChain filterChain) throws IOException, ServletException {
             getToken(request)
                     .map(userService::loadUserByToken)
                     .map(user -> JWTPreAuthenticationToken
