@@ -33,7 +33,7 @@ public class AliasServiceImp implements AliasService {
 
     @Override
     public AliasUpdate getAliasUpdates(int version) {
-        return aliasRepository.getAliasUpdates(version);
+        return aliasRepository.findUpdatesByVersion(version);
     }
 
     @Override
