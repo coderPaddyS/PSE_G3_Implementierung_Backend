@@ -21,7 +21,7 @@ public class User {
     @ElementCollection
     private List<GrantedAuthority> authorities;
 
-    // Hibernate requires an explicit written standard constructor.
+    // Hibernate requires an explicitly written standard constructor.
     public User() {
     }
 
