@@ -10,7 +10,7 @@ public class AliasSuggestionRepository {
         return true;
     }
 
-    public Iterable<AliasSuggestion> findByVotes(int minVotesNeg, int minVotesPos) {
+    public Iterable<AliasSuggestion> findByVotes(int minVotesPos, int minVotesNeg) {
         return null;
     }
 
