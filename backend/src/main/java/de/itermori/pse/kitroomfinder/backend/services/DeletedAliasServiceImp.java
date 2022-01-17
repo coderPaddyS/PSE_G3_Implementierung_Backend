@@ -1,5 +1,6 @@
 package de.itermori.pse.kitroomfinder.backend.services;
 
+import de.itermori.pse.kitroomfinder.backend.models.Alias;
 import de.itermori.pse.kitroomfinder.backend.repositories.DeletedAliasRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,5 +18,10 @@ public class DeletedAliasServiceImp implements DeletedAliasService {
     @Override
     public boolean addDeletedAlias(String deletedAlias, int mapID) {
         return deletedAliasRepository.deleteByNameAndMapID(deletedAlias, mapID);
+    }
+
+    @Override
+    public Iterable<Alias> getDeletedAlias(int version) {
+        return deletedAliasRepository.findNewerThanVersion(version);
     }
 }
