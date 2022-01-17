@@ -30,4 +30,10 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
         boolean success = aliasSuggestionRepository.updateVotes(aliasSuggestion, mapID, vote);
         return success && aliasSuggestionRepository.addVoter(user, aliasSuggestion, mapID);
     }
+
+    @Override
+    public Iterable<AliasSuggestion> getAliasSuggestions(int minValToShowPos, int minValToShowNeg) {
+        return aliasSuggestionRepository.findByVotes(minValToShowPos, minValToShowNeg);
+    }
+    
 }
