@@ -21,7 +21,7 @@ public class AliasRepository {
 
 
     //deleteAfter
-    public boolean safe(Alias alias) {
+    public boolean save(Alias alias) {
         return true;
     }
 
