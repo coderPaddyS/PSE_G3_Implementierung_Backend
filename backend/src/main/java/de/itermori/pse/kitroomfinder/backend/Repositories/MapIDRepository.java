@@ -11,7 +11,7 @@ public class MapIDRepository {
         return 0;
     }
 
-    public String findByID(int id) {
+    public String findByID(int mapID) {
         return "test";
     }
 
