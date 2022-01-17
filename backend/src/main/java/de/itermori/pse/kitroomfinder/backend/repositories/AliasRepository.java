@@ -15,7 +15,7 @@ public class AliasRepository {
         return null;
     }
 
-    public AliasUpdate findUpdatesByVersion(int version) {
+    public Iterable<Alias> findUpdatesByVersion(int version) {
         return null;
     }
 
