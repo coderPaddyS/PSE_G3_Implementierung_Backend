@@ -2,6 +2,7 @@ package de.itermori.pse.kitroomfinder.backend.services;
 
 import de.itermori.pse.kitroomfinder.backend.models.Alias;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasRepository;
+import de.itermori.pse.kitroomfinder.backend.utilwrapper.AliasUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,5 +29,10 @@ public class AliasServiceImp implements AliasService {
     @Override
     public Iterable<String> getAlias(int mapID, String user) {
         return aliasRepository.findByMapIDAndUser(mapID, user);
+    }
+
+    @Override
+    public AliasUpdate getAliasUpdates(int version) {
+        return aliasRepository.getAliasUpdates(version);
     }
 }
