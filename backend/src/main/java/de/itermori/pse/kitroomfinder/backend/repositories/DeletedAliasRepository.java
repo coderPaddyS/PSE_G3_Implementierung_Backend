@@ -1,7 +1,6 @@
-package de.itermori.pse.kitroomfinder.backend.Repositories;
+package de.itermori.pse.kitroomfinder.backend.repositories;
 
 import de.itermori.pse.kitroomfinder.backend.models.Alias;
-import de.itermori.pse.kitroomfinder.backend.models.AliasSuggestion;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
