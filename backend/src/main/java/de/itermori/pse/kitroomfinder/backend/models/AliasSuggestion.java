@@ -18,11 +18,11 @@ public class AliasSuggestion {
     @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "mapID", nullable = false)
+    private Integer mapID;
+
     @Column(name = "suggester", nullable = false)
     private String suggester;
-
-    @Column(name = "appMapID", nullable = false)
-    private Integer appMapID;
 
     @ElementCollection
     private List<String> voters = new ArrayList<>();
@@ -37,10 +37,10 @@ public class AliasSuggestion {
     public AliasSuggestion() {
     }
 
-    public AliasSuggestion(String name, String suggester, Integer appMapID) {
+    public AliasSuggestion(String name, Integer mapID, String suggester) {
         this.name = name;
+        this.mapID = mapID;
         this.suggester = suggester;
-        this.appMapID = appMapID;
     }
 
     public Long getId() {
@@ -56,6 +56,15 @@ public class AliasSuggestion {
         this.name = name;
     }
 
+    public Integer getMapID() {
+        return mapID;
+    }
+
+    // Hibernate requires the setter for reading values from the database.
+    private void setMapID(Integer mapID) {
+        this.mapID = mapID;
+    }
+
     public String getSuggester() {
         return suggester;
     }
@@ -63,15 +72,6 @@ public class AliasSuggestion {
     // Hibernate requires the setter for reading values from the database.
     private void setSuggester(String suggester) {
         this.suggester = suggester;
-    }
-
-    public Integer getAppMapID() {
-        return appMapID;
-    }
-
-    // Hibernate requires the setter for reading values from the database.
-    private void setAppMapID(Integer appMapID) {
-        this.appMapID = appMapID;
     }
 
     public List<String> getVoters() {
