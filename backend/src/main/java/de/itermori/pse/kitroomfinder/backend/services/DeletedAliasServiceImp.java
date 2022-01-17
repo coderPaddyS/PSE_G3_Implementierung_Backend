@@ -29,4 +29,5 @@ public class DeletedAliasServiceImp implements DeletedAliasService {
     public boolean removeDeletedAlias(String alias, int mapID) {
         return deletedAliasRepository.deleteByNameAndMapID(alias, mapID);
     }
+    
 }
