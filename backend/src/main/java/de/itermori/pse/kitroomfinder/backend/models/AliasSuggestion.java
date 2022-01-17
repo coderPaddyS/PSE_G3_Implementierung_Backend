@@ -33,7 +33,7 @@ public class AliasSuggestion {
     @Column(name = "negVotes", nullable = false)
     private Integer negVotes;
 
-    // Hibernate requires an explicit written standard constructor.
+    // Hibernate requires an explicitly written standard constructor.
     public AliasSuggestion() {
     }
 
