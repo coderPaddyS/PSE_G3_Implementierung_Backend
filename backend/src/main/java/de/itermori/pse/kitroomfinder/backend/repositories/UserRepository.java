@@ -1,4 +1,4 @@
-package de.itermori.pse.kitroomfinder.backend.Repositories;
+package de.itermori.pse.kitroomfinder.backend.repositories;
 
 import de.itermori.pse.kitroomfinder.backend.models.MapID;
 import de.itermori.pse.kitroomfinder.backend.models.User;
