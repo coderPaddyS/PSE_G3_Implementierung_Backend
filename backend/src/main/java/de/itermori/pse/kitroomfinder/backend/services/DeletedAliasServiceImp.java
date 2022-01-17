@@ -13,4 +13,9 @@ public class DeletedAliasServiceImp implements DeletedAliasService {
     public DeletedAliasServiceImp(DeletedAliasRepository deletedAliasRepository) {
         this.deletedAliasRepository = deletedAliasRepository;
     }
+
+    @Override
+    public boolean addDeletedAlias(String deletedAlias, int mapID) {
+        return deletedAliasRepository.deleteByNameAndMapID(deletedAlias, mapID);
+    }
 }
