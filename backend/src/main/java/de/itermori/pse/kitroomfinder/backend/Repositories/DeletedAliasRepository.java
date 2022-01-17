@@ -18,7 +18,7 @@ public class DeletedAliasRepository {
     }
 
     //deleteAfter
-    public boolean safe(Alias alias) {
+    public boolean save(Alias alias) {
         return true;
     }
 
