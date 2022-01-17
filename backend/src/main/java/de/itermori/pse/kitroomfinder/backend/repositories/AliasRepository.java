@@ -10,6 +10,10 @@ public class AliasRepository {
         return null;
     }
 
+    public Iterable<String> findByMapIDAndUser(int mapID, String user) {
+        return null;
+    }
+
     public boolean deleteByName(String alias) {
         return true;
     }
