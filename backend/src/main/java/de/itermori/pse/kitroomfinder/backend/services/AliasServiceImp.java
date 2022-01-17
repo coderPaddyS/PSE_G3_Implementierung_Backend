@@ -19,4 +19,9 @@ public class AliasServiceImp implements AliasService {
     public boolean addAlias(String alias, int mapID) {
         return aliasRepository.save(new Alias(alias, mapID));
     }
+
+    @Override
+    public Iterable<String> getAlias(int mapID) {
+        return aliasRepository.findByMapID(mapID);
+    }
 }
