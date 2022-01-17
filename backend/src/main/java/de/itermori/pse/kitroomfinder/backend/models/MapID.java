@@ -19,7 +19,7 @@ public class MapID {
     @Column(name = "appID", nullable = false)
     private Integer appID;
 
-    // Hibernate requires an explicit written standard constructor.
+    // Hibernate requires an explicitly written standard constructor.
     public MapID() {
     }
 
