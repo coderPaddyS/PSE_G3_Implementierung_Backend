@@ -1,6 +1,9 @@
 package de.itermori.pse.kitroomfinder.backend.resolvers.mutationresolver;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
+import de.itermori.pse.kitroomfinder.backend.services.AliasService;
+import de.itermori.pse.kitroomfinder.backend.services.AliasSuggestionService;
+import de.itermori.pse.kitroomfinder.backend.services.BlacklistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -12,13 +15,11 @@ public class AliasSuggestionMutation implements GraphQLMutationResolver {
     private BlacklistService blacklistService;
 
     @Autowired
-    public AliasSuggestionMutation(AliasService aliasService, UserService userService, AliasSuggestionService aliasSuggestionService,
-                                   BlacklistService blacklistService, DeletedAliasService deletedAliasService) {
+    public AliasSuggestionMutation(AliasService aliasService, AliasSuggestionService aliasSuggestionService,
+                                   BlacklistService blacklistService) {
         this.aliasService = aliasService;
-        this.userService = userService;
         this.aliasSuggestionService = aliasSuggestionService;
         this.blacklistService = blacklistService;
-        this.deletedAliasService = deletedAliasService;
     }
 
     public Boolean approveAliasSuggestion(String aliasSuggestion, int mapID) {

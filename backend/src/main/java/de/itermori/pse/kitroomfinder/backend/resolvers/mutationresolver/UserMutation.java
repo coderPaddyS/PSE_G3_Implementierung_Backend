@@ -1,6 +1,7 @@
 package de.itermori.pse.kitroomfinder.backend.resolvers.mutationresolver;
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver;
+import de.itermori.pse.kitroomfinder.backend.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
