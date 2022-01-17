@@ -24,4 +24,9 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
     public boolean removeAliasSuggestion(String aliasSuggestion, int mapID) {
         return aliasSuggestionRepository.deleteByNameAndID(aliasSuggestion, mapID);
     }
+
+    @Override
+    public boolean voteForAlias(String aliasSuggestion, int mapID, String user, boolean vote) {
+        return aliasSuggestionRepository.updateVotes(aliasSuggestion, mapID, vote);
+    }
 }
