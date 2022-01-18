@@ -6,15 +6,15 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class AliasSuggestionRepository {
 
-    public boolean deleteByNameAndID(int mapID, String alias) {
+    public boolean deleteByNameAndID(String aliasSuggestion, int mapID) {
         return true;
     }
 
-    public Iterable<AliasSuggestion> findByVotes(int minVotesNeg, int minVotesPos) {
+    public Iterable<AliasSuggestion> findByVotes(int minVotesPos, int minVotesNeg) {
         return null;
     }
 
-    public boolean updateVotes(int mapID, String alias, boolean vote) {
+    public boolean updateVotes(String aliasSuggestion, int mapID, boolean vote) {
         return true;
     }
 
