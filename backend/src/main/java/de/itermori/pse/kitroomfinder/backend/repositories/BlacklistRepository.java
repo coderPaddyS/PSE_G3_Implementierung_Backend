@@ -13,7 +13,7 @@ public class BlacklistRepository {
     public boolean save(String alias) {
         return true;
     }
-
+    public String find(String alias) {return null;}
     public Iterable<String> findAll() {
         return null;
     }
