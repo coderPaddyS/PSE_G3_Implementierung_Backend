@@ -1,7 +1,6 @@
 package de.itermori.pse.kitroomfinder.backend.services;
 
 import de.itermori.pse.kitroomfinder.backend.models.Alias;
-import de.itermori.pse.kitroomfinder.backend.utilwrapper.AliasUpdate;
 
 public interface AliasService {
 
