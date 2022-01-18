@@ -1,5 +1,6 @@
 package de.itermori.pse.kitroomfinder.backend.services;
 
+import de.itermori.pse.kitroomfinder.backend.repositories.BlacklistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,21 +16,24 @@ public class BlacklistServiceImp implements BlacklistService{
 
     @Override
     public boolean addToBlacklist(String toBlacklist) {
-        return blacklistRepository.safe(toBlacklist);
+        return blacklistRepository.save(toBlacklist);
     }
 
     @Override
     public boolean removeFromBlacklist(String blacklistedToRem) {
-        return removeFromBlacklist(blacklistedToRem);
+        return blacklistRepository.deleteByName(blacklistedToRem);
     }
 
     @Override
     public boolean isBlacklisted(String word) {
-        return isBlacklisted(word);
+        if (blacklistRepository.find(word).equals(null)) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public Iterable<String> getBlacklist() {
-        return getBlacklist();
+        return blacklistRepository.findAll();
     }
 }
