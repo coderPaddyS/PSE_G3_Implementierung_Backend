@@ -16,5 +16,5 @@ public interface AliasRepository extends JpaRepository<Alias, Long> {
     public Iterable<Alias> findByName(@Param("alias") String alias);
 
     @Query ("DELETE FROM Alias a WHERE a.name=:name")
-    public void deleteByName(@Param("name")String name);
+    public boolean deleteByName(@Param("name")String name);
 }
