@@ -24,7 +24,7 @@ public interface AliasSuggestionRepository extends JpaRepository<AliasSuggestion
     public void voteNeg(@Param("mapID") int mapID, @Param("alias")String alias);
 
     @Modifying
-    @Query("UPDATE AliasSuggestion a SET a.negVotes = a.negVote + 1 WHERE a.mapID=:mapID AND a.name=:alias")
+    @Query("UPDATE AliasSuggestion a SET a.negVotes = a.negVotes + 1 WHERE a.mapID=:mapID AND a.name=:alias")
     public void negVotes(@Param("user") String user, @Param("aliasSuggestion")String aliasSuggestion,
                          @Param("mapID") int mapID);
 }
