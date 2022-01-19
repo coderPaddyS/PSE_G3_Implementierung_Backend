@@ -1,5 +1,6 @@
 package de.itermori.pse.kitroomfinder.backend.services;
 
+import de.itermori.pse.kitroomfinder.backend.models.BlacklistEntry;
 import de.itermori.pse.kitroomfinder.backend.repositories.BlacklistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,10 @@ public class BlacklistServiceImp implements BlacklistService{
 
     @Override
     public boolean addToBlacklist(String toBlacklist) {
-        return blacklistRepository.save(toBlacklist);
+        if (blacklistRepository.save(new BlacklistEntry(toBlacklist)) == null) {
+            return false;
+        }
+        return true;
     }
 
     @Override

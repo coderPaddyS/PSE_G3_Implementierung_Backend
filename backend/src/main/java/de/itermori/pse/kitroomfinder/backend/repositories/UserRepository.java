@@ -1,21 +1,7 @@
 package de.itermori.pse.kitroomfinder.backend.repositories;
 
 import de.itermori.pse.kitroomfinder.backend.models.User;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public class UserRepository {
-
-    public User findByName(String user) {
-        return new User("test", null);
-    }
-
-    //deleteAfter
-    public boolean save(User alias) {
-        return true;
-    }
-
-    public Iterable<User> findAll() {
-        return null;
-    }
+public interface UserRepository extends JpaRepository<User, Long> {
 }

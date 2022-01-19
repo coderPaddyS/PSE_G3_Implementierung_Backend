@@ -1,33 +1,30 @@
 package de.itermori.pse.kitroomfinder.backend.repositories;
 
 import de.itermori.pse.kitroomfinder.backend.models.AliasSuggestion;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-@Repository
-public class AliasSuggestionRepository {
+public interface AliasSuggestionRepository extends JpaRepository<AliasSuggestion, Long> {
 
-    public boolean deleteByNameAndID(String aliasSuggestion, int mapID) {
-        return true;
-    }
+    @Modifying
+    @Query("DELETE FROM Alias a WHERE a.name=:name AND a.mapID=:mapID")
+    public void deleteByNameAndID(@Param("mapID")int mapID, @Param("alias")String alias);
 
-    public Iterable<AliasSuggestion> findByVotes(int minVotesPos, int minVotesNeg) {
-        return null;
-    }
+    @Query("SELECT * FROM AliasSuggestion a WHERE a.posVotes>=minVotesPos AND a.negVotes>=minVotesNeg")
+    public void findByVotes(@Param("minVotesNeg") String minVotesNeg, @Param("minVotesPos") String minVotesPos);
 
-    public boolean updateVotes(String aliasSuggestion, int mapID, boolean vote) {
-        return true;
-    }
+    @Modifying
+    @Query("UPDATE AliasSuggestion SET posVote = posVote - 1 WHERE mapID=:mapID AND name=:alias")
+    public void votePos(@Param("mapID") int mapID, @Param("alias")String alias);
 
-    public boolean addVoter(String user, String aliasSuggestion, int mapID) {
-        return true;
-    }
+    @Modifying
+    @Query("UPDATE AliasSuggestion SET negVote = negVote - 1 WHERE mapID=:mapID AND name=:alias")
+    public void negVotes(@Param("mapID") int mapID, @Param("alias")String alias);
 
-    //deleteAfter
-    public boolean save(AliasSuggestion alias) {
-        return true;
-    }
-
-    public Iterable<AliasSuggestion> findAll() {
-        return null;
-    }
+    @Modifying
+    @Query("UPDATE AliasSuggestion SET negVote = negVote - 1 WHERE mapID=:mapID AND name=:alias")
+    public void negVotes(@Param("user") String user, @Param("aliasSuggestion")String aliasSuggestion,
+                         @Param("mapID") int mapID);
 }

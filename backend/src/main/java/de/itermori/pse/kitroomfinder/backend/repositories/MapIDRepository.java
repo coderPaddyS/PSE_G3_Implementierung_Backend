@@ -1,27 +1,7 @@
 package de.itermori.pse.kitroomfinder.backend.repositories;
 
 import de.itermori.pse.kitroomfinder.backend.models.MapID;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.Optional;
-
-@Repository
-public class MapIDRepository {
-
-    public int findByName(String name) {
-        return 0;
-    }
-
-    public String findByID(int mapID) {
-        return "test";
-    }
-
-    //deleteAfter
-    public boolean save(MapID alias) {
-        return true;
-    }
-
-    public Iterable<MapID> findAll() {
-        return null;
-    }
+public interface MapIDRepository extends JpaRepository<MapID, Long> {
 }
