@@ -18,13 +18,17 @@ public class Alias {
     @Column(name = "mapID", nullable = false)
     private Integer mapID;
 
+    @Column(name = "version", nullable = false)
+    private int version;
+
     // Hibernate requires an explicitly written standard constructor.
     public Alias() {
     }
 
-    public Alias(String name, Integer mapID) {
+    public Alias(String name, Integer mapID, int version) {
         this.name = name;
         this.mapID = mapID;
+        this.version = version;
     }
 
     public Long getId() {
@@ -33,6 +37,13 @@ public class Alias {
 
     public String getName() {
         return name;
+    }
+
+    public int getVersion() {return version; }
+
+    // Hibernate requires the setter for reading values from the database.
+    private void setVersion(int version) {
+        this.version = version;
     }
 
     // Hibernate requires the setter for reading values from the database.

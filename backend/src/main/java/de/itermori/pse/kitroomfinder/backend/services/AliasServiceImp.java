@@ -5,6 +5,7 @@ import de.itermori.pse.kitroomfinder.backend.repositories.AliasRepository;
 import de.itermori.pse.kitroomfinder.backend.utilwrapper.AliasUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AliasServiceImp implements AliasService {
@@ -16,9 +17,10 @@ public class AliasServiceImp implements AliasService {
         this.aliasRepository = aliasRepository;
     }
 
+    @Transactional
     @Override
     public boolean addAlias(String alias, int mapID) {
-        aliasRepository.save(new Alias(alias, mapID));
+        aliasRepository.save(new Alias(alias, mapID, 1));
         return true;
     }
 
@@ -32,6 +34,7 @@ public class AliasServiceImp implements AliasService {
         return aliasRepository.findUpdatesByVersion(version);
     }
 
+    @Transactional
     @Override
     public boolean removeAlias(String name) {
         return aliasRepository.deleteByName(name);

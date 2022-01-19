@@ -4,6 +4,7 @@ import de.itermori.pse.kitroomfinder.backend.models.BlacklistEntry;
 import de.itermori.pse.kitroomfinder.backend.repositories.BlacklistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class BlacklistServiceImp implements BlacklistService{
@@ -15,6 +16,7 @@ public class BlacklistServiceImp implements BlacklistService{
         this.blacklistRepository = blacklistRepository;
     }
 
+    @Transactional
     @Override
     public boolean addToBlacklist(String toBlacklist) {
         if (blacklistRepository.save(new BlacklistEntry(toBlacklist)) == null) {
@@ -23,6 +25,7 @@ public class BlacklistServiceImp implements BlacklistService{
         return true;
     }
 
+    @Transactional
     @Override
     public boolean removeFromBlacklist(String blacklistedToRem) {
         return blacklistRepository.deleteByName(blacklistedToRem);

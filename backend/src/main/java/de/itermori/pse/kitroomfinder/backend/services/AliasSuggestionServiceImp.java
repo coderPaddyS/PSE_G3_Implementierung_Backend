@@ -4,6 +4,7 @@ import de.itermori.pse.kitroomfinder.backend.models.AliasSuggestion;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasSuggestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AliasSuggestionServiceImp implements AliasSuggestionService {
@@ -15,20 +16,30 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
         this.aliasSuggestionRepository = aliasSuggestionRepository;
     }
 
+    @Transactional
     @Override
     public boolean addAliasSuggestion(String aliasSuggestion, int mapID, String user) {
         return aliasSuggestionRepository.save(new AliasSuggestion(aliasSuggestion, mapID, user));
     }
 
+    @Transactional
     @Override
     public boolean removeAliasSuggestion(String aliasSuggestion, int mapID) {
         return aliasSuggestionRepository.deleteByNameAndID(aliasSuggestion, mapID);
     }
 
+    @Transactional
     @Override
     public boolean voteForAlias(String aliasSuggestion, int mapID, String user, boolean vote) {
-        boolean success = aliasSuggestionRepository.updateVotes(aliasSuggestion, mapID, vote);
-        return success && aliasSuggestionRepository.addVoter(user, aliasSuggestion, mapID);
+        boolean success;
+        aliasSuggestionRepository.addUser(aliasSuggestion);
+        if (vote) {
+            aliasSuggestionRepository.votePos(mapID, aliasSuggestion);
+        } else {
+            aliasSuggestionRepository.voteNeg(mapID, aliasSuggestion);
+        }
+        aliasSuggestionRepository.addVoter(user, aliasSuggestion, mapID);
+        return true;
     }
 
     @Override
