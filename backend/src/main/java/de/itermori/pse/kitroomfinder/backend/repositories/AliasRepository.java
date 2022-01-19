@@ -1,40 +1,10 @@
 package de.itermori.pse.kitroomfinder.backend.repositories;
 
 import de.itermori.pse.kitroomfinder.backend.models.Alias;
-import de.itermori.pse.kitroomfinder.backend.utilwrapper.AliasUpdate;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-@Repository
-public class AliasRepository {
+import java.util.Optional;
 
-    public Iterable<Alias> findByMapID(int mapID) {
-        return null;
-    }
-
-    public Iterable<Alias> findByMapIDAndUser(int mapID, String user) {
-        return null;
-    }
-
-    public Iterable<Alias> findUpdatesByVersion(int version) {
-        return null;
-    }
-
-    public boolean deleteByName(String alias) {
-        return true;
-    }
-
-    public Alias findByName(String alias) {
-        return new Alias("test", 1);
-    }
-
-
-    //deleteAfter
-    public boolean save(Alias alias) {
-        return true;
-    }
-
-    public Iterable<Alias> findAll() {
-        return null;
-    }
-
+public interface AliasRepository extends JpaRepository<Alias, Long> {
+    Optional<Alias> findByName(String name);
 }

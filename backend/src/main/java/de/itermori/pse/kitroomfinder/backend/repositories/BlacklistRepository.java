@@ -1,20 +1,12 @@
 package de.itermori.pse.kitroomfinder.backend.repositories;
 
-import org.springframework.stereotype.Repository;
+import de.itermori.pse.kitroomfinder.backend.models.BlacklistEntry;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-@Repository
-public class BlacklistRepository {
+public interface BlacklistRepository extends JpaRepository<BlacklistEntry, long> {
 
-    public boolean deleteByName(String alias) {
-        return true;
-    }
-
-    //deleteAfter
-    public boolean save(String alias) {
-        return true;
-    }
-    public String find(String alias) {return null;}
-    public Iterable<String> findAll() {
-        return null;
-    }
+    @Query ("DELETE FROM BlacklistEntry b WHERE b.name=:name")
+    public boolean deleteByName(@Param("name")String name);
 }
