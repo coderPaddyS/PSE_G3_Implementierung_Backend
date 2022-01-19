@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import com.auth0.jwt.JWTVerifier;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -26,6 +27,7 @@ public class UserServiceImp implements UserService{
         this.userRepository = userRepository;
     }
 
+    @Transactional
     @Override
     public String addUser(String accessToken) {
 
