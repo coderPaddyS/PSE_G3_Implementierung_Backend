@@ -8,5 +8,5 @@ import org.springframework.data.repository.query.Param;
 public interface BlacklistRepository extends JpaRepository<BlacklistEntry, Long> {
 
     @Query ("DELETE FROM BlacklistEntry b WHERE b.name=:name")
-    public void deleteByName(@Param("name")String name);
+    public boolean deleteByName(@Param("name")String name);
 }
