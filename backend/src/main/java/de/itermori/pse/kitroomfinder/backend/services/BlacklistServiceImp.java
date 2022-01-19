@@ -3,6 +3,8 @@ package de.itermori.pse.kitroomfinder.backend.services;
 import de.itermori.pse.kitroomfinder.backend.models.BlacklistEntry;
 import de.itermori.pse.kitroomfinder.backend.repositories.BlacklistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,7 +35,11 @@ public class BlacklistServiceImp implements BlacklistService{
 
     @Override
     public boolean isBlacklisted(String word) {
-        if (blacklistRepository.find(word).equals(null)) {
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withMatcher(word, ExampleMatcher.GenericPropertyMatchers.ignoreCase());
+        Example<BlacklistEntry> blacklistEntryExample = Example.of(
+                new BlacklistEntry(word), matcher);
+        if (blacklistRepository.exists(blacklistEntryExample)) {
             return false;
         }
         return true;
