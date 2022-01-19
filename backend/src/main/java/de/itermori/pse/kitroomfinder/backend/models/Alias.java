@@ -41,7 +41,8 @@ public class Alias {
 
     public int getVersion() {return version; }
 
-    public void setVersion(int version) {
+    // Hibernate requires the setter for reading values from the database.
+    private void setVersion(int version) {
         this.version = version;
     }
 
