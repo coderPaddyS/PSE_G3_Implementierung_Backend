@@ -12,19 +12,19 @@ public interface AliasSuggestionRepository extends JpaRepository<AliasSuggestion
     @Query("DELETE FROM Alias a WHERE a.name=:name AND a.mapID=:mapID")
     public void deleteByNameAndID(@Param("mapID")int mapID, @Param("alias")String alias);
 
-    @Query("SELECT * FROM AliasSuggestion a WHERE a.posVotes>=minVotesPos AND a.negVotes>=minVotesNeg")
+    @Query("SELECT a FROM AliasSuggestion AS a WHERE a.posVotes>=:minVotesPos AND a.negVotes>=:minVotesNeg")
     public void findByVotes(@Param("minVotesNeg") String minVotesNeg, @Param("minVotesPos") String minVotesPos);
 
     @Modifying
-    @Query("UPDATE AliasSuggestion SET posVote = posVote - 1 WHERE mapID=:mapID AND name=:alias")
+    @Query("UPDATE AliasSuggestion a SET a.posVotes = a.posVotes + 1 WHERE a.mapID=:mapID AND a.name=:alias")
     public void votePos(@Param("mapID") int mapID, @Param("alias")String alias);
 
     @Modifying
-    @Query("UPDATE AliasSuggestion SET negVote = negVote - 1 WHERE mapID=:mapID AND name=:alias")
-    public void negVotes(@Param("mapID") int mapID, @Param("alias")String alias);
+    @Query("UPDATE AliasSuggestion a SET a.negVotes = a.negVotes + 1 WHERE a.mapID=:mapID AND a.name=:alias")
+    public void voteNeg(@Param("mapID") int mapID, @Param("alias")String alias);
 
     @Modifying
-    @Query("UPDATE AliasSuggestion SET negVote = negVote - 1 WHERE mapID=:mapID AND name=:alias")
+    @Query("UPDATE AliasSuggestion a SET a.negVotes = a.negVote + 1 WHERE a.mapID=:mapID AND a.name=:alias")
     public void negVotes(@Param("user") String user, @Param("aliasSuggestion")String aliasSuggestion,
                          @Param("mapID") int mapID);
 }
