@@ -39,10 +39,7 @@ public class BlacklistServiceImp implements BlacklistService{
                 .withMatcher(word, ExampleMatcher.GenericPropertyMatchers.ignoreCase());
         Example<BlacklistEntry> blacklistEntryExample = Example.of(
                 new BlacklistEntry(word), matcher);
-        if (blacklistRepository.exists(blacklistEntryExample)) {
-            return false;
-        }
-        return true;
+        return !blacklistRepository.exists(blacklistEntryExample);
     }
 
     @Override
