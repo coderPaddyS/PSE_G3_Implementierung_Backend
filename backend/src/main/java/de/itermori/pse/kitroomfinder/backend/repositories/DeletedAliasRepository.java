@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface DeletedAliasRepository extends JpaRepository<Alias, long> {
 
-    @Query("SELECT * FROM Alias a WHERE a.version>=version")
+    @Query("SELECT a FROM Alias AS a WHERE a.version>=version")
     public Iterable<Alias> findNewerThanVersion(@Param("version") int version);
 
     @Modifying
