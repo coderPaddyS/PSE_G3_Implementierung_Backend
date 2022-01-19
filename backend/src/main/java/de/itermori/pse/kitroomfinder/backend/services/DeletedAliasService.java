@@ -4,7 +4,7 @@ import de.itermori.pse.kitroomfinder.backend.models.Alias;
 
 public interface DeletedAliasService {
 
-    public boolean addDeletedAlias(String deletedAlias, int mapID);
+    public boolean addDeletedAlias(String deletedAlias, int mapID, int version);
     public Iterable<Alias> getDeletedAlias(int version);
     public boolean removeDeletedAlias(String alias, int mapID);
 

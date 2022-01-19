@@ -14,5 +14,5 @@ public interface DeletedAliasRepository extends JpaRepository<Alias, Long> {
 
     @Modifying
     @Query("DELETE FROM Alias a WHERE a.name=:name AND a.mapID=:mapID")
-    public void deleteByNameAndMapID(@Param("name")String name, @Param("mapID")int mapID);
+    public boolean deleteByNameAndMapID(@Param("name")String name, @Param("mapID")int mapID);
 }
