@@ -3,7 +3,6 @@ package de.itermori.pse.kitroomfinder.backend.services;
 import de.itermori.pse.kitroomfinder.backend.models.MapID;
 import de.itermori.pse.kitroomfinder.backend.repositories.MapIDRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Stream;
