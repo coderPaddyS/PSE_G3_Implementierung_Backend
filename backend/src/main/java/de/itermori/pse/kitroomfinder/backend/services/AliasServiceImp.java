@@ -18,7 +18,8 @@ public class AliasServiceImp implements AliasService {
 
     @Override
     public boolean addAlias(String alias, int mapID) {
-        return aliasRepository.save(new Alias(alias, mapID));
+        aliasRepository.save(new Alias(alias, mapID));
+        return true;
     }
 
     @Override
