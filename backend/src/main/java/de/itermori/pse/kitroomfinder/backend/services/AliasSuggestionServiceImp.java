@@ -1,6 +1,8 @@
 package de.itermori.pse.kitroomfinder.backend.services;
 
+import de.itermori.pse.kitroomfinder.backend.models.Alias;
 import de.itermori.pse.kitroomfinder.backend.models.AliasSuggestion;
+import de.itermori.pse.kitroomfinder.backend.models.User;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasSuggestionRepository;
 import de.itermori.pse.kitroomfinder.backend.repositories.UserRepository;
 import java.util.List;
@@ -12,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class AliasSuggestionServiceImp implements AliasSuggestionService {
 
     private AliasSuggestionRepository aliasSuggestionRepository;
-    private UserRepository userRepository;
 
     @Autowired
     public AliasSuggestionServiceImp(AliasSuggestionRepository aliasSuggestionRepository) {
@@ -41,8 +42,8 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
         } else {
             aliasSuggestionRepository.voteNeg(mapID, aliasSuggestion);
         }
-        List<String> voters = aliasSuggestionRepository.getAllVoters(user, aliasSuggestion, mapID);
-        voters.add(user);
+        AliasSuggestion aliasSuggestionEntity = aliasSuggestionRepository.findByNameAndMapID(aliasSuggestion, mapID);
+        aliasSuggestionEntity.getVoters().add(user);
         return true;
     }
 

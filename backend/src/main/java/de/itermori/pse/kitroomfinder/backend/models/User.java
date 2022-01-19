@@ -23,7 +23,7 @@ public class User {
     private String name;
 
     @ElementCollection
-    private Set<? extends GrantedAuthority> authorities;
+    private Set<GrantedAuthority> authorities;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "aliasSuggestion_id")
@@ -55,7 +55,7 @@ public class User {
         return authorities;
     }
 
-    public void setAuthorities(Set<? extends GrantedAuthority> authorities) {
+    public void setAuthorities(Set<GrantedAuthority> authorities) {
         this.authorities = authorities;
     }
 
