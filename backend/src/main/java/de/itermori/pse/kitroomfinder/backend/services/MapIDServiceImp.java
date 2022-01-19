@@ -32,9 +32,8 @@ public class MapIDServiceImp implements MapIDService{
 
     @Override
     public Iterable<Integer> getAllMapIDs() {
-         Stream<Integer> stream = StreamSupport.stream(mapIDRepository.findAll().spliterator(), true)
+         Stream<Integer> stream = mapIDRepository.findAll().parallelStream()
                 .map(MapID::getMapID);
-        Iterable<Integer> result = stream::iterator;
-        return result;
+        return stream::iterator;
     }
 }
