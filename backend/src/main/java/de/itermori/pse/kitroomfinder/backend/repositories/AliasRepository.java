@@ -9,10 +9,10 @@ import java.util.Optional;
 
 public interface AliasRepository extends JpaRepository<Alias, Long> {
 
-    @Query("SELECT * FROM Alias a WHERE a.mapID=:mapID")
+    @Query("SELECT a FROM Alias AS a WHERE a.mapID=:mapID")
     public Iterable<Alias> findByMapID(@Param("mapID") int mapID);
 
-    @Query("SELECT * FROM Alias a WHERE a.name=:alias")
+    @Query("SELECT a FROM Alias AS a WHERE a.name=:alias")
     public Iterable<Alias> findByName(@Param("alias") String alias);
 
     @Query ("DELETE FROM Alias a WHERE a.name=:name")
