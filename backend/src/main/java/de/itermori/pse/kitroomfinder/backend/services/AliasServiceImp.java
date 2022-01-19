@@ -28,11 +28,6 @@ public class AliasServiceImp implements AliasService {
     }
 
     @Override
-    public Iterable<Alias> getAlias(int mapID, String user) {
-        return aliasRepository.findByMapIDAndUser(mapID, user);
-    }
-
-    @Override
     public Iterable<Alias> getAliasUpdates(int version) {
         return aliasRepository.findUpdatesByVersion(version);
     }
