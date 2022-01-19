@@ -7,10 +7,10 @@ import org.springframework.data.repository.query.Param;
 
 public interface MapIDRepository extends JpaRepository<MapID, Long> {
 
-    @Query("SELECT m FROM MapID AS m WHERE m.mapID=:alias")
+    @Query("SELECT m.name FROM MapID AS m WHERE m.mapID=:alias")
     public String findByID(@Param("mapID") int mapID);
 
     @Query("SELECT m.mapID FROM MapID AS m WHERE m.name=:mapObject")
     public int findByName(@Param("mapObject") String mapObject);
-    
+
 }
