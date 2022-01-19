@@ -18,8 +18,9 @@ public class DeletedAliasServiceImp implements DeletedAliasService {
 
     @Transactional
     @Override
-    public boolean addDeletedAlias(String deletedAlias, int mapID) {
-        return deletedAliasRepository.save(new Alias(deletedAlias, mapID));
+    public boolean addDeletedAlias(String deletedAlias, int mapID, int version) {
+        deletedAliasRepository.save(new Alias(deletedAlias, mapID, ++version));
+        return true;
     }
 
     @Override

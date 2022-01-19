@@ -2,12 +2,17 @@ package de.itermori.pse.kitroomfinder.backend.models;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderColumn;
 
 @Entity
 public class AliasSuggestion {
@@ -24,8 +29,9 @@ public class AliasSuggestion {
     @Column(name = "suggester", nullable = false)
     private String suggester;
 
-    @ElementCollection
-    private List<String> voters = new ArrayList<>();
+    @ElementCollection(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private List<String> voters;
 
     @Column(name = "posVotes", nullable = false)
     private Integer posVotes;

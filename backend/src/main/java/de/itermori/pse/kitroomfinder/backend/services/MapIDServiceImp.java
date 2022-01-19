@@ -3,7 +3,6 @@ package de.itermori.pse.kitroomfinder.backend.services;
 import de.itermori.pse.kitroomfinder.backend.models.MapID;
 import de.itermori.pse.kitroomfinder.backend.repositories.MapIDRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.stream.Stream;
@@ -32,9 +31,8 @@ public class MapIDServiceImp implements MapIDService{
 
     @Override
     public Iterable<Integer> getAllMapIDs() {
-         Stream<Integer> stream = StreamSupport.stream(mapIDRepository.findAll().spliterator(), true)
+         Stream<Integer> stream = mapIDRepository.findAll().parallelStream()
                 .map(MapID::getMapID);
-        Iterable<Integer> result = stream::iterator;
-        return result;
+        return stream::iterator;
     }
 }

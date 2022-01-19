@@ -20,17 +20,13 @@ public class AliasServiceImp implements AliasService {
     @Transactional
     @Override
     public boolean addAlias(String alias, int mapID) {
-        return aliasRepository.save(new Alias(alias, mapID));
+        aliasRepository.save(new Alias(alias, mapID, 1));
+        return true;
     }
 
     @Override
     public Iterable<Alias> getAlias(int mapID) {
         return aliasRepository.findByMapID(mapID);
-    }
-
-    @Override
-    public Iterable<Alias> getAlias(int mapID, String user) {
-        return aliasRepository.findByMapIDAndUser(mapID, user);
     }
 
     @Override
