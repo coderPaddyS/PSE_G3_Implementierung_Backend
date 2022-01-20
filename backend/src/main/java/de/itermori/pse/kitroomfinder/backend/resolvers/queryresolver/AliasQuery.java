@@ -25,9 +25,6 @@ public class AliasQuery implements GraphQLQueryResolver {
     }
 
     public Iterable<Alias> getAlias(int mapID, String user) {
-        if (user != null) {
-            return aliasService.getAlias(mapID, user);
-        }
         return aliasService.getAlias(mapID);
     }
 

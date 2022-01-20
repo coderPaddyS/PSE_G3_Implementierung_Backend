@@ -1,5 +1,6 @@
 package de.itermori.pse.kitroomfinder.backend.repositories;
 
+import de.itermori.pse.kitroomfinder.backend.models.Alias;
 import de.itermori.pse.kitroomfinder.backend.models.AliasSuggestion;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -10,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 public interface AliasSuggestionRepository extends JpaRepository<AliasSuggestion, Long> {
 
     @Modifying
-    @Query("DELETE FROM Alias a WHERE a.name=:name AND a.mapID=:mapID")
+    @Query("DELETE FROM Alias a WHERE a.name=:alias AND a.mapID=:mapID")
     public void deleteByNameAndID(@Param("mapID")int mapID, @Param("alias")String alias);
 
     @Query("SELECT a FROM AliasSuggestion AS a WHERE a.posVotes>=:minVotesPos AND a.negVotes>=:minVotesNeg")
@@ -25,12 +26,7 @@ public interface AliasSuggestionRepository extends JpaRepository<AliasSuggestion
     @Query("UPDATE AliasSuggestion a SET a.negVotes = a.negVotes + 1 WHERE a.mapID=:mapID AND a.name=:alias")
     public void voteNeg(@Param("mapID") int mapID, @Param("alias")String alias);
 
-    @Modifying
-    @Query("UPDATE AliasSuggestion a SET a.negVotes = a.negVotes + 1 WHERE a.mapID=:mapID AND a.name=:alias")
-    public void negVotes(@Param("user") String user, @Param("aliasSuggestion")String aliasSuggestion,
-                         @Param("mapID") int mapID);
-
-    @Query("SELECT a.voters FROM AliasSuggestion AS a WHERE a.name=:aliasSuggestion AND a.mapID=:mapID")
-    public List<String> getAllVoters(@Param("user") String user, @Param("aliasSuggestion") String aliasSuggestion,
-                                   @Param("mapID") int mapID);
+    @Query("SELECT a FROM AliasSuggestion AS a WHERE a.name=:aliasSuggestion AND a.mapID=:mapID")
+    public AliasSuggestion findByNameAndMapID(@Param("aliasSuggestion") String aliasSuggestion,
+                                    @Param("mapID") int mapID);
 }
