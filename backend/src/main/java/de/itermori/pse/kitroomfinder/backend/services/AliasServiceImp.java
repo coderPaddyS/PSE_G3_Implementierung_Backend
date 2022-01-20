@@ -5,6 +5,7 @@ import de.itermori.pse.kitroomfinder.backend.repositories.AliasRepository;
 import de.itermori.pse.kitroomfinder.backend.repositories.VersionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -19,7 +20,7 @@ public class AliasServiceImp implements AliasService {
         this.versionRepository = versionRepository;
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     @Override
     public boolean addAlias(String alias, int mapID) {
         versionRepository.incrementVersion();
