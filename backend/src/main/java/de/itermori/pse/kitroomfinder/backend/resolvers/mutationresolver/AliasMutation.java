@@ -29,9 +29,9 @@ public class AliasMutation implements GraphQLMutationResolver {
         return aliasService.removeAlias(alias);
     }
 
-    public Boolean blacklistAlias(String toBlacklist, int mapID) {
+    public Boolean blacklistAlias(String toBlacklist) {
         aliasService.removeAlias(toBlacklist);
-        aliasSuggestionService.removeAliasSuggestion(toBlacklist, mapID);
+        aliasSuggestionService.removeAliasSuggestion(toBlacklist);
         return blacklistService.addToBlacklist(toBlacklist);
     }
 

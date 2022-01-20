@@ -14,6 +14,10 @@ public interface AliasSuggestionRepository extends JpaRepository<AliasSuggestion
     @Query("DELETE FROM Alias a WHERE a.name=:alias AND a.mapID=:mapID")
     public void deleteByNameAndID(@Param("mapID")int mapID, @Param("alias")String alias);
 
+    @Modifying
+    @Query("DELETE FROM Alias a WHERE a.name=:alias")
+    public void deleteByName(@Param("alias")String alias);
+
     @Query("SELECT a FROM AliasSuggestion AS a WHERE a.posVotes>=:minVotesPos AND a.negVotes>=:minVotesNeg")
     public Iterable<AliasSuggestion> findByVotes(@Param("minVotesNeg") int minVotesNeg,
                                                  @Param("minVotesPos") int minVotesPos);
