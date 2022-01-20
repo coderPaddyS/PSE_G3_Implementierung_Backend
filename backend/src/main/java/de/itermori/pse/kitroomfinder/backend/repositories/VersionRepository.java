@@ -11,4 +11,7 @@ public interface VersionRepository extends JpaRepository<Version, Long> {
     @Query("UPDATE Version a SET a.currentVersion = a.currentVersion + 1")
     public void incrementVersion();
 
+    @Query("SELECT v.currentVersion FROM Version AS v")
+    public Integer getCurrentVersion();
+
 }
