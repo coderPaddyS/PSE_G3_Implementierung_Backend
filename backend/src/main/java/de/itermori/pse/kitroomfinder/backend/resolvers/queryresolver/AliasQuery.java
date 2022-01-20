@@ -1,12 +1,12 @@
 package de.itermori.pse.kitroomfinder.backend.resolvers.queryresolver;
 
-import com.coxautodev.graphql.tools.GraphQLQueryResolver;
-import com.google.common.collect.Streams;
 import de.itermori.pse.kitroomfinder.backend.models.Alias;
 import de.itermori.pse.kitroomfinder.backend.repositories.VersionRepository;
 import de.itermori.pse.kitroomfinder.backend.services.AliasService;
 import de.itermori.pse.kitroomfinder.backend.services.BlacklistService;
 import de.itermori.pse.kitroomfinder.backend.services.DeletedAliasService;
+import graphql.com.google.common.collect.Streams;
+import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

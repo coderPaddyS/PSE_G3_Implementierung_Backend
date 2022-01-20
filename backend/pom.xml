@@ -17,6 +17,7 @@
 
 	<properties>
 		<java.version>17</java.version>
+		<kotlin.version>1.6.10</kotlin.version>
 	</properties>
 
 	<dependencies>
@@ -31,16 +32,18 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.graphql-java</groupId>
+			<groupId>com.graphql-java-kickstart</groupId>
 			<artifactId>graphql-spring-boot-starter</artifactId>
-			<version>5.0.2</version>
+			<version>12.0.0</version>
+		</dependency>
+		<!-- GraphQL testing facilities -->
+		<dependency>
+			<groupId>com.graphql-java-kickstart</groupId>
+			<artifactId>graphql-spring-boot-starter-test</artifactId>
+			<version>12.0.0</version>
+			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>com.graphql-java</groupId>
-			<artifactId>graphql-java-tools</artifactId>
-			<version>5.2.4</version>
-		</dependency>
 
 		<dependency>
 			<groupId>mysql</groupId>
