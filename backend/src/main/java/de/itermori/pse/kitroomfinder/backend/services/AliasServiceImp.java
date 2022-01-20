@@ -2,7 +2,6 @@ package de.itermori.pse.kitroomfinder.backend.services;
 
 import de.itermori.pse.kitroomfinder.backend.models.Alias;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasRepository;
-import de.itermori.pse.kitroomfinder.backend.utilwrapper.AliasUpdate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
