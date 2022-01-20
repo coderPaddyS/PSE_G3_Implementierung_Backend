@@ -20,8 +20,5 @@ public interface AliasRepository extends JpaRepository<Alias, Long> {
 
     @Query("SELECT a FROM Alias AS a WHERE a.version>:version")
     public Iterable<Alias> findUpdatesByVersion(@Param("version")int version);
-
-    @Modifying
-    @Query("UPDATE Alias a SET a.version = a.version + 1 WHERE a.name=:name")
-    public void updateVersion(@Param("name") String name);
+    
 }
