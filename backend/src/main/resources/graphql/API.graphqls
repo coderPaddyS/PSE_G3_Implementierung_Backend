@@ -1,8 +1,8 @@
 
 # Root
 type Query {
-    getAlias(mapID : Int!, user : String) : [Alias]
-    getUpdates(version : Int!) : AliasUpdate
+    getAlias(mapID : Int!) : [Alias]
+    getUpdates(version : Int!) : [String]
     getBlacklist : [String]
 
     getAliasSuggestions(minValToShowPos : Int!, minValToShowNeg : Int!) : [AliasSuggestion]
@@ -23,14 +23,8 @@ type Mutation {
     registerUser(accessToken : String) : String
 
     removeAlias(alias : String!) : Boolean
-    blackListAlias(toBlacklist : String!) : Boolean
+    blacklistAlias(toBlacklist : String!) : Boolean
     removeFromBlacklist(blacklistedToRem : String!) : Boolean
-}
-
-type AliasUpdate {
-    deleteList : [Alias]
-    toAddList : [Alias]
-    newVersion : Int!
 }
 
 type Alias{
