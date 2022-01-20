@@ -23,7 +23,7 @@ public class AliasServiceImp implements AliasService {
     @Override
     public boolean addAlias(String alias, int mapID) {
         versionRepository.incrementVersion();
-        Integer currentVersion = versionRepository.getCurrentVersion();
+        Integer currentVersion = versionRepository.retrieveCurrentVersion();
         aliasRepository.save(new Alias(alias, mapID, currentVersion));
         return true;
     }

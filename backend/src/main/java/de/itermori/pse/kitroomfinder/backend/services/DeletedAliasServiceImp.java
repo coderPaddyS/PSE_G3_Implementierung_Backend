@@ -23,7 +23,7 @@ public class DeletedAliasServiceImp implements DeletedAliasService {
     @Override
     public boolean addDeletedAlias(String deletedAlias, int mapID) {
         versionRepository.incrementVersion();
-        Integer currentVersion = versionRepository.getCurrentVersion();
+        Integer currentVersion = versionRepository.retrieveCurrentVersion();
         deletedAliasRepository.save(new Alias(deletedAlias, mapID, currentVersion));
         return true;
     }
