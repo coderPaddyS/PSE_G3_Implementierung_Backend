@@ -9,8 +9,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
+import org.springframework.boot.test.context.SpringBootTest;
 
-@GraphQLTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class BlacklistQueryTest {
 
     private BlacklistEntry blacklistEntry = new BlacklistEntry("testEntry");
