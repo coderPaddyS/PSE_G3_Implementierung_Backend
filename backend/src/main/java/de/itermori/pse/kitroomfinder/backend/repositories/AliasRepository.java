@@ -6,8 +6,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import java.util.Optional;
-
 public interface AliasRepository extends JpaRepository<Alias, Long> {
 
     @Query("SELECT a FROM Alias AS a WHERE a.mapID=:mapID")
@@ -22,4 +20,5 @@ public interface AliasRepository extends JpaRepository<Alias, Long> {
 
     @Query("SELECT a FROM Alias AS a WHERE a.version>:version")
     public Iterable<Alias> findUpdatesByVersion(@Param("version")int version);
+    
 }

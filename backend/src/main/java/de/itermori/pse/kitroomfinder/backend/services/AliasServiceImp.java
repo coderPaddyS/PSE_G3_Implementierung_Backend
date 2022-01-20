@@ -2,6 +2,7 @@ package de.itermori.pse.kitroomfinder.backend.services;
 
 import de.itermori.pse.kitroomfinder.backend.models.Alias;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasRepository;
+import de.itermori.pse.kitroomfinder.backend.repositories.VersionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,16 +11,20 @@ import org.springframework.transaction.annotation.Transactional;
 public class AliasServiceImp implements AliasService {
 
     private AliasRepository aliasRepository;
+    private VersionRepository versionRepository;
 
     @Autowired
-    public AliasServiceImp(AliasRepository aliasRepository) {
+    public AliasServiceImp(AliasRepository aliasRepository, VersionRepository versionRepository) {
         this.aliasRepository = aliasRepository;
+        this.versionRepository = versionRepository;
     }
 
     @Transactional
     @Override
     public boolean addAlias(String alias, int mapID) {
-        aliasRepository.save(new Alias(alias, mapID, 1));
+        versionRepository.incrementVersion();
+        Integer currentVersion = versionRepository.retrieveCurrentVersion();
+        aliasRepository.save(new Alias(alias, mapID, currentVersion));
         return true;
     }
 
