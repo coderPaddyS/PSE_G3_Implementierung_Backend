@@ -9,7 +9,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -73,9 +72,25 @@ class AliasRepositoryTest {
 
         // now delete it
         aliasRepository.deleteByName(toDelete.getName());
-        
+
         List<Alias> aliasesSaved = aliasRepository.findAll();
         assertTrue(aliasesSaved.isEmpty());
+    }
+
+    @Test
+    void whenNewerAlias_thenFindUpdatesByVersion() {
+        Alias newerAlias = new Alias("Infobau", 1, 1);
+        aliasRepository.save(newerAlias);
+        Iterable<Alias> newAliases = aliasRepository.findUpdatesByVersion(0);
+        Iterator<Alias> aliasIterator = newAliases.iterator();
+        int actualAmountAliases = 0;
+        Alias actualAlias = null;
+        while (aliasIterator.hasNext()) {
+            ++actualAmountAliases;
+            actualAlias = aliasIterator.next(); // now correct value should be saved in actualAlias
+        }
+        assertEquals(1, actualAmountAliases);
+        assertEquals(newerAlias, actualAlias);
     }
 
 }
