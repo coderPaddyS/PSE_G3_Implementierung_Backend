@@ -1,8 +1,6 @@
 package de.itermori.pse.kitroomfinder.backend.repositories;
 
-import de.itermori.pse.kitroomfinder.backend.models.Alias;
 import de.itermori.pse.kitroomfinder.backend.models.AliasSuggestion;
-import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
