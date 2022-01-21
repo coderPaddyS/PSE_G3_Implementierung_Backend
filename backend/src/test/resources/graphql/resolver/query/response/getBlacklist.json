@@ -1,0 +1,8 @@
+{
+  "data": {
+    "getBlacklist": [
+      "testEntry1",
+      "testEntry2"
+    ]
+  }
+}
