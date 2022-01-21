@@ -33,10 +33,10 @@ public class AliasSuggestion {
     @JoinColumn(name = "user_id")
     private List<String> voters;
 
-    @Column(name = "posVotes", nullable = false)
+    @Column(name = "posVotes")
     private Integer posVotes;
 
-    @Column(name = "negVotes", nullable = false)
+    @Column(name = "negVotes")
     private Integer negVotes;
 
     // Hibernate requires an explicitly written standard constructor.
