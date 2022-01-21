@@ -30,12 +30,18 @@ public class AliasMutation implements GraphQLMutationResolver {
     }
 
     public Boolean blacklistAlias(String toBlacklist) {
-        aliasService.removeAlias(toBlacklist);
-        aliasSuggestionService.removeAliasSuggestion(toBlacklist);
-        return blacklistService.addToBlacklist(toBlacklist);
+        if (!blacklistService.isBlacklisted(toBlacklist)) {
+            aliasService.removeAlias(toBlacklist);
+            aliasSuggestionService.removeAliasSuggestion(toBlacklist);
+            return blacklistService.addToBlacklist(toBlacklist);
+        }
+        return false;
     }
 
     public Boolean removeFromBlacklist(String blacklistedToRem) {
-        return blacklistService.removeFromBlacklist(blacklistedToRem);
+        if (blacklistService.isBlacklisted(blacklistedToRem)) {
+            return blacklistService.removeFromBlacklist(blacklistedToRem);
+        }
+        return false;
     }
 }

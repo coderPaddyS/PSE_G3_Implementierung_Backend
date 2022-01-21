@@ -42,7 +42,8 @@ public class AliasServiceImp implements AliasService {
     @Transactional
     @Override
     public boolean removeAlias(String name) {
-        return aliasRepository.deleteByName(name);
+        aliasRepository.deleteByName(name);
+        return true;
     }
 
 }
