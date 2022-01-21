@@ -14,9 +14,7 @@ public interface AliasRepository extends JpaRepository<Alias, Long> {
     @Query("SELECT a FROM Alias AS a WHERE a.name=:alias")
     public Iterable<Alias> findByName(@Param("alias") String alias);
 
-    @Modifying
-    @Query("DELETE FROM Alias a WHERE a.name=:name")
-    public boolean deleteByName(@Param("name")String name);
+    public void deleteByName(String name);
 
     @Query("SELECT a FROM Alias AS a WHERE a.version>:version")
     public Iterable<Alias> findUpdatesByVersion(@Param("version")int version);

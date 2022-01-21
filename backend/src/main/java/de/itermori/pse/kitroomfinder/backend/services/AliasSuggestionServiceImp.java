@@ -23,6 +23,9 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
     @Transactional
     @Override
     public boolean addAliasSuggestion(String aliasSuggestion, int mapID, String user) {
+        if (aliasSuggestionRepository.findByNameAndMapID(aliasSuggestion, mapID) != null){
+            return false;
+        }
         aliasSuggestionRepository.save(new AliasSuggestion(aliasSuggestion, mapID, user));
         return true;
     }
@@ -30,6 +33,9 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
     @Transactional
     @Override
     public boolean removeAliasSuggestion(String aliasSuggestion, int mapID) {
+        if (aliasSuggestionRepository.findByNameAndMapID(aliasSuggestion, mapID) == null){
+            return false;
+        }
         aliasSuggestionRepository.deleteByNameAndID(mapID, aliasSuggestion);
         return true;
     }
@@ -44,6 +50,9 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
     @Transactional
     @Override
     public boolean voteForAlias(String aliasSuggestion, int mapID, String user, boolean vote) {
+        if (aliasSuggestionRepository.findByNameAndMapID(aliasSuggestion, mapID) == null){
+            return false;
+        }
         if (vote) {
             aliasSuggestionRepository.votePos(mapID, aliasSuggestion);
         } else {

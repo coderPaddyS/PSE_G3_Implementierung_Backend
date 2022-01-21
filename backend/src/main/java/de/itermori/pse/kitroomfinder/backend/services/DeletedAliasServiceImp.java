@@ -37,7 +37,8 @@ public class DeletedAliasServiceImp implements DeletedAliasService {
     @Transactional
     @Override
     public boolean removeDeletedAlias(String alias, int mapID) {
-        return deletedAliasRepository.deleteByNameAndMapID(alias, mapID);
+        deletedAliasRepository.deleteByNameAndMapID(alias, mapID);
+        return true;
     }
     
 }

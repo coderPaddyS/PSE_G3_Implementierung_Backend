@@ -33,7 +33,8 @@ public class BlacklistServiceImp implements BlacklistService{
     @Transactional
     @Override
     public boolean removeFromBlacklist(String blacklistedToRem) {
-        return blacklistRepository.deleteByName(blacklistedToRem);
+        blacklistRepository.deleteByName(blacklistedToRem);
+        return true;
     }
 
     @Override
