@@ -3,11 +3,11 @@ package de.itermori.pse.kitroomfinder.backend.repositories;
 import de.itermori.pse.kitroomfinder.backend.models.AliasSuggestion;
 import java.util.Iterator;
 import java.util.List;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -17,11 +17,6 @@ class AliasSuggestionRepositoryTest {
 
     @Autowired
     private AliasSuggestionRepository aliasSuggestionRepository;
-
-    @BeforeEach
-    void setUp() {
-        aliasSuggestionRepository.deleteAll();
-    }
 
     @Test
     void whenAliasSuggestionSaved_findByNameAndMapID() {
@@ -33,6 +28,7 @@ class AliasSuggestionRepositoryTest {
 
     @Test
     void whenAliasSuggestionSaved_deleteByNameAndID() {
+        aliasSuggestionRepository.deleteAll();
         // first save alias suggestion in database
         AliasSuggestion toDelete = new AliasSuggestion("HSaF", 1, "Suggester");
         aliasSuggestionRepository.save(toDelete);
