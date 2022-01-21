@@ -34,4 +34,20 @@ class AliasRepositoryTest {
         assertEquals(expectedAlias, actualAlias);
     }
 
+    @Test
+    void whenAliasSaved_thenFindsByName() {
+        Alias expectedAlias = new Alias("Infobau", 1, 1);
+        aliasRepository.save(expectedAlias);
+        Iterable<Alias> actualAliases = aliasRepository.findByName("Infobau");
+        Iterator<Alias> aliasIterator = actualAliases.iterator();
+        int actualAmountAliases = 0;
+        Alias actualAlias = new Alias("AnotherAlias", 2, 2);
+        while (aliasIterator.hasNext()) {
+            ++actualAmountAliases;
+            actualAlias = aliasIterator.next(); // now correct value should be saved in actualAlias
+        }
+        assertEquals(1, actualAmountAliases);
+        assertEquals(expectedAlias, actualAlias);
+    }
+
 }
