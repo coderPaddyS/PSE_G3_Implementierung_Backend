@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
@@ -22,7 +21,7 @@ public class User {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.LAZY)
     private Set<GrantedAuthority> authorities;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -51,7 +50,7 @@ public class User {
         this.name = name;
     }
 
-    public Set<? extends GrantedAuthority> getAuthorities() {
+    public Set<GrantedAuthority> getAuthorities() {
         return authorities;
     }
 
