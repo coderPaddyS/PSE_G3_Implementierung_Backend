@@ -1,5 +1,6 @@
 package de.itermori.pse.kitroomfinder.backend.models;
 
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -22,7 +23,7 @@ public class User {
     private String name;
 
     @ElementCollection(fetch = FetchType.LAZY)
-    private Set<GrantedAuthority> authorities;
+    private Set<GrantedAuthority> authorities = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "aliasSuggestion_id")
