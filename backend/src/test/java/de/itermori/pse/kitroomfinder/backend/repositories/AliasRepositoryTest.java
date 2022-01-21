@@ -21,7 +21,7 @@ class AliasRepositoryTest {
     private AliasRepository aliasRepository;
 
     @Test
-    void whenAliasSaved_thenFindsByMapID() {
+    void whenAliasSaved_thenFindByMapID() {
         Alias expectedAlias = new Alias("Infobau", 1, 1);
         aliasRepository.save(expectedAlias);
         Iterable<Alias> actualAliases = aliasRepository.findByMapID(1);
@@ -37,7 +37,7 @@ class AliasRepositoryTest {
     }
 
     @Test
-    void whenAliasSaved_thenFindsByName() {
+    void whenAliasSaved_thenFindByName() {
         Alias expectedAlias = new Alias("Infobau", 1, 1);
         aliasRepository.save(expectedAlias);
         Iterable<Alias> actualAliases = aliasRepository.findByName("Infobau");
