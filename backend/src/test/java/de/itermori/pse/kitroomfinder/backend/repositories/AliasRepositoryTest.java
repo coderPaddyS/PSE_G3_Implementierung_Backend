@@ -2,6 +2,7 @@ package de.itermori.pse.kitroomfinder.backend.repositories;
 
 import de.itermori.pse.kitroomfinder.backend.models.Alias;
 import java.util.Iterator;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,6 +10,7 @@ import org.springframework.test.context.TestPropertySource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(properties = {
@@ -71,15 +73,9 @@ class AliasRepositoryTest {
 
         // now delete it
         aliasRepository.deleteByName(toDelete.getName());
-
-        Alias actualAliasesSaved = null;
-        actualAmountAliases = 0;
-        while (aliasIterator.hasNext()) {
-            ++actualAmountAliases;
-            actualAlias = aliasIterator.next(); // now correct value should be saved in actualAlias
-        }
-        assertEquals(0, actualAmountAliases);
-        assertNull(actualAliasesSaved);
+        
+        List<Alias> aliasesSaved = aliasRepository.findAll();
+        assertTrue(aliasesSaved.isEmpty());
     }
 
 }
