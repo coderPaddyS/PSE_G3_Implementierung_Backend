@@ -3,22 +3,24 @@ package de.itermori.pse.kitroomfinder.backend.repositories;
 import de.itermori.pse.kitroomfinder.backend.models.Alias;
 import java.util.Iterator;
 import java.util.List;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@TestPropertySource(properties = {
-        "spring.jpa.hibernate.ddl-auto=create-drop"
-})
 class AliasRepositoryTest {
 
     @Autowired
     private AliasRepository aliasRepository;
+
+    @BeforeEach
+    void setUp() {
+        aliasRepository.deleteAll();
+    }
 
     @Test
     void whenAliasSaved_thenFindByMapID() {
