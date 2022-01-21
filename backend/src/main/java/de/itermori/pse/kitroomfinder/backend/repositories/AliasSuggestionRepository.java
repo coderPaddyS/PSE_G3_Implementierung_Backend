@@ -20,12 +20,10 @@ public interface AliasSuggestionRepository extends JpaRepository<AliasSuggestion
     public Iterable<AliasSuggestion> findByVotes(@Param("minVotesNeg") int minVotesNeg,
                                                  @Param("minVotesPos") int minVotesPos);
 
-    @Modifying(flushAutomatically = true)
     @Transactional
     @Query("UPDATE AliasSuggestion a SET a.posVotes = a.posVotes + 1 WHERE a.mapID=:mapID AND a.name=:alias")
     public void votePos(@Param("mapID") int mapID, @Param("alias")String alias);
 
-    @Modifying(flushAutomatically = true)
     @Transactional
     @Query("UPDATE AliasSuggestion a SET a.negVotes = a.negVotes + 1 WHERE a.mapID=:mapID AND a.name=:alias")
     public void voteNeg(@Param("mapID") int mapID, @Param("alias")String alias);
