@@ -9,11 +9,11 @@ import org.springframework.data.repository.query.Param;
 public interface AliasSuggestionRepository extends JpaRepository<AliasSuggestion, Long> {
 
     @Modifying
-    @Query("DELETE FROM Alias a WHERE a.name=:alias AND a.mapID=:mapID")
+    @Query("DELETE FROM AliasSuggestion a WHERE a.name=:alias AND a.mapID=:mapID")
     public void deleteByNameAndID(@Param("mapID")int mapID, @Param("alias")String alias);
 
     @Modifying
-    @Query("DELETE FROM Alias a WHERE a.name=:alias")
+    @Query("DELETE FROM AliasSuggestion a WHERE a.name=:alias")
     public void deleteByName(@Param("alias")String alias);
 
     @Query("SELECT a FROM AliasSuggestion AS a WHERE a.posVotes>=:minVotesPos AND a.negVotes>=:minVotesNeg")
