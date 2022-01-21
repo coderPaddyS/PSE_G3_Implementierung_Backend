@@ -47,7 +47,7 @@ class AliasSuggestionRepositoryTest {
         assertEquals(toDelete, actualAliasSuggestion);
 
         // now delete it
-        aliasSuggestionRepository.deleteByName(toDelete.getName());
+        aliasSuggestionRepository.deleteByNameAndID(1, toDelete.getName());
 
         List<AliasSuggestion> aliasSuggestionsSaved = aliasSuggestionRepository.findAll();
         assertTrue(aliasSuggestionsSaved.isEmpty());
