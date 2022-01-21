@@ -1,5 +1,6 @@
 package de.itermori.pse.kitroomfinder.backend.models;
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -64,5 +65,22 @@ public class Alias {
     public String toString() {
         return this.getClass().getSimpleName() + "-" + this.getId();
     }
-    
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Alias alias = (Alias) o;
+        return getId().equals(alias.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
+
 }
