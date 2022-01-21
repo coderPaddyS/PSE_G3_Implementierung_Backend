@@ -1,4 +1,4 @@
-package de.itermori.pse.kitroomfinder.backend.security;
+package de.itermori.pse.kitroomfinder.backend.Exceptions;
 
 public class BadTokenException extends RuntimeException {
 
