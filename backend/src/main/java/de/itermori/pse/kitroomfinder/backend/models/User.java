@@ -1,5 +1,6 @@
 package de.itermori.pse.kitroomfinder.backend.models;
 
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -10,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
@@ -22,8 +22,8 @@ public class User {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ElementCollection
-    private Set<GrantedAuthority> authorities;
+    @ElementCollection(fetch = FetchType.LAZY)
+    private Set<GrantedAuthority> authorities = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "aliasSuggestion_id")
@@ -51,7 +51,7 @@ public class User {
         this.name = name;
     }
 
-    public Set<? extends GrantedAuthority> getAuthorities() {
+    public Set<GrantedAuthority> getAuthorities() {
         return authorities;
     }
 
