@@ -1,8 +1,7 @@
 package de.itermori.pse.kitroomfinder.backend.models;
 
-import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CollectionTable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -11,8 +10,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OrderColumn;
 
 @Entity
 public class AliasSuggestion {
@@ -47,6 +44,8 @@ public class AliasSuggestion {
         this.name = name;
         this.mapID = mapID;
         this.suggester = suggester;
+        this.posVotes = 0;
+        this.negVotes = 0;
     }
 
     public Long getId() {
@@ -124,6 +123,23 @@ public class AliasSuggestion {
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + "-" + this.getId();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        AliasSuggestion aliasSuggestion = (AliasSuggestion) o;
+        return getId().equals(aliasSuggestion.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
     
 }
