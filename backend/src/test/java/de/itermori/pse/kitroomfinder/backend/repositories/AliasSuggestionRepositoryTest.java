@@ -18,6 +18,11 @@ class AliasSuggestionRepositoryTest {
     @Autowired
     private AliasSuggestionRepository aliasSuggestionRepository;
 
+    @BeforeEach
+    void setUp() {
+        aliasSuggestionRepository.deleteAll();
+    }
+
     @Test
     void whenAliasSuggestionSaved_findByNameAndMapID() {
         AliasSuggestion expectedAliasSuggestion = new AliasSuggestion("HSaF", 1, "Suggester");
@@ -28,7 +33,6 @@ class AliasSuggestionRepositoryTest {
 
     @Test
     void whenAliasSuggestionSaved_deleteByNameAndID() {
-        aliasSuggestionRepository.deleteAll();
         // first save alias suggestion in database
         AliasSuggestion toDelete = new AliasSuggestion("HSaF", 1, "Suggester");
         aliasSuggestionRepository.save(toDelete);
@@ -55,7 +59,6 @@ class AliasSuggestionRepositoryTest {
 
     @Test
     void whenAliasSuggestionSaved_votePos() {
-        aliasSuggestionRepository.deleteAll();
         // first save alias suggestion in database
         AliasSuggestion toVoteFor = new AliasSuggestion("HSaF", 1, "Suggester");
         aliasSuggestionRepository.save(toVoteFor);
