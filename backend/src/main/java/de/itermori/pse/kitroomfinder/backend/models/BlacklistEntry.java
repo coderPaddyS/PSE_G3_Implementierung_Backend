@@ -1,5 +1,6 @@
 package de.itermori.pse.kitroomfinder.backend.models;
 
+import java.util.Objects;
 import javax.persistence.*;
 
 @Entity
@@ -26,4 +27,22 @@ public class BlacklistEntry {
     public String getName() {
         return name;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        BlacklistEntry blacklistEntry = (BlacklistEntry) o;
+        return getId().equals(blacklistEntry.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
+    }
+
 }
