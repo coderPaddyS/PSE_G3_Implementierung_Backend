@@ -3,11 +3,11 @@ package de.itermori.pse.kitroomfinder.backend.repositories;
 import de.itermori.pse.kitroomfinder.backend.models.AliasSuggestion;
 import java.util.Iterator;
 import java.util.List;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -78,6 +78,14 @@ class AliasSuggestionRepositoryTest {
         // now vote for alias suggestion
         aliasSuggestionRepository.votePos(toVoteFor.getMapID(), toVoteFor.getName());
 
-        assertEquals(1, toVoteFor.getPosVotes());
+        // get the updated aliasSuggestion from the database
+        actualAliasSuggestions = aliasSuggestionRepository.findAll();
+        aliasIterator = actualAliasSuggestions.iterator();
+        actualAliasSuggestion = null;
+        while (aliasIterator.hasNext()) {
+            actualAliasSuggestion = aliasIterator.next(); // now correct value should be saved in actualAliasSuggestion
+        }
+
+        assertEquals(1, actualAliasSuggestion.getPosVotes());
     }
 }
