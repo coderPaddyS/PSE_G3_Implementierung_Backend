@@ -33,6 +33,11 @@ public class BlacklistEntry {
     }
 
     @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + "-" + this.getId();
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
