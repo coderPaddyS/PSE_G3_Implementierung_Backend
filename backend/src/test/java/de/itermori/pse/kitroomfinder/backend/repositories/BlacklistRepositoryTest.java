@@ -22,7 +22,7 @@ class BlacklistRepositoryTest {
     }
 
     @Test
-    void whenBlacklisted_deleteByName() {
+    void whenBlacklisted_thenDeleteByName() {
         // save a BlacklistEntry to the database
         BlacklistEntry blacklistEntry = new BlacklistEntry("forbidden");
         blacklistRepository.save(blacklistEntry);
