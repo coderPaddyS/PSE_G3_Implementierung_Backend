@@ -142,14 +142,12 @@ class AliasSuggestionRepositoryTest {
         // check if exactly alias suggestions toVoteFor1 and toVoteFor2 are found
         Iterable<AliasSuggestion> aliasSuggestionsPos1Neg1 = aliasSuggestionRepository.findByVotes(1, 1);
         Iterator<AliasSuggestion> aliasIterator = aliasSuggestionsPos1Neg1.iterator();
-        int actualAmountAliases = 0;
         List<AliasSuggestion> actualAliasSuggestionsPos1Neg1 = new ArrayList<>();
         while (aliasIterator.hasNext()) {
-            ++actualAmountAliases;
             actualAliasSuggestionsPos1Neg1.add(aliasIterator.next());
         }
         // now correct values should be saved in actualAliasSuggestionsPos1Neg1
-        assertEquals(2, actualAmountAliases);
+        assertEquals(2, actualAliasSuggestionsPos1Neg1.size());
         assertEquals(toVoteFor1, actualAliasSuggestionsPos1Neg1.get(0));
         assertEquals(toVoteFor2, actualAliasSuggestionsPos1Neg1.get(1));
     }
