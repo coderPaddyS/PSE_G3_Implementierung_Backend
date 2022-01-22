@@ -1,6 +1,7 @@
 package de.itermori.pse.kitroomfinder.backend.repositories;
 
 import de.itermori.pse.kitroomfinder.backend.models.AliasSuggestion;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.AfterEach;
@@ -54,7 +55,6 @@ class AliasSuggestionRepositoryTest {
 
         List<AliasSuggestion> aliasSuggestionsSaved = aliasSuggestionRepository.findAll();
         assertTrue(aliasSuggestionsSaved.isEmpty());
-
     }
 
     @Test
@@ -119,5 +119,28 @@ class AliasSuggestionRepositoryTest {
         }
 
         assertEquals(1, actualAliasSuggestion.getNegVotes());
+    }
+
+    @Test
+    void whenAliasSuggestionsSaved_deleteByName() {
+        // first save alias suggestions in database
+        String aliasSuggestionsName = "HSaF";
+        AliasSuggestion toDelete1 = new AliasSuggestion(aliasSuggestionsName, 1, "Suggester1");
+        AliasSuggestion toDelete2 = new AliasSuggestion(aliasSuggestionsName, 2, "Suggester2");
+        aliasSuggestionRepository.save(toDelete1);
+        aliasSuggestionRepository.save(toDelete2);
+
+        // now check if it is saved in database
+        List<AliasSuggestion> actualAliasSuggestions = aliasSuggestionRepository.findAll();
+        Iterator<AliasSuggestion> aliasIterator = actualAliasSuggestions.iterator();
+        assertEquals(2, actualAliasSuggestions.size());
+        assertEquals(toDelete1, actualAliasSuggestions.get(0));
+        assertEquals(toDelete2, actualAliasSuggestions.get(1));
+
+        // now delete the alias suggestions
+        aliasSuggestionRepository.deleteByName(aliasSuggestionsName);
+
+        List<AliasSuggestion> aliasSuggestionsSaved = aliasSuggestionRepository.findAll();
+        assertTrue(aliasSuggestionsSaved.isEmpty());
     }
 }
