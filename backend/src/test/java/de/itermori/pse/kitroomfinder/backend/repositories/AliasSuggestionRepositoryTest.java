@@ -24,7 +24,7 @@ class AliasSuggestionRepositoryTest {
     }
 
     @Test
-    void whenAliasSuggestionSaved_findByNameAndMapID() {
+    void whenAliasSuggestionSaved_thenFindByNameAndMapID() {
         AliasSuggestion expectedAliasSuggestion = new AliasSuggestion("HSaF", 1, "Suggester");
         aliasSuggestionRepository.save(expectedAliasSuggestion);
         AliasSuggestion actualAliasSuggestion = aliasSuggestionRepository.findByNameAndMapID("HSaF", 1);
@@ -32,7 +32,7 @@ class AliasSuggestionRepositoryTest {
     }
 
     @Test
-    void whenAliasSuggestionSaved_deleteByNameAndID() {
+    void whenAliasSuggestionSaved_thenDeleteByNameAndID() {
         // first save alias suggestion in database
         AliasSuggestion toDelete = new AliasSuggestion("HSaF", 1, "Suggester");
         aliasSuggestionRepository.save(toDelete);
@@ -50,7 +50,7 @@ class AliasSuggestionRepositoryTest {
     }
 
     @Test
-    void whenAliasSuggestionSaved_votePos() {
+    void whenAliasSuggestionSaved_thenVotePos() {
         // first save alias suggestion in database
         AliasSuggestion toVoteFor = new AliasSuggestion("HSaF", 1, "Suggester");
         aliasSuggestionRepository.save(toVoteFor);
@@ -71,7 +71,7 @@ class AliasSuggestionRepositoryTest {
     }
 
     @Test
-    void whenAliasSuggestionSaved_voteNeg() {
+    void whenAliasSuggestionSaved_thenVoteNeg() {
         // first save alias suggestion in database
         AliasSuggestion toVoteFor = new AliasSuggestion("HSaF", 1, "Suggester");
         aliasSuggestionRepository.save(toVoteFor);
@@ -92,7 +92,7 @@ class AliasSuggestionRepositoryTest {
     }
 
     @Test
-    void whenAliasSuggestionsSaved_deleteByName() {
+    void whenAliasSuggestionsSaved_thenDeleteByName() {
         // first save alias suggestions in database
         String aliasSuggestionsName = "HSaF";
         AliasSuggestion toDelete1 = new AliasSuggestion(aliasSuggestionsName, 1, "Suggester1");
@@ -115,7 +115,7 @@ class AliasSuggestionRepositoryTest {
     }
 
     @Test
-    void whenAliasSuggestionsSaved_findByVotes() {
+    void whenAliasSuggestionsSaved_thenFindByVotes() {
         // first save alias suggestions in database
         String aliasSuggestionsName = "HSaF";
         AliasSuggestion toVoteFor1 = new AliasSuggestion(aliasSuggestionsName, 1, "Suggester1");
@@ -151,4 +151,5 @@ class AliasSuggestionRepositoryTest {
         assertEquals(toVoteFor1, actualAliasSuggestionsPos1Neg1.get(0));
         assertEquals(toVoteFor2, actualAliasSuggestionsPos1Neg1.get(1));
     }
+    
 }
