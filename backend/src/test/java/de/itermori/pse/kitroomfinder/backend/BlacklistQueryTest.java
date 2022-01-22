@@ -5,6 +5,7 @@ import com.graphql.spring.boot.test.GraphQLTest;
 import com.graphql.spring.boot.test.GraphQLTestTemplate;
 import de.itermori.pse.kitroomfinder.backend.models.BlacklistEntry;
 import de.itermori.pse.kitroomfinder.backend.repositories.VersionRepository;
+import de.itermori.pse.kitroomfinder.backend.security.JWTPreAuthenticationToken;
 import de.itermori.pse.kitroomfinder.backend.services.*;
 import io.micrometer.core.instrument.util.IOUtils;
 import org.json.JSONException;
@@ -23,6 +24,9 @@ import java.util.List;
 
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 
 import static org.mockito.Mockito.doReturn;
 
@@ -78,11 +82,37 @@ public class BlacklistQueryTest {
         assertThat(response.isOk()).isTrue();
         JSONAssert.assertEquals(expectedResultBody, response.getRawResponse().getBody(), true);
 
+        validate(testname);
+    }
+
+    @Test
+    public void blacklistAliasTest() throws IOException, JSONException {
+
+        String testname = "blacklistAlias";
+        doReturn(true).when(blacklistService).addToBlacklist("badWord");
+        doReturn(false).when(blacklistService).isBlacklisted("badWord");
+        doReturn(true).when(aliasService).removeAlias("badWord");
+        doReturn(true).when(aliasSuggestionService).removeAliasSuggestion("badWord");
+        validate(testname);
+
+    }
+
+    @Test
+    public void test() {
+
     }
 
     private String read(String location) throws IOException {
         return IOUtils.toString(new ClassPathResource(location).getInputStream(),
                 StandardCharsets.UTF_8);
+    }
+
+    private void validate(String testname) throws IOException, JSONException {
+        String expectedResultBody = read(format(GRAPHQL_QUERY_RESPONSE_PATH, testname));
+        GraphQLResponse response = graphQLTestTemplate.postForResource(format(GRAPHQL_QUERY_REQUEST_PATH, testname));
+        String test = response.getRawResponse().getBody();
+        assertThat(response.isOk()).isTrue();
+        JSONAssert.assertEquals(expectedResultBody, response.getRawResponse().getBody(), true);
     }
 
 
