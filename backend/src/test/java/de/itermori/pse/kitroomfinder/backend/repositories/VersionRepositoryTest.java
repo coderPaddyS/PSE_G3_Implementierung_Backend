@@ -23,7 +23,9 @@ class VersionRepositoryTest {
     void whenVersionAtCertainValue_thenIncrementVersion() {
         int currentVersion = 1;
         Version version = new Version(currentVersion);
+        versionRepository.save(version);
         versionRepository.incrementVersion();
         assertEquals(++currentVersion, versionRepository.retrieveCurrentVersion());
     }
+
 }
