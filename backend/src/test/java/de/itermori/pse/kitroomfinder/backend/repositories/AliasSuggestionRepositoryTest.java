@@ -1,6 +1,7 @@
 package de.itermori.pse.kitroomfinder.backend.repositories;
 
 import de.itermori.pse.kitroomfinder.backend.models.AliasSuggestion;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -141,5 +142,44 @@ class AliasSuggestionRepositoryTest {
         List<AliasSuggestion> aliasSuggestionsSaved = aliasSuggestionRepository.findAll();
         assertTrue(aliasSuggestionsSaved.isEmpty());
     }
-    
+
+    @Test
+    void whenAliasSuggestionsSaved_findByVotes() {
+        // first save alias suggestions in database
+        String aliasSuggestionsName = "HSaF";
+        AliasSuggestion toVoteFor1 = new AliasSuggestion(aliasSuggestionsName, 1, "Suggester1");
+        AliasSuggestion toVoteFor2 = new AliasSuggestion(aliasSuggestionsName, 2, "Suggester2");
+        aliasSuggestionRepository.save(toVoteFor1);
+        aliasSuggestionRepository.save(toVoteFor2);
+
+        // now vote for alias suggestions
+        aliasSuggestionRepository.votePos(toVoteFor1.getMapID(), toVoteFor1.getName());
+        aliasSuggestionRepository.votePos(toVoteFor1.getMapID(), toVoteFor1.getName());
+        aliasSuggestionRepository.voteNeg(toVoteFor1.getMapID(), toVoteFor1.getName());
+        aliasSuggestionRepository.votePos(toVoteFor2.getMapID(), toVoteFor2.getName());
+        aliasSuggestionRepository.voteNeg(toVoteFor2.getMapID(), toVoteFor2.getName());
+
+        // get the updated aliasSuggestion from the database
+        List<AliasSuggestion> actualAliasSuggestions = aliasSuggestionRepository.findAll();
+
+        // check if amount of votes is correct
+        assertEquals(2, actualAliasSuggestions.get(0).getPosVotes());
+        assertEquals(1, actualAliasSuggestions.get(0).getNegVotes());
+        assertEquals(1, actualAliasSuggestions.get(1).getPosVotes());
+        assertEquals(1, actualAliasSuggestions.get(1).getNegVotes());
+
+        // check if exactly alias suggestions toVoteFor1 and toVoteFor2 are found
+        Iterable<AliasSuggestion> aliasSuggestionsPos1Neg1 = aliasSuggestionRepository.findByVotes(1, 1);
+        Iterator<AliasSuggestion> aliasIterator = aliasSuggestionsPos1Neg1.iterator();
+        int actualAmountAliases = 0;
+        List<AliasSuggestion> actualAliasSuggestionsPos1Neg1 = new ArrayList<>();
+        while (aliasIterator.hasNext()) {
+            ++actualAmountAliases;
+            actualAliasSuggestionsPos1Neg1.add(aliasIterator.next());
+        }
+        // now correct values should be saved in actualAliasSuggestionsPos1Neg1
+        assertEquals(2, actualAmountAliases);
+        assertEquals(toVoteFor1, actualAliasSuggestionsPos1Neg1.get(0));
+        assertEquals(toVoteFor2, actualAliasSuggestionsPos1Neg1.get(1));
+    }
 }
