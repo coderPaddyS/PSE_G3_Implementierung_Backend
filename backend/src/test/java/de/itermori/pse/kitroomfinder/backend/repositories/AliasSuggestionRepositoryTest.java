@@ -1,10 +1,8 @@
 package de.itermori.pse.kitroomfinder.backend.repositories;
 
 import de.itermori.pse.kitroomfinder.backend.models.AliasSuggestion;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -143,4 +141,5 @@ class AliasSuggestionRepositoryTest {
         List<AliasSuggestion> aliasSuggestionsSaved = aliasSuggestionRepository.findAll();
         assertTrue(aliasSuggestionsSaved.isEmpty());
     }
+    
 }
