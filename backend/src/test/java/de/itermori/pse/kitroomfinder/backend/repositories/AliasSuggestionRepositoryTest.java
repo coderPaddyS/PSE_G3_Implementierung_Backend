@@ -88,4 +88,36 @@ class AliasSuggestionRepositoryTest {
 
         assertEquals(1, actualAliasSuggestion.getPosVotes());
     }
+
+    @Test
+    void whenAliasSuggestionSaved_voteNeg() {
+        // first save alias suggestion in database
+        AliasSuggestion toVoteFor = new AliasSuggestion("HSaF", 1, "Suggester");
+        aliasSuggestionRepository.save(toVoteFor);
+
+        // now check if it is saved in database
+        Iterable<AliasSuggestion> actualAliasSuggestions = aliasSuggestionRepository.findAll();
+        Iterator<AliasSuggestion> aliasIterator = actualAliasSuggestions.iterator();
+        int actualAmountAliases = 0;
+        AliasSuggestion actualAliasSuggestion = null;
+        while (aliasIterator.hasNext()) {
+            ++actualAmountAliases;
+            actualAliasSuggestion = aliasIterator.next(); // now correct value should be saved in actualAliasSuggestion
+        }
+        assertEquals(1, actualAmountAliases);
+        assertEquals(toVoteFor, actualAliasSuggestion);
+
+        // now vote for alias suggestion
+        aliasSuggestionRepository.voteNeg(toVoteFor.getMapID(), toVoteFor.getName());
+
+        // get the updated aliasSuggestion from the database
+        actualAliasSuggestions = aliasSuggestionRepository.findAll();
+        aliasIterator = actualAliasSuggestions.iterator();
+        actualAliasSuggestion = null;
+        while (aliasIterator.hasNext()) {
+            actualAliasSuggestion = aliasIterator.next(); // now correct value should be saved in actualAliasSuggestion
+        }
+
+        assertEquals(1, actualAliasSuggestion.getNegVotes());
+    }
 }
