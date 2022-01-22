@@ -1,6 +1,7 @@
 package de.itermori.pse.kitroomfinder.backend.repositories;
 
 import de.itermori.pse.kitroomfinder.backend.models.Version;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,11 +22,24 @@ class VersionRepositoryTest {
 
     @Test
     void whenVersionAtCertainValue_thenIncrementVersion() {
+        // save version with start value 1 to database
         int currentVersion = 1;
         Version version = new Version(currentVersion);
         versionRepository.save(version);
+
+        // increment version
         versionRepository.incrementVersion();
-        assertEquals(++currentVersion, versionRepository.retrieveCurrentVersion());
+
+        // get updated value of saved version
+        List<Version> versions = versionRepository.findAll();
+
+        // check if exactly the version previously saved above is in the database
+        assertEquals(1, versions.size());
+        assertEquals(version, versions.get(0));
+
+        // check if version was incremented
+        assertEquals(++currentVersion, versions.get(0).getCurrentVersion());
+        
     }
 
 }
