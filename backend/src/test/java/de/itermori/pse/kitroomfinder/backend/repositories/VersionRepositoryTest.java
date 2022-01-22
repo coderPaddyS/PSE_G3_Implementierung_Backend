@@ -39,7 +39,18 @@ class VersionRepositoryTest {
 
         // check if version was incremented
         assertEquals(++currentVersion, versions.get(0).getCurrentVersion());
-        
+
+    }
+
+    @Test
+    void whenVersionSaved_thenRetrieveCurrentVersion() {
+        // save version to database
+        int currentVersion = 1;
+        Version version = new Version(currentVersion);
+        versionRepository.save(version);
+
+        // check if version saved is correct
+        assertEquals(version.getCurrentVersion(), versionRepository.retrieveCurrentVersion());
     }
 
 }
