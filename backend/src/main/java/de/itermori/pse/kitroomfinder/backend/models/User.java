@@ -23,8 +23,8 @@ public class User {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @ElementCollection(fetch = FetchType.LAZY)
-    private Set<GrantedAuthority> authorities = new HashSet<>();
+    @Column
+    private String authorities;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "aliasSuggestion_id")
@@ -34,7 +34,7 @@ public class User {
     public User() {
     }
 
-    public User(String name, Set<GrantedAuthority> authorities) {
+    public User(String name, String authorities) {
         this.name = name;
         this.authorities = authorities;
     }
@@ -52,11 +52,11 @@ public class User {
         this.name = name;
     }
 
-    public Set<GrantedAuthority> getAuthorities() {
+    public String getAuthorities() {
         return authorities;
     }
 
-    public void setAuthorities(Set<GrantedAuthority> authorities) {
+    public void setAuthorities(String authorities) {
         this.authorities = authorities;
     }
 

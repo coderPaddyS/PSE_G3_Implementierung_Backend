@@ -25,15 +25,18 @@ class UserRepositoryTest {
     @Test
     void whenUserSaved_thenFindByName() {
         // save User to the database
-        GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("role");
-        HashSet<GrantedAuthority> authorities = new HashSet<>();
-        authorities.add(grantedAuthority);
-        User expectedUser = new User("Name", authorities);
+        User expectedUser = new User("Name", "USER");
         userRepository.save(expectedUser);
 
         // check if saved user is found
         User actualUser = userRepository.findByName(expectedUser.getName());
         assertEquals(expectedUser, actualUser);
+    }
+
+    @Test
+    void test() {
+        User expectedUser = new User("Name", "USER");
+        userRepository.save(expectedUser);
     }
 
 }
