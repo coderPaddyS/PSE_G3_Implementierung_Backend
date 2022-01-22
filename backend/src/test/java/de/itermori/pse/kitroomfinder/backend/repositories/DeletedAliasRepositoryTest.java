@@ -23,7 +23,7 @@ class DeletedAliasRepositoryTest {
     }
 
     @Test
-    void whenDeletedAlias_findNewerThanVersion() {
+    void whenDeletedAlias_thenFindNewerThanVersion() {
         // save alias to database
         Alias deletedAlias = new Alias("Infobau", 1, 1);
         deletedAliasRepository.save(deletedAlias);
@@ -42,7 +42,7 @@ class DeletedAliasRepositoryTest {
     }
 
     @Test
-    void whenDeletedAlias_deleteByNameAndMapID() {
+    void whenDeletedAlias_thenDeleteByNameAndMapID() {
         // save alias to database
         Alias deletedAlias = new Alias("Infobau", 1, 1);
         deletedAliasRepository.save(deletedAlias);
