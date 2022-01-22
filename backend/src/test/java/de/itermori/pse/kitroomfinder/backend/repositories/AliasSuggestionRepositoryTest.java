@@ -38,22 +38,15 @@ class AliasSuggestionRepositoryTest {
         aliasSuggestionRepository.save(toDelete);
 
         // now check if it is saved in database
-        Iterable<AliasSuggestion> actualAliasSuggestions = aliasSuggestionRepository.findAll();
-        Iterator<AliasSuggestion> aliasIterator = actualAliasSuggestions.iterator();
-        int actualAmountAliases = 0;
-        AliasSuggestion actualAliasSuggestion = null;
-        while (aliasIterator.hasNext()) {
-            ++actualAmountAliases;
-            actualAliasSuggestion = aliasIterator.next(); // now correct value should be saved in actualAliasSuggestion
-        }
-        assertEquals(1, actualAmountAliases);
-        assertEquals(toDelete, actualAliasSuggestion);
+        List<AliasSuggestion> actualAliasSuggestions = aliasSuggestionRepository.findAll();
+        assertEquals(1, actualAliasSuggestions.size());
+        assertEquals(toDelete, actualAliasSuggestions.get(0));
 
         // now delete it
         aliasSuggestionRepository.deleteByNameAndID(1, toDelete.getName());
 
-        List<AliasSuggestion> aliasSuggestionsSaved = aliasSuggestionRepository.findAll();
-        assertTrue(aliasSuggestionsSaved.isEmpty());
+        actualAliasSuggestions = aliasSuggestionRepository.findAll();
+        assertTrue(actualAliasSuggestions.isEmpty());
     }
 
     @Test
@@ -63,29 +56,18 @@ class AliasSuggestionRepositoryTest {
         aliasSuggestionRepository.save(toVoteFor);
 
         // now check if it is saved in database
-        Iterable<AliasSuggestion> actualAliasSuggestions = aliasSuggestionRepository.findAll();
-        Iterator<AliasSuggestion> aliasIterator = actualAliasSuggestions.iterator();
-        int actualAmountAliases = 0;
-        AliasSuggestion actualAliasSuggestion = null;
-        while (aliasIterator.hasNext()) {
-            ++actualAmountAliases;
-            actualAliasSuggestion = aliasIterator.next(); // now correct value should be saved in actualAliasSuggestion
-        }
-        assertEquals(1, actualAmountAliases);
-        assertEquals(toVoteFor, actualAliasSuggestion);
+        List<AliasSuggestion> actualAliasSuggestions = aliasSuggestionRepository.findAll();
+        assertEquals(1, actualAliasSuggestions.size());
+        assertEquals(toVoteFor, actualAliasSuggestions.get(0));
 
         // now vote for alias suggestion
         aliasSuggestionRepository.votePos(toVoteFor.getMapID(), toVoteFor.getName());
 
         // get the updated aliasSuggestion from the database
         actualAliasSuggestions = aliasSuggestionRepository.findAll();
-        aliasIterator = actualAliasSuggestions.iterator();
-        actualAliasSuggestion = null;
-        while (aliasIterator.hasNext()) {
-            actualAliasSuggestion = aliasIterator.next(); // now correct value should be saved in actualAliasSuggestion
-        }
 
-        assertEquals(1, actualAliasSuggestion.getPosVotes());
+        assertEquals(1, actualAliasSuggestions.size());
+        assertEquals(1, actualAliasSuggestions.get(0).getPosVotes());
     }
 
     @Test
@@ -95,29 +77,18 @@ class AliasSuggestionRepositoryTest {
         aliasSuggestionRepository.save(toVoteFor);
 
         // now check if it is saved in database
-        Iterable<AliasSuggestion> actualAliasSuggestions = aliasSuggestionRepository.findAll();
-        Iterator<AliasSuggestion> aliasIterator = actualAliasSuggestions.iterator();
-        int actualAmountAliases = 0;
-        AliasSuggestion actualAliasSuggestion = null;
-        while (aliasIterator.hasNext()) {
-            ++actualAmountAliases;
-            actualAliasSuggestion = aliasIterator.next(); // now correct value should be saved in actualAliasSuggestion
-        }
-        assertEquals(1, actualAmountAliases);
-        assertEquals(toVoteFor, actualAliasSuggestion);
+        List<AliasSuggestion> actualAliasSuggestions = aliasSuggestionRepository.findAll();
+        assertEquals(1, actualAliasSuggestions.size());
+        assertEquals(toVoteFor, actualAliasSuggestions.get(0));
 
         // now vote for alias suggestion
         aliasSuggestionRepository.voteNeg(toVoteFor.getMapID(), toVoteFor.getName());
 
         // get the updated aliasSuggestion from the database
         actualAliasSuggestions = aliasSuggestionRepository.findAll();
-        aliasIterator = actualAliasSuggestions.iterator();
-        actualAliasSuggestion = null;
-        while (aliasIterator.hasNext()) {
-            actualAliasSuggestion = aliasIterator.next(); // now correct value should be saved in actualAliasSuggestion
-        }
 
-        assertEquals(1, actualAliasSuggestion.getNegVotes());
+        assertEquals(1, actualAliasSuggestions.size());
+        assertEquals(1, actualAliasSuggestions.get(0).getNegVotes());
     }
 
     @Test
