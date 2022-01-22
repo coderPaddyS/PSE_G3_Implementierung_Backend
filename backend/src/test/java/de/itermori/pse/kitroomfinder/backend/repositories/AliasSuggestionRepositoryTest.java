@@ -55,6 +55,7 @@ class AliasSuggestionRepositoryTest {
 
     @Test
     void whenAliasSuggestionSaved_votePos() {
+        aliasSuggestionRepository.deleteAll();
         // first save alias suggestion in database
         AliasSuggestion toVoteFor = new AliasSuggestion("HSaF", 1, "Suggester");
         aliasSuggestionRepository.save(toVoteFor);
@@ -74,6 +75,14 @@ class AliasSuggestionRepositoryTest {
         // now vote for alias suggestion
         aliasSuggestionRepository.votePos(toVoteFor.getMapID(), toVoteFor.getName());
 
-        assertEquals(1, toVoteFor.getPosVotes());
+        // get the updated aliasSuggestion from the database
+        actualAliasSuggestions = aliasSuggestionRepository.findAll();
+        aliasIterator = actualAliasSuggestions.iterator();
+        actualAliasSuggestion = null;
+        while (aliasIterator.hasNext()) {
+            actualAliasSuggestion = aliasIterator.next(); // now correct value should be saved in actualAliasSuggestion
+        }
+
+        assertEquals(1, actualAliasSuggestion.getPosVotes());
     }
 }
