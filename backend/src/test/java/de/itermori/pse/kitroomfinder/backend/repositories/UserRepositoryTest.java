@@ -12,7 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class UserRepositoryTest {
+class UserRepositoryTest {
 
     @Autowired
     private UserRepository userRepository;
@@ -35,5 +35,5 @@ public class UserRepositoryTest {
         User actualUser = userRepository.findByName(expectedUser.getName());
         assertEquals(expectedUser, actualUser);
     }
-    
+
 }
