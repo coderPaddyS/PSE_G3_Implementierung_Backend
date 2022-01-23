@@ -1,5 +1,6 @@
 package de.itermori.pse.kitroomfinder.backend.models;
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -35,6 +36,28 @@ public class Version {
     // Hibernate requires the setter for reading values from the database.
     private void setCurrentVersion(Integer currentVersion) {
         this.currentVersion = currentVersion;
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + "-" + this.getId();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Version version = (Version) o;
+        return getId().equals(version.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
     
 }
