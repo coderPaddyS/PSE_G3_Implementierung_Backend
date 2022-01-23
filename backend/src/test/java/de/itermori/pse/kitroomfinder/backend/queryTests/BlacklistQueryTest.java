@@ -1,4 +1,4 @@
-package de.itermori.pse.kitroomfinder.backend;
+package de.itermori.pse.kitroomfinder.backend.queryTests;
 
 import com.graphql.spring.boot.test.GraphQLResponse;
 import com.graphql.spring.boot.test.GraphQLTest;
@@ -64,9 +64,6 @@ public class BlacklistQueryTest {
 
     }
 
-    private static final String GRAPHQL_QUERY_REQUEST_PATH = "graphql/resolver/query/request/%s.graphql";
-    private static final String GRAPHQL_QUERY_RESPONSE_PATH = "graphql/resolver/query/response/%s.json";
-
     @Test
     public void getBlacklistTest() throws IOException, JSONException {
 
@@ -76,13 +73,7 @@ public class BlacklistQueryTest {
         testList.add("testEntry2");
         doReturn(testList).when(blacklistService).getBlacklist();
 
-        String expectedResultBody = read(format(GRAPHQL_QUERY_RESPONSE_PATH, testname));
-
-        GraphQLResponse response = graphQLTestTemplate.postForResource(format(GRAPHQL_QUERY_REQUEST_PATH, testname));
-        assertThat(response.isOk()).isTrue();
-        JSONAssert.assertEquals(expectedResultBody, response.getRawResponse().getBody(), true);
-
-        validate(testname);
+        UtilTests.validate(graphQLTestTemplate, testname);
     }
 
     @Test
@@ -93,34 +84,18 @@ public class BlacklistQueryTest {
         doReturn(false).when(blacklistService).isBlacklisted("badWord");
         doReturn(true).when(aliasService).removeAlias("badWord");
         doReturn(true).when(aliasSuggestionService).removeAliasSuggestion("badWord");
-        validate(testname);
+        UtilTests.validate(graphQLTestTemplate, testname);
 
     }
 
     @Test
-    public void test() {
+    public void removeFromBlacklist() throws JSONException, IOException {
 
+        String testname = "removeFromBlacklist";
+        doReturn(true).when(blacklistService).isBlacklisted("badWord");
+        doReturn(true).when(blacklistService).removeFromBlacklist("badWord");
+        UtilTests.validate(graphQLTestTemplate, testname);
     }
-
-    private String read(String location) throws IOException {
-        return IOUtils.toString(new ClassPathResource(location).getInputStream(),
-                StandardCharsets.UTF_8);
-    }
-
-    private void validate(String testname) throws IOException, JSONException {
-        String expectedResultBody = read(format(GRAPHQL_QUERY_RESPONSE_PATH, testname));
-        GraphQLResponse response = graphQLTestTemplate.postForResource(format(GRAPHQL_QUERY_REQUEST_PATH, testname));
-        String test = response.getRawResponse().getBody();
-        assertThat(response.isOk()).isTrue();
-        JSONAssert.assertEquals(expectedResultBody, response.getRawResponse().getBody(), true);
-    }
-
-
-
-
-
-
-
 
 
 }

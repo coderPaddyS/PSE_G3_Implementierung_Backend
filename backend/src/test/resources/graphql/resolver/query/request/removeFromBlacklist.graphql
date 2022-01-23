@@ -1,0 +1,3 @@
+mutation {
+    removeFromBlacklist(blacklistedToRem: "badWord")
+}

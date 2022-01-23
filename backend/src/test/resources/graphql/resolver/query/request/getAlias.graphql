@@ -1,0 +1,6 @@
+{
+    getAlias(mapID: 1) {
+        name
+        mapID
+    }
+}
