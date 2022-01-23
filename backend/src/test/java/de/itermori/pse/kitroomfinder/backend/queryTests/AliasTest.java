@@ -54,11 +54,11 @@ public class AliasTest {
     public void getAliasTest() throws IOException, JSONException {
 
         String testname = "getAlias";
-
-        doReturn(new Alias("Name", 1, 1)).when(blacklistService).getBlacklist();
-
-
+        List<Alias> aliases = new ArrayList<>();
+        aliases.add(new Alias("alias", 1, 1));
+        doReturn(aliases).when(aliasService).getAlias(1);
         UtilTests.validate(graphQLTestTemplate, testname);
+
     }
 
 }

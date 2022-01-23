@@ -23,9 +23,20 @@ public class AliasServiceImp implements AliasService {
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     @Override
     public boolean addAlias(String alias, int mapID) {
+
+        Iterable<Alias> exists = aliasRepository.findByName(alias);
+        if (!(exists.spliterator().getExactSizeIfKnown() == 0)) {
+            return false;
+        }
         versionRepository.incrementVersion();
         Integer currentVersion = versionRepository.retrieveCurrentVersion();
-        aliasRepository.save(new Alias(alias, mapID, currentVersion));
+        if (currentVersion == null) {
+            versionRepository.initiateVersion();
+            currentVersion = 1;
+        }
+        Alias newEntry = new Alias(alias, mapID, currentVersion);
+
+        aliasRepository.save(newEntry);
         return true;
     }
 

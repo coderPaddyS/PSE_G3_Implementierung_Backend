@@ -1,7 +1,7 @@
 
 # Root
 type Query {
-    getAlias(mapID : Int!) : [Alias]
+    getAlias(mapID : Int!) : [String]
     getUpdates(version : Int!) : [String]
     getBlacklist : [String]
 
@@ -25,11 +25,6 @@ type Mutation {
     removeAlias(alias : String!) : Boolean
     blacklistAlias(toBlacklist : String!) : Boolean
     removeFromBlacklist(blacklistedToRem : String!) : Boolean
-}
-
-type Alias{
-    name : Int!
-    mapID : Int
 }
 
 type AliasSuggestion{

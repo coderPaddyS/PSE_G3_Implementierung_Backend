@@ -35,8 +35,12 @@ public class AliasQuery implements GraphQLQueryResolver {
         this.versionRepository = versionRepository;
     }
 
-    public Iterable<Alias> getAlias(int mapID) {
-        return aliasService.getAlias(mapID);
+    public Iterable<String> getAlias(int mapID) {
+        Iterable<Alias> alias = aliasService.getAlias(mapID);
+        Iterable<String> result =  (Iterable<String>) StreamSupport.stream(alias.spliterator(), true)
+                .map(alias1 -> alias1.getName())
+                .iterator();
+        return result;
     }
 
     public Iterable<String> getUpdates(int version) {
