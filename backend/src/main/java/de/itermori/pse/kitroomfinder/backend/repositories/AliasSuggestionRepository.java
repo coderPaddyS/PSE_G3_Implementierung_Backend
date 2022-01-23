@@ -14,18 +14,19 @@ public interface AliasSuggestionRepository extends JpaRepository<AliasSuggestion
     @Query("DELETE FROM AliasSuggestion a WHERE a.name=:alias AND a.mapID=:mapID")
     public void deleteByNameAndID(@Param("mapID")int mapID, @Param("alias")String alias);
 
+    @Transactional
     public void deleteByName(String alias);
 
     @Query("SELECT a FROM AliasSuggestion AS a WHERE a.posVotes>=:minVotesPos AND a.negVotes>=:minVotesNeg")
     public Iterable<AliasSuggestion> findByVotes(@Param("minVotesNeg") int minVotesNeg,
                                                  @Param("minVotesPos") int minVotesPos);
 
-    @Modifying(clearAutomatically = true, flushAutomatically = true)
+    @Modifying
     @Transactional
     @Query("UPDATE AliasSuggestion a SET a.posVotes = a.posVotes + 1 WHERE a.mapID=:mapID AND a.name=:alias")
     public void votePos(@Param("mapID") int mapID, @Param("alias")String alias);
 
-    @Modifying(clearAutomatically = true, flushAutomatically = true)
+    @Modifying
     @Transactional
     @Query("UPDATE AliasSuggestion a SET a.negVotes = a.negVotes + 1 WHERE a.mapID=:mapID AND a.name=:alias")
     public void voteNeg(@Param("mapID") int mapID, @Param("alias")String alias);
