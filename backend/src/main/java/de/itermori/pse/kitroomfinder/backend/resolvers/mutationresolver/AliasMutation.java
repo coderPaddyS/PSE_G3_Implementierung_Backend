@@ -6,6 +6,7 @@ import de.itermori.pse.kitroomfinder.backend.services.BlacklistService;
 import de.itermori.pse.kitroomfinder.backend.services.DeletedAliasService;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
 @Component

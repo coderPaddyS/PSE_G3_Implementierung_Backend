@@ -1,0 +1,6 @@
+{
+    getAliasSuggestions(minValToShowPos: 1, minValToShowNeg: 1) {
+        name
+        mapID
+    }
+}

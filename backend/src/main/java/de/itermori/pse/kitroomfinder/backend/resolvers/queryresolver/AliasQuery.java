@@ -1,6 +1,7 @@
 package de.itermori.pse.kitroomfinder.backend.resolvers.queryresolver;
 
 import de.itermori.pse.kitroomfinder.backend.models.Alias;
+import de.itermori.pse.kitroomfinder.backend.models.DeletedAlias;
 import de.itermori.pse.kitroomfinder.backend.repositories.VersionRepository;
 import de.itermori.pse.kitroomfinder.backend.services.AliasService;
 import de.itermori.pse.kitroomfinder.backend.services.BlacklistService;
@@ -39,15 +40,20 @@ public class AliasQuery implements GraphQLQueryResolver {
         return aliasService.getAlias(mapID);
     }
 
-    public Iterable<String> getUpdates(int version) {
+    public Iterable<Alias> getNewAliases(int version) {
+        return aliasService.getAliasUpdates(version);
+    }
 
-        int newVersion = versionRepository.retrieveCurrentVersion();
-        return (Iterable<String>) Streams.concat(StreamSupport.stream(aliasService.getAliasUpdates(version).spliterator(), false),
-                Stream.of(","),
-                StreamSupport.stream( deletedAliasService.getDeletedAlias(version).spliterator(), false),
-                Stream.of(","),
-                Stream.of(Integer.toString(newVersion)))
-                .iterator();
+    public Iterable<DeletedAlias> getNewDeletedAliases(int version) {
+        return deletedAliasService.getDeletedAlias(version);
+    }
+
+    public int getVersion() {
+        Integer version = versionRepository.retrieveCurrentVersion();
+        if (version == null) {
+            return 0;
+        }
+        return version;
     }
 
     public Iterable<String> getBlacklist() {

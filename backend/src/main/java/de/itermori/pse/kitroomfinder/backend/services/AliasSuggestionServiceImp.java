@@ -7,6 +7,7 @@ import de.itermori.pse.kitroomfinder.backend.repositories.AliasSuggestionReposit
 import de.itermori.pse.kitroomfinder.backend.repositories.UserRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,19 +54,28 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
         if (aliasSuggestionRepository.findByNameAndMapID(aliasSuggestion, mapID) == null){
             return false;
         }
+        if (aliasSuggestionRepository.findByNameAndMapID(aliasSuggestion, mapID)
+            .getVoters().contains(user)) {
+            return false;
+        }
         if (vote) {
             aliasSuggestionRepository.votePos(mapID, aliasSuggestion);
         } else {
             aliasSuggestionRepository.voteNeg(mapID, aliasSuggestion);
         }
-        AliasSuggestion aliasSuggestionEntity = aliasSuggestionRepository.findByNameAndMapID(aliasSuggestion, mapID);
-        aliasSuggestionEntity.getVoters().add(user);
+        aliasSuggestionRepository.addVoter(aliasSuggestion, mapID, user);
+
         return true;
     }
 
     @Override
     public Iterable<AliasSuggestion> getAliasSuggestions(int minValToShowPos, int minValToShowNeg) {
         return aliasSuggestionRepository.findByVotes(minValToShowPos, minValToShowNeg);
+    }
+
+    @Override
+    public Iterable<AliasSuggestion> getAliasSuggestionsAmount(int mapID, int amount, String user) {
+        return aliasSuggestionRepository.findAmount( mapID, "%" + user + "%", amount);
     }
     
 }

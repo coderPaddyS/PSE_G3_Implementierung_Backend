@@ -1,0 +1,3 @@
+mutation {
+    blacklistAlias(toBlacklist: "badWord")
+}

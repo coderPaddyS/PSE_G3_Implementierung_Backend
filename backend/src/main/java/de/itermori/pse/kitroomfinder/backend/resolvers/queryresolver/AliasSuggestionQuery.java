@@ -21,4 +21,8 @@ public class AliasSuggestionQuery implements GraphQLQueryResolver {
         return aliasSuggestionService.getAliasSuggestions(minValToShowPos,minValToShowNeg);
     }
 
+    public Iterable<AliasSuggestion> getAliasSuggestionsAmount(int mapID, int amount, String user) {
+        return aliasSuggestionService.getAliasSuggestionsAmount(mapID, amount, user);
+    }
+
 }

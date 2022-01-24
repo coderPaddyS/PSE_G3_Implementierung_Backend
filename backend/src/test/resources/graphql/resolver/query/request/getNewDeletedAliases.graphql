@@ -1,0 +1,6 @@
+query {
+    getNewDeletedAliases(version: 1) {
+        name
+        mapID
+    }
+}

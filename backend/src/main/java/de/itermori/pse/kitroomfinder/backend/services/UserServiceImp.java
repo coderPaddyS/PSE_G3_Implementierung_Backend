@@ -38,10 +38,7 @@ public class UserServiceImp implements UserService{
         if (userRepository.findByName(username) == null) {
             throw new UserNotFoundException();
         }
-            GrantedAuthority userAuthority = new SimpleGrantedAuthority("User");
-        Set<GrantedAuthority> authorities = new HashSet<>();
-        authorities.add(userAuthority);
-        userRepository.save(new User(username,authorities));
+        userRepository.save(new User(username,"USER"));
         return username;
     }
 

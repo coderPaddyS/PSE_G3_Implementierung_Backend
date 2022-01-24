@@ -1,0 +1,6 @@
+query {
+    getNewAliases(version: 1) {
+        name
+        mapID
+    }
+}

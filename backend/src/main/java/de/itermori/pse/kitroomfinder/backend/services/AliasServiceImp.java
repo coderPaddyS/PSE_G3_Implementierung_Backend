@@ -1,6 +1,7 @@
 package de.itermori.pse.kitroomfinder.backend.services;
 
 import de.itermori.pse.kitroomfinder.backend.models.Alias;
+import de.itermori.pse.kitroomfinder.backend.models.Version;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasRepository;
 import de.itermori.pse.kitroomfinder.backend.repositories.VersionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +24,20 @@ public class AliasServiceImp implements AliasService {
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     @Override
     public boolean addAlias(String alias, int mapID) {
+
+        Iterable<Alias> exists = aliasRepository.findByName(alias);
+        if (!(exists.spliterator().getExactSizeIfKnown() == 0)) {
+            return false;
+        }
         versionRepository.incrementVersion();
         Integer currentVersion = versionRepository.retrieveCurrentVersion();
-        aliasRepository.save(new Alias(alias, mapID, currentVersion));
+        if (currentVersion == null) {
+            versionRepository.save(new Version(1));
+            currentVersion = 1;
+        }
+        Alias newEntry = new Alias(alias, mapID, currentVersion);
+
+        aliasRepository.save(newEntry);
         return true;
     }
 

@@ -26,9 +26,7 @@ public class AliasSuggestion {
     @Column(name = "suggester", nullable = false)
     private String suggester;
 
-    @ElementCollection(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private List<String> voters;
+    private String voters;
 
     @Column(name = "posVotes", nullable = false)
     private Integer posVotes;
@@ -46,6 +44,7 @@ public class AliasSuggestion {
         this.suggester = suggester;
         this.posVotes = 0;
         this.negVotes = 0;
+        this.voters = suggester;
     }
 
     public Long getId() {
@@ -79,12 +78,12 @@ public class AliasSuggestion {
         this.suggester = suggester;
     }
 
-    public List<String> getVoters() {
+    public String getVoters() {
         return voters;
     }
 
     // Hibernate requires the setter for reading values from the database.
-    private void setVoters(List<String> voters) {
+    private void setVoters(String voters) {
         this.voters = voters;
     }
 
@@ -104,10 +103,6 @@ public class AliasSuggestion {
     // Hibernate requires the setter for reading values from the database.
     private void setNegVotes(Integer negVotes) {
         this.negVotes = negVotes;
-    }
-
-    public boolean addVoter(String user) {
-        return voters.add(user);
     }
 
     public boolean addPosVote() {
