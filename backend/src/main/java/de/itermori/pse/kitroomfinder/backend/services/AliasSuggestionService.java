@@ -9,5 +9,6 @@ public interface AliasSuggestionService {
     public boolean removeAliasSuggestion(String aliasSuggestion);
     public boolean voteForAlias(String aliasSuggestion, int mapID, String user, boolean vote);
     public Iterable<AliasSuggestion> getAliasSuggestions(int minValToShowPos, int minValToShowNeg);
+    public Iterable<AliasSuggestion> getAliasSuggestionsAmount(int mapID, int amount, String user);
 
 }

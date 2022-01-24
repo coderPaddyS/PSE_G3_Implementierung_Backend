@@ -3,6 +3,8 @@ package de.itermori.pse.kitroomfinder.backend.repositories;
 import de.itermori.pse.kitroomfinder.backend.models.Alias;
 import java.util.Iterator;
 import java.util.List;
+
+import de.itermori.pse.kitroomfinder.backend.models.DeletedAlias;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +27,14 @@ class DeletedAliasRepositoryTest {
     @Test
     void whenDeletedAlias_thenFindNewerThanVersion() {
         // save alias to database
-        Alias deletedAlias = new Alias("Infobau", 1, 1);
+        DeletedAlias deletedAlias = new DeletedAlias("Infobau", 1, 1);
         deletedAliasRepository.save(deletedAlias);
 
         // check if deletedAlias is found when version < 1
-        Iterable<Alias> deletedAliases = deletedAliasRepository.findNewerThanVersion(deletedAlias.getVersion() - 1);
-        Iterator<Alias> iterator = deletedAliases.iterator();
+        Iterable<DeletedAlias> deletedAliases = deletedAliasRepository.findNewerThanVersion(deletedAlias.getVersion() - 1);
+        Iterator<DeletedAlias> iterator = deletedAliases.iterator();
         int amountDeletedAliasesNewerVersion = 0;
-        Alias actualDeletedAlias = null;
+        DeletedAlias actualDeletedAlias = null;
         while (iterator.hasNext()) {
             ++amountDeletedAliasesNewerVersion;
             actualDeletedAlias = iterator.next();
@@ -44,11 +46,11 @@ class DeletedAliasRepositoryTest {
     @Test
     void whenDeletedAlias_thenDeleteByNameAndMapID() {
         // save alias to database
-        Alias deletedAlias = new Alias("Infobau", 1, 1);
+        DeletedAlias deletedAlias = new DeletedAlias("Infobau", 1, 1);
         deletedAliasRepository.save(deletedAlias);
 
         // check if deletedAlias is saved in the database
-        List<Alias> deletedAliases = deletedAliasRepository.findAll();
+        List<DeletedAlias> deletedAliases = deletedAliasRepository.findAll();
         assertEquals(1, deletedAliases.size());
         assertEquals(deletedAlias, deletedAliases.get(0));
 

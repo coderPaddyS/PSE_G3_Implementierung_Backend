@@ -1,6 +1,7 @@
 package de.itermori.pse.kitroomfinder.backend.services;
 
 import de.itermori.pse.kitroomfinder.backend.models.Alias;
+import de.itermori.pse.kitroomfinder.backend.models.Version;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasRepository;
 import de.itermori.pse.kitroomfinder.backend.repositories.VersionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,7 @@ public class AliasServiceImp implements AliasService {
         versionRepository.incrementVersion();
         Integer currentVersion = versionRepository.retrieveCurrentVersion();
         if (currentVersion == null) {
-            versionRepository.initiateVersion();
+            versionRepository.save(new Version(1));
             currentVersion = 1;
         }
         Alias newEntry = new Alias(alias, mapID, currentVersion);

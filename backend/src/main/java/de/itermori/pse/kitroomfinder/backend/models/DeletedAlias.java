@@ -1,21 +1,14 @@
 package de.itermori.pse.kitroomfinder.backend.models;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import org.springframework.security.core.GrantedAuthority;
 
 @Entity
-public class User {
+public class DeletedAlias {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -23,16 +16,20 @@ public class User {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column
-    private String authorities;
+    @Column(name = "mapID", nullable = false)
+    private Integer mapID;
+
+    @Column(name = "version", nullable = false)
+    private int version;
 
     // Hibernate requires an explicitly written standard constructor.
-    public User() {
+    public DeletedAlias() {
     }
 
-    public User(String name, String authorities) {
+    public DeletedAlias(String name, Integer mapID, int version) {
         this.name = name;
-        this.authorities = authorities;
+        this.mapID = mapID;
+        this.version = version;
     }
 
     public Long getId() {
@@ -43,17 +40,25 @@ public class User {
         return name;
     }
 
+    public int getVersion() {return version; }
+
+    // Hibernate requires the setter for reading values from the database.
+    private void setVersion(int version) {
+        this.version = version;
+    }
+
     // Hibernate requires the setter for reading values from the database.
     private void setName(String name) {
         this.name = name;
     }
 
-    public String getAuthorities() {
-        return authorities;
+    public Integer getMapID() {
+        return mapID;
     }
 
-    public void setAuthorities(String authorities) {
-        this.authorities = authorities;
+    // Hibernate requires the setter for reading values from the database.
+    private void setMapID(Integer mapID) {
+        this.mapID = mapID;
     }
 
     @Override
@@ -69,13 +74,13 @@ public class User {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        User user = (User) o;
-        return getId().equals(user.getId());
+        Alias alias = (Alias) o;
+        return getId().equals(alias.getId());
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(getId());
     }
-    
+
 }

@@ -1,0 +1,3 @@
+mutation {
+    removeAlias(alias: "alias")
+}

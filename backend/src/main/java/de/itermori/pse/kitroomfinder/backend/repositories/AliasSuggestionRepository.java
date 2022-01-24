@@ -1,10 +1,13 @@
 package de.itermori.pse.kitroomfinder.backend.repositories;
 
 import de.itermori.pse.kitroomfinder.backend.models.AliasSuggestion;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface AliasSuggestionRepository extends JpaRepository<AliasSuggestion, Long> {
@@ -20,6 +23,19 @@ public interface AliasSuggestionRepository extends JpaRepository<AliasSuggestion
     @Query("SELECT a FROM AliasSuggestion AS a WHERE a.posVotes>=:minVotesPos AND a.negVotes>=:minVotesNeg")
     public Iterable<AliasSuggestion> findByVotes(@Param("minVotesNeg") int minVotesNeg,
                                                  @Param("minVotesPos") int minVotesPos);
+
+    @Query(value = "SELECT * FROM alias_suggestion WHERE mapID=:mapID AND voters LIKE :user LIMIT :amount",
+            nativeQuery = true)
+    public Iterable<AliasSuggestion> findAmount(@Param("mapID") int mapID, @Param("user") String user,
+                                                @Param("amount") int amount);
+
+
+    @Modifying
+    @Transactional
+    @Query("UPDATE AliasSuggestion a SET a.voters = CONCAT(CONCAT(a.voters,','),:voter) WHERE " +
+            "a.mapID=:mapID AND a.name=:aliasSuggestion")
+    public void addVoter(@Param("aliasSuggestion") String aliasSuggestion, @Param("mapID") int mapID,
+                         @Param("voter") String voter);
 
     @Modifying
     @Transactional

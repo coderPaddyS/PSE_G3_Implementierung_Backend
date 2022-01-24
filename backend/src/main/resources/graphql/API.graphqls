@@ -1,11 +1,14 @@
 
 # Root
 type Query {
-    getAlias(mapID : Int!) : [String]
-    getUpdates(version : Int!) : [String]
+    getAlias(mapID : Int!) : [Alias]
+    getNewAliases(version : Int!) : [Alias]
+    getNewDeletedAliases(version : Int!) : [DeletedAlias]
+    getVersion : Int!
     getBlacklist : [String]
 
     getAliasSuggestions(minValToShowPos : Int!, minValToShowNeg : Int!) : [AliasSuggestion]
+    getAliasSuggestionsAmount(mapID : Int!, amount : Int!, user : String!) : [AliasSuggestion]
 
     getMapObject(mapID : Int!) : String
     getMapIDByName(mapObject : String!) : Int
@@ -30,7 +33,19 @@ type Mutation {
 type AliasSuggestion{
     suggester : String
     name : String!
-    getVoters : [String]
+    getVoters : String
     mapID : Int
+}
+
+type Alias {
+    name : String
+    mapID : Int
+    version : Int
+}
+
+type DeletedAlias {
+    name : String
+    mapID : Int
+    version : Int
 }
 

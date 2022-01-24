@@ -26,7 +26,6 @@ public class AliasMutation implements GraphQLMutationResolver {
         this.aliasSuggestionService = aliasSuggestionService;
     }
 
-    @PreAuthorize("hasAuthority('ADMIN')")
     public Boolean removeAlias(String alias) {
         return aliasService.removeAlias(alias);
     }

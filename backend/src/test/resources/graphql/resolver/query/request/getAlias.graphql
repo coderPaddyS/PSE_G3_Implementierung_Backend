@@ -1,3 +1,5 @@
 {
-    getAlias(mapID: 1)
+    getAlias(mapID: 1) {
+        name
+    }
 }

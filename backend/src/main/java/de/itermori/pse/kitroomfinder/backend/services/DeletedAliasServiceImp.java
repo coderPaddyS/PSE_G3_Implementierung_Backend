@@ -1,6 +1,8 @@
 package de.itermori.pse.kitroomfinder.backend.services;
 
 import de.itermori.pse.kitroomfinder.backend.models.Alias;
+import de.itermori.pse.kitroomfinder.backend.models.DeletedAlias;
+import de.itermori.pse.kitroomfinder.backend.models.Version;
 import de.itermori.pse.kitroomfinder.backend.repositories.DeletedAliasRepository;
 import de.itermori.pse.kitroomfinder.backend.repositories.VersionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +27,16 @@ public class DeletedAliasServiceImp implements DeletedAliasService {
     public boolean addDeletedAlias(String deletedAlias, int mapID) {
         versionRepository.incrementVersion();
         Integer currentVersion = versionRepository.retrieveCurrentVersion();
-        deletedAliasRepository.save(new Alias(deletedAlias, mapID, currentVersion));
+        if (currentVersion == null) {
+            versionRepository.save(new Version(1));
+            currentVersion = 1;
+        }
+        deletedAliasRepository.save(new DeletedAlias(deletedAlias, mapID, currentVersion));
         return true;
     }
 
     @Override
-    public Iterable<Alias> getDeletedAlias(int version) {
+    public Iterable<DeletedAlias> getDeletedAlias(int version) {
         return deletedAliasRepository.findNewerThanVersion(version);
     }
 

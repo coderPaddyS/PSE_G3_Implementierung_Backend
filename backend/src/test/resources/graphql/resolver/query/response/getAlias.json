@@ -1,6 +1,9 @@
 {
   "data": {
     "getAlias": [
-      "alias"
+      {
+        "name": "alias"
+      }
     ]
-  },
+  }
+}
