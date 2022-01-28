@@ -5,6 +5,7 @@ import de.itermori.pse.kitroomfinder.backend.services.AliasSuggestionService;
 import de.itermori.pse.kitroomfinder.backend.services.BlacklistService;
 import graphql.kickstart.tools.GraphQLMutationResolver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -22,6 +23,7 @@ public class AliasSuggestionMutation implements GraphQLMutationResolver {
         this.blacklistService = blacklistService;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Boolean approveAliasSuggestion(String aliasSuggestion, int mapID) {
         if (!aliasSuggestionService.removeAliasSuggestion(aliasSuggestion, mapID)) {
             return false;
@@ -29,18 +31,17 @@ public class AliasSuggestionMutation implements GraphQLMutationResolver {
         return aliasService.addAlias(aliasSuggestion, mapID);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Boolean disapproveAliasSuggestion(String aliasSuggestion, int mapID) {
         return aliasSuggestionService.removeAliasSuggestion(aliasSuggestion, mapID);
     }
 
+    @PreAuthorize("hasAuthority('USER')")
     public Boolean voteForAliasSuggestion(String aliasSuggestion, int mapID, String user, Boolean vote) {
         return aliasSuggestionService.voteForAlias(aliasSuggestion, mapID, user, vote);
     }
 
-    public Boolean removeAliasSuggestion(String aliasSuggestion, int mapID) {
-        return aliasSuggestionService.removeAliasSuggestion(aliasSuggestion, mapID);
-    }
-
+    @PreAuthorize("hasAuthority('USER')")
     public Boolean suggestAlias(String aliasSuggestion, int mapID, String user) {
         if (blacklistService.isBlacklisted(aliasSuggestion)) {
             return false;

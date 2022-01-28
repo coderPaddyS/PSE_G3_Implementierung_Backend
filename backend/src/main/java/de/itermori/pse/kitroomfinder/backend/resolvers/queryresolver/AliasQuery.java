@@ -9,6 +9,7 @@ import de.itermori.pse.kitroomfinder.backend.services.DeletedAliasService;
 import graphql.com.google.common.collect.Streams;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -56,12 +57,9 @@ public class AliasQuery implements GraphQLQueryResolver {
         return version;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Iterable<String> getBlacklist() {
         return blacklistService.getBlacklist();
-    }
-
-    private static <T> List<T> joinLists(List<T>... lists) {
-        return Arrays.stream(lists).flatMap(Collection::stream).collect(Collectors.toList());
     }
 
 }

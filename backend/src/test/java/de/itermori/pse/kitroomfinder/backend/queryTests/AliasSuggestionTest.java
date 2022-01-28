@@ -79,19 +79,7 @@ public class AliasSuggestionTest {
     @Test
     public void getAliasSuggestionsTest() throws IOException, JSONException {
 
-
-        String token = JWT
-                .create()
-                .withIssuer("my-graphql-api")
-                .withIssuedAt(Calendar.getInstance().getTime())
-                .withExpiresAt(new Date(Calendar.getInstance().getTime().getTime() + 600000))
-                .withSubject("user")
-                .sign(Algorithm.HMAC256("secret"));
-
-        graphQLTestTemplate.withBearerAuth(token);
-
         userRepository.save(new User("user", "USER"));
-
         String testname = "getAliasSuggestions";
         aliasSuggestionRepository.save(new AliasSuggestion("suggestion", 1, "user1"));
         aliasSuggestionRepository.votePos(1, "suggestion");

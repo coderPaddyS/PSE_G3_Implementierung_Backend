@@ -26,10 +26,12 @@ public class AliasMutation implements GraphQLMutationResolver {
         this.aliasSuggestionService = aliasSuggestionService;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Boolean removeAlias(String alias) {
         return aliasService.removeAlias(alias);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Boolean blacklistAlias(String toBlacklist) {
         if (!blacklistService.isBlacklisted(toBlacklist)) {
             aliasService.removeAlias(toBlacklist);
@@ -39,6 +41,7 @@ public class AliasMutation implements GraphQLMutationResolver {
         return false;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Boolean removeFromBlacklist(String blacklistedToRem) {
         if (blacklistService.isBlacklisted(blacklistedToRem)) {
             return blacklistService.removeFromBlacklist(blacklistedToRem);

@@ -18,11 +18,12 @@ public class AliasSuggestionQuery implements GraphQLQueryResolver {
         this.aliasSuggestionService = aliasSuggestionService;
     }
 
-    @PreAuthorize("hasAuthority('USER')")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Iterable<AliasSuggestion> getAliasSuggestions(int minValToShowPos, int minValToShowNeg) {
         return aliasSuggestionService.getAliasSuggestions(minValToShowPos,minValToShowNeg);
     }
 
+    @PreAuthorize("hasAuthority('USER')")
     public Iterable<AliasSuggestion> getAliasSuggestionsAmount(int mapID, int amount, String user) {
         return aliasSuggestionService.getAliasSuggestionsAmount(mapID, amount, user);
     }
