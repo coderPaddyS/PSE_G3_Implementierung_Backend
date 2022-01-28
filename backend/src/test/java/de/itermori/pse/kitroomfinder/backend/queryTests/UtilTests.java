@@ -16,8 +16,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class UtilTests {
 
-    private static final String GRAPHQL_QUERY_REQUEST_PATH = "graphql/resolver/query/request/%s.graphql";
-    private static final String GRAPHQL_QUERY_RESPONSE_PATH = "graphql/resolver/query/response/%s.json";
+    static final String GRAPHQL_QUERY_REQUEST_PATH = "graphql/resolver/query/request/%s.graphql";
+    static final String GRAPHQL_QUERY_RESPONSE_PATH = "graphql/resolver/query/response/%s.json";
 
 
     private static String read(String location) throws IOException {

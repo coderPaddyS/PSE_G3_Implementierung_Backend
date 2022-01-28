@@ -5,11 +5,13 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.graphql.spring.boot.test.GraphQLTestTemplate;
 import de.itermori.pse.kitroomfinder.backend.models.*;
 import de.itermori.pse.kitroomfinder.backend.repositories.*;
+import static org.junit.jupiter.api.Assertions.*;
 import de.itermori.pse.kitroomfinder.backend.security.JWTPreAuthenticationToken;
 import de.itermori.pse.kitroomfinder.backend.services.AliasService;
 import de.itermori.pse.kitroomfinder.backend.services.AliasSuggestionService;
 import de.itermori.pse.kitroomfinder.backend.services.BlacklistService;
 import de.itermori.pse.kitroomfinder.backend.services.DeletedAliasService;
+import org.apache.commons.lang3.builder.ToStringExclude;
 import org.json.JSONException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,6 +35,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static de.itermori.pse.kitroomfinder.backend.queryTests.UtilTests.GRAPHQL_QUERY_REQUEST_PATH;
+import static java.lang.String.format;
 import static org.mockito.Mockito.doReturn;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -78,11 +82,10 @@ public class AliasSuggestionTest {
 
         String token = JWT
                 .create()
-                .withIssuer("my-graphql-api") // Same as within the JWTVerifier
+                .withIssuer("my-graphql-api")
                 .withIssuedAt(Calendar.getInstance().getTime())
                 .withExpiresAt(new Date(Calendar.getInstance().getTime().getTime() + 600000))
                 .withSubject("user")
-                .withAudience("http://localhost:8080/graphql")
                 .sign(Algorithm.HMAC256("secret"));
 
         graphQLTestTemplate.withBearerAuth(token);
@@ -106,5 +109,29 @@ public class AliasSuggestionTest {
         aliasSuggestionService.voteForAlias("a", 1, "user2", false);
         aliasSuggestionService.voteForAlias("a", 1, "user3", false);
         UtilTests.validate(graphQLTestTemplate, testname);
+    }
+
+    @Test
+    public void suggestAlias() throws IOException {
+        String testname = "suggestAlias";
+        graphQLTestTemplate.postForResource(format(GRAPHQL_QUERY_REQUEST_PATH, testname));
+        assertTrue(aliasSuggestionRepository.findByNameAndMapID("alias", 1) != null);
+    }
+
+    @Test
+    public void removeAliasSuggestionTest() throws JSONException, IOException {
+        String testname = "removeAliasSuggestion";
+        aliasSuggestionRepository.save(new AliasSuggestion("alias", 1, "user"));
+        graphQLTestTemplate.postForResource(format(GRAPHQL_QUERY_REQUEST_PATH, testname));
+        assertTrue(aliasSuggestionRepository.findByNameAndMapID("alias", 1) == null);
+    }
+
+    @Test
+    public void voteForAliasTest() throws IOException, JSONException {
+        String testname = "voteForAlias";
+        aliasSuggestionRepository.save(new AliasSuggestion("alias", 1, "user"));
+        graphQLTestTemplate.postForResource(format(GRAPHQL_QUERY_REQUEST_PATH, testname));
+        int i = aliasSuggestionRepository.findByNameAndMapID("alias", 1).getPosVotes();
+        assertTrue(aliasSuggestionRepository.findByNameAndMapID("alias", 1).getPosVotes() == 1);
     }
 }

@@ -1,0 +1,3 @@
+mutation {
+    removeAliasSuggestion(aliasSuggestion: "alias", mapID: 1)
+}
