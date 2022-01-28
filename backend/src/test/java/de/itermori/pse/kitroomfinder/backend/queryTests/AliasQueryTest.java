@@ -1,45 +1,24 @@
 package de.itermori.pse.kitroomfinder.backend.queryTests;
 
 import com.graphql.spring.boot.test.GraphQLTestTemplate;
-import de.itermori.pse.kitroomfinder.backend.models.Alias;
-import de.itermori.pse.kitroomfinder.backend.models.BlacklistEntry;
-import de.itermori.pse.kitroomfinder.backend.models.DeletedAlias;
-import de.itermori.pse.kitroomfinder.backend.models.Version;
+import de.itermori.pse.kitroomfinder.backend.models.*;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasRepository;
 import de.itermori.pse.kitroomfinder.backend.repositories.DeletedAliasRepository;
+import de.itermori.pse.kitroomfinder.backend.repositories.UserRepository;
 import de.itermori.pse.kitroomfinder.backend.repositories.VersionRepository;
-import de.itermori.pse.kitroomfinder.backend.services.*;
-import jdk.jshell.execution.Util;
 import org.json.JSONException;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.mockito.Mockito.doReturn;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class AliasQueryTest {
 
-    private BlacklistEntry blacklistEntry = new BlacklistEntry("testEntry");
-
     @Autowired
     private GraphQLTestTemplate graphQLTestTemplate;
-
-    @Autowired
-    AliasService aliasService;
-
-    @Autowired
-    DeletedAliasService deletedAliasService;
-
-    @Autowired
-    BlacklistService blacklistService;
 
     @Autowired
     VersionRepository versionRepository;
@@ -50,8 +29,18 @@ public class AliasQueryTest {
     @Autowired
     DeletedAliasRepository deletedAliasRepository;
 
+    @Autowired
+    UserRepository userRepository;
+
+    @AfterEach
+    void setAllUp() {
+        userRepository.deleteAll();
+    }
+
     @BeforeEach
     void setUp(){
+        userRepository.save(new User(UtilTests.USER, UtilTests.USER_AUTHORITY));
+        userRepository.save(new User(UtilTests.ADMIN, UtilTests.ADMIN_AUTHORITY));
         aliasRepository.deleteAll();
         deletedAliasRepository.deleteAll();
         versionRepository.deleteAll();
@@ -68,7 +57,7 @@ public class AliasQueryTest {
     public void removeAliasTest() throws JSONException, IOException {
         String testname = "removeAlias";
         aliasRepository.save(new Alias("dalias", 1 ,1));
-        UtilTests.validate(graphQLTestTemplate, testname);
+        UtilTests.validate(graphQLTestTemplate, testname, UtilTests.ADMIN);
     }
 
     @Test
@@ -88,7 +77,6 @@ public class AliasQueryTest {
     @Test
     public void getVersionNotInitiated() throws JSONException, IOException {
         String testname = "getVersion";
-
         UtilTests.validate(graphQLTestTemplate, testname);
     }
 

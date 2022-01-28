@@ -22,7 +22,10 @@ public class UtilTests {
 
     static final String GRAPHQL_QUERY_REQUEST_PATH = "graphql/resolver/query/request/%s.graphql";
     static final String GRAPHQL_QUERY_RESPONSE_PATH = "graphql/resolver/query/response/%s.json";
-
+    static final String USER = "user";
+    static final String ADMIN = "admin";
+    static final String USER_AUTHORITY = "USER";
+    static final String ADMIN_AUTHORITY = "ADMIN";
 
     private static String read(String location) throws IOException {
         return IOUtils.toString(new ClassPathResource(location).getInputStream(),
