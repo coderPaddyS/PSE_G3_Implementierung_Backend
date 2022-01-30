@@ -1,0 +1,3 @@
+mutation {
+    disapproveAliasSuggestion(aliasSuggestion: "alias", mapID: 1)
+}

@@ -46,13 +46,13 @@ public class UserServiceImp implements UserService{
     public User loadUserByToken(String accessToken) {
         Optional<String> usernameNullable = verifyAndDecodeToken(accessToken)
                 .map(DecodedJWT::getSubject);
-        if (!usernameNullable.isEmpty()) {
+        if (usernameNullable.isEmpty()) {
             throw new BadTokenException();
         }
-        String username = usernameNullable.toString();
+        String username = usernameNullable.get();
         User user = userRepository.findByName(username);
         if (user == null) {
-            throw new UsernameNotFoundException("user");
+            throw new UsernameNotFoundException("User not registered");
         }
         return user;
     }

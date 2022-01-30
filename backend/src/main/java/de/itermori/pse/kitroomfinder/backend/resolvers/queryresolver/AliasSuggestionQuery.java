@@ -5,6 +5,7 @@ import de.itermori.pse.kitroomfinder.backend.models.AliasSuggestion;
 import de.itermori.pse.kitroomfinder.backend.services.AliasSuggestionService;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,10 +18,12 @@ public class AliasSuggestionQuery implements GraphQLQueryResolver {
         this.aliasSuggestionService = aliasSuggestionService;
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
     public Iterable<AliasSuggestion> getAliasSuggestions(int minValToShowPos, int minValToShowNeg) {
         return aliasSuggestionService.getAliasSuggestions(minValToShowPos,minValToShowNeg);
     }
 
+    @PreAuthorize("hasAuthority('USER')")
     public Iterable<AliasSuggestion> getAliasSuggestionsAmount(int mapID, int amount, String user) {
         return aliasSuggestionService.getAliasSuggestionsAmount(mapID, amount, user);
     }

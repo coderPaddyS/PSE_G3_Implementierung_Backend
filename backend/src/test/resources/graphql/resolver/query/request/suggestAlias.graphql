@@ -1,0 +1,3 @@
+mutation {
+    suggestAlias(user: "user", mapID: 1, aliasSuggestion: "alias")
+}

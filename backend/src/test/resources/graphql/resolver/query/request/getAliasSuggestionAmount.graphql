@@ -1,0 +1,5 @@
+{
+    getAliasSuggestionsAmount(mapID: 1, user: "user",amount: 2) {
+        name
+    }
+}

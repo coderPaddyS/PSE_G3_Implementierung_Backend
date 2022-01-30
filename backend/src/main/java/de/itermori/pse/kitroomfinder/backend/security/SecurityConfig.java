@@ -17,7 +17,7 @@ public class SecurityConfig {
     public JWTVerifier verifier(Algorithm algorithm) {
         return JWT
                 .require(algorithm)
-                .withIssuer() //TODO
+                .withIssuer("my-graphql-api") //TODO
                 .build();
     }
 
