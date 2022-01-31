@@ -1,9 +1,6 @@
 package de.itermori.pse.kitroomfinder.backend.services;
 
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasRepository;
-import de.itermori.pse.kitroomfinder.backend.services.AliasService;
-import de.itermori.pse.kitroomfinder.backend.services.AliasServiceImp;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -11,13 +8,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 class AliasServiceTest {
 
     @Autowired
-    private AliasServiceImp aliasService;
+    private AliasService aliasService;
 
-    @Test
-    void test() {
-        aliasService.addAlias("alias", 1);
-    }
-
+    @Autowired
+    private AliasRepository aliasRepository;
 
 }
 
