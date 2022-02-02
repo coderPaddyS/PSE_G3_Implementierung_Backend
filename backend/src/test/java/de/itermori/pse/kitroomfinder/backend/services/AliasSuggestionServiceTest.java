@@ -51,7 +51,7 @@ class AliasSuggestionServiceTest {
         List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
 
         assertEquals(2, savedAliasSuggestions.size());
-        
+
         assertEquals("HSaF", savedAliasSuggestions.get(0).getName());
         assertEquals(1, savedAliasSuggestions.get(0).getMapID());
         assertEquals("user", savedAliasSuggestions.get(0).getSuggester());
@@ -75,5 +75,25 @@ class AliasSuggestionServiceTest {
         assertEquals("HSaF", savedAliasSuggestions.get(0).getName());
         assertEquals(1, savedAliasSuggestions.get(0).getMapID());
         assertEquals("user", savedAliasSuggestions.get(0).getSuggester());
+    }
+
+    @Test
+    void whenAliasSuggestionAdded_thenRemoveAliasSuggestion() {
+        // add alias suggestion
+        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "user"));
+
+        // check if alias suggestion was added to database
+        List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
+        assertEquals(1, savedAliasSuggestions.size());
+        assertEquals("HSaF", savedAliasSuggestions.get(0).getName());
+        assertEquals(1, savedAliasSuggestions.get(0).getMapID());
+        assertEquals("user", savedAliasSuggestions.get(0).getSuggester());
+
+        // now remove saved alias suggestion
+        assertTrue(aliasSuggestionService.removeAliasSuggestion("HSaF", 1));
+
+        // check if alias suggestion was removed from database
+        savedAliasSuggestions = aliasSuggestionRepository.findAll();
+        assertEquals(0, savedAliasSuggestions.size());
     }
 }
