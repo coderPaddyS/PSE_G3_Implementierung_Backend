@@ -13,7 +13,7 @@ public interface AliasRepository extends JpaRepository<Alias, Long> {
     public Iterable<Alias> findByMapID(@Param("mapID") int mapID);
 
     @Query("SELECT a FROM Alias AS a WHERE a.name=:alias")
-    public Iterable<Alias> findByName(@Param("alias") String alias);
+    public Alias findByName(@Param("alias") String alias);
 
     @Transactional
     public void deleteByName(String name);
