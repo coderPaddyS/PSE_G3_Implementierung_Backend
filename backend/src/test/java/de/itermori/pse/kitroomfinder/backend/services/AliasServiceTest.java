@@ -65,8 +65,28 @@ class AliasServiceTest {
         }
 
         // assert correct aliases are retrieved
+        assertEquals(2, aliases.size());
         assertEquals(toSave1, aliases.get(0));
         assertEquals(toSave2, aliases.get(1));
+    }
+
+    @Test
+    void whenAliasSaved_thenGetAliasUpdates() {
+        // save alias
+        Alias toSave = new Alias("Infobau", 1, 1);
+        aliasRepository.save(toSave);
+
+        // get aliases and save them in a list for simpler testing
+        Iterable<Alias> newAliasIterable = aliasService.getAliasUpdates(0);
+        Iterator<Alias> iterator = newAliasIterable.iterator();
+        List<Alias> aliases = new ArrayList<>();
+        while (iterator.hasNext()) {
+            aliases.add(iterator.next());
+        }
+
+        // assert correct alias is retrieved
+        assertEquals(1, aliases.size());
+        assertEquals(toSave, aliases.get(0));
     }
 
 }
