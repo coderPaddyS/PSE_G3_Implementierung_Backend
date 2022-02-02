@@ -1,7 +1,9 @@
 package de.itermori.pse.kitroomfinder.backend.services;
 
 import de.itermori.pse.kitroomfinder.backend.models.AliasSuggestion;
+import de.itermori.pse.kitroomfinder.backend.models.BlacklistEntry;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasSuggestionRepository;
+import de.itermori.pse.kitroomfinder.backend.repositories.BlacklistRepository;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -22,6 +24,9 @@ class AliasSuggestionServiceTest {
 
     @Autowired
     private AliasSuggestionRepository aliasSuggestionRepository;
+
+    @Autowired
+    private BlacklistRepository blacklistRepository;
 
     @BeforeEach
     void setUp() {
@@ -212,5 +217,17 @@ class AliasSuggestionServiceTest {
         assertEquals(2, aliasSuggestions.size());
         assertEquals(aliasSuggestion1, aliasSuggestions.get(0));
         assertEquals(aliasSuggestion2, aliasSuggestions.get(1));
+    }
+
+    @Test
+    void whenWordBlacklisted_thenAddAliasSuggestion() {
+        BlacklistEntry blacklistEntry = new BlacklistEntry("forbidden");
+        blacklistRepository.save(blacklistEntry);
+
+        assertFalse(aliasSuggestionService.addAliasSuggestion("forbidden", 1, "suggester"));
+
+        // check if alias suggestion was not added to database
+        List<AliasSuggestion> aliasSuggestions = aliasSuggestionRepository.findAll();
+        assertTrue(aliasSuggestions.isEmpty());
     }
 }
