@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AliasServiceTest {
@@ -25,13 +27,23 @@ class AliasServiceTest {
 
     @Test
     void whenAliasNotYetAdded_thenAddAlias() {
-        aliasService.addAlias("Infobau", 1);
+        assertTrue(aliasService.addAlias("Infobau", 1));
         Alias actualAlias = aliasRepository.findByName("Infobau");
         assertEquals("Infobau", actualAlias.getName());
         assertEquals(1, actualAlias.getMapID());
     }
 
+    @Test
+    void whenAliasAlreadyAdded_thenAddAlias() {
+        // add alias once
+        assertTrue(aliasService.addAlias("Infobau", 1));
+        Alias actualAlias = aliasRepository.findByName("Infobau");
+        assertEquals("Infobau", actualAlias.getName());
+        assertEquals(1, actualAlias.getMapID());
 
+        // add alias a second time
+        assertFalse(aliasService.addAlias("Infobau", 1));
+    }
 
 }
 
