@@ -107,6 +107,25 @@ class AliasServiceTest {
         assertEquals(0, aliases.size());
     }
 
+    @Test
+    void whenAliasSaved_thenRemoveAlias() {
+        // save alias
+        Alias toDelete = new Alias("Infobau", 1, 1);
+        aliasRepository.save(toDelete);
+
+        // check if alias is saved
+        List<Alias> savedAliases = aliasRepository.findAll();
+        assertEquals(1, savedAliases.size());
+        assertEquals(toDelete, savedAliases.get(0));
+
+        // now remove saved alias
+        assertTrue(aliasService.removeAlias("Infobau"));
+
+        // check if alias was removed
+        savedAliases = aliasRepository.findAll();
+        assertEquals(0, savedAliases.size());
+    }
+
 }
 
 
