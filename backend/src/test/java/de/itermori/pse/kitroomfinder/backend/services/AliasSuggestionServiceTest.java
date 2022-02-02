@@ -146,6 +146,31 @@ class AliasSuggestionServiceTest {
     }
 
     @Test
+    void whenAlreadyVotedForAlias_thenVoteForAlias() {
+        // add alias suggestion
+        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "user"));
+
+        // check if alias suggestion was added to database
+        List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
+        assertEquals(1, savedAliasSuggestions.size());
+        assertEquals("HSaF", savedAliasSuggestions.get(0).getName());
+        assertEquals(1, savedAliasSuggestions.get(0).getMapID());
+
+        // vote for alias suggestion
+        assertTrue(aliasSuggestionService.voteForAlias("HSaF", 1, "suggester", true));
+        assertFalse(aliasSuggestionService.voteForAlias("HSaF", 1, "suggester", true));
+        assertFalse(aliasSuggestionService.voteForAlias("HSaF", 1, "suggester", false));
+
+        // check if amount of votes was updated correctly
+        savedAliasSuggestions = aliasSuggestionRepository.findAll();
+        assertEquals(1, savedAliasSuggestions.size());
+        assertEquals("HSaF", savedAliasSuggestions.get(0).getName());
+        assertEquals(1, savedAliasSuggestions.get(0).getMapID());
+        assertEquals(1, savedAliasSuggestions.get(0).getPosVotes());
+        assertEquals(0, savedAliasSuggestions.get(0).getNegVotes());
+    }
+
+    @Test
     void whenAliasSuggestionSaved_thenSuggesterVoteForAlias() {
         // add alias suggestion
         assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "suggester"));
