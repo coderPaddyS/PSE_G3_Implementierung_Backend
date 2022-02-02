@@ -21,9 +21,6 @@ class BlacklistServiceTest {
     private BlacklistService blacklistService;
 
     @Autowired
-    private AliasSuggestionService aliasSuggestionService;
-
-    @Autowired
     private BlacklistRepository blacklistRepository;
 
     @BeforeEach
