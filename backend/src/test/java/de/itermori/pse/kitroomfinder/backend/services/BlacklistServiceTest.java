@@ -65,4 +65,13 @@ class BlacklistServiceTest {
         List<BlacklistEntry> blacklistEntries = blacklistRepository.findAll();
         assertEquals(0, blacklistEntries.size());
     }
+
+    @Test
+    void whenWordInBlacklist_thenIsBlacklisted() {
+        // add forbidden word to blacklist
+        BlacklistEntry blacklistEntry = new BlacklistEntry("forbidden");
+        blacklistRepository.save(blacklistEntry);
+
+        assertTrue(blacklistService.isBlacklisted("forbidden"));
+    }
 }
