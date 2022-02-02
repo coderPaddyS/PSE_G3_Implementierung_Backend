@@ -81,117 +81,85 @@ class AliasSuggestionServiceTest {
 
     @Test
     void whenAliasSuggestionAdded_thenRemoveAliasSuggestion() {
-        // add alias suggestion
-        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "user"));
-
-        // check if alias suggestion was added to database
-        List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
-        assertEquals(1, savedAliasSuggestions.size());
-        assertEquals("HSaF", savedAliasSuggestions.get(0).getName());
-        assertEquals(1, savedAliasSuggestions.get(0).getMapID());
-        assertEquals("user", savedAliasSuggestions.get(0).getSuggester());
+        // save alias suggestion in database
+        AliasSuggestion aliasSuggestionToRemove = new AliasSuggestion("HSaF", 1, "suggester");
+        aliasSuggestionRepository.save(aliasSuggestionToRemove);
 
         // now remove saved alias suggestion
         assertTrue(aliasSuggestionService.removeAliasSuggestion("HSaF", 1));
 
         // check if alias suggestion was removed from database
-        savedAliasSuggestions = aliasSuggestionRepository.findAll();
+        List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
         assertEquals(0, savedAliasSuggestions.size());
     }
 
     @Test
     void whenAliasSuggestionsAdded_thenRemoveAliasSuggestion() {
-        // add alias suggestions
-        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "user"));
-        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 2, "user"));
-
-        // check if alias suggestions were added to database
-        List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
-        assertEquals(2, savedAliasSuggestions.size());
-        assertEquals("HSaF", savedAliasSuggestions.get(0).getName());
-        assertEquals(1, savedAliasSuggestions.get(0).getMapID());
-        assertEquals("user", savedAliasSuggestions.get(0).getSuggester());
-        assertEquals("HSaF", savedAliasSuggestions.get(1).getName());
-        assertEquals(2, savedAliasSuggestions.get(1).getMapID());
-        assertEquals("user", savedAliasSuggestions.get(1).getSuggester());
+        // save alias suggestion in database
+        AliasSuggestion aliasSuggestionToRemove1 = new AliasSuggestion("HSaF", 1, "suggester");
+        AliasSuggestion aliasSuggestionToRemove2 = new AliasSuggestion("HSaF", 2, "suggester");
+        aliasSuggestionRepository.save(aliasSuggestionToRemove1);
+        aliasSuggestionRepository.save(aliasSuggestionToRemove2);
 
         // now remove saved alias suggestions
         assertTrue(aliasSuggestionService.removeAliasSuggestion("HSaF"));
 
         // check if alias suggestions were removed from database
-        savedAliasSuggestions = aliasSuggestionRepository.findAll();
+        List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
         assertEquals(0, savedAliasSuggestions.size());
     }
 
     @Test
     void whenAliasSuggestionSaved_thenVoteForAlias() {
-        // add alias suggestion
-        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "user"));
-
-        // check if alias suggestion was added to database
-        List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
-        assertEquals(1, savedAliasSuggestions.size());
-        assertEquals("HSaF", savedAliasSuggestions.get(0).getName());
-        assertEquals(1, savedAliasSuggestions.get(0).getMapID());
+        // save alias suggestion in database
+        AliasSuggestion aliasSuggestionToVoteFor = new AliasSuggestion("HSaF", 1, "suggester");
+        aliasSuggestionRepository.save(aliasSuggestionToVoteFor);
 
         // vote for alias suggestion
-        assertTrue(aliasSuggestionService.voteForAlias("HSaF", 1, "suggester", true));
-        assertTrue(aliasSuggestionService.voteForAlias("HSaF", 1, "suggester2", false));
+        assertTrue(aliasSuggestionService.voteForAlias("HSaF", 1, "user", true));
+        assertTrue(aliasSuggestionService.voteForAlias("HSaF", 1, "user2", false));
 
         // check if amount of votes was updated correctly
-        savedAliasSuggestions = aliasSuggestionRepository.findAll();
+        List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
         assertEquals(1, savedAliasSuggestions.size());
-        assertEquals("HSaF", savedAliasSuggestions.get(0).getName());
-        assertEquals(1, savedAliasSuggestions.get(0).getMapID());
+        assertEquals(aliasSuggestionToVoteFor, savedAliasSuggestions.get(0));
         assertEquals(1, savedAliasSuggestions.get(0).getPosVotes());
         assertEquals(1, savedAliasSuggestions.get(0).getNegVotes());
     }
 
     @Test
     void whenAlreadyVotedForAlias_thenVoteForAlias() {
-        // add alias suggestion
-        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "user"));
-
-        // check if alias suggestion was added to database
-        List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
-        assertEquals(1, savedAliasSuggestions.size());
-        assertEquals("HSaF", savedAliasSuggestions.get(0).getName());
-        assertEquals(1, savedAliasSuggestions.get(0).getMapID());
+        // save alias suggestion in database
+        AliasSuggestion aliasSuggestionToVoteFor = new AliasSuggestion("HSaF", 1, "suggester");
+        aliasSuggestionRepository.save(aliasSuggestionToVoteFor);
 
         // vote for alias suggestion
-        assertTrue(aliasSuggestionService.voteForAlias("HSaF", 1, "suggester", true));
-        assertFalse(aliasSuggestionService.voteForAlias("HSaF", 1, "suggester", true));
-        assertFalse(aliasSuggestionService.voteForAlias("HSaF", 1, "suggester", false));
+        assertTrue(aliasSuggestionService.voteForAlias("HSaF", 1, "user", true));
+        assertFalse(aliasSuggestionService.voteForAlias("HSaF", 1, "user", true));
+        assertFalse(aliasSuggestionService.voteForAlias("HSaF", 1, "user", false));
 
         // check if amount of votes was updated correctly
-        savedAliasSuggestions = aliasSuggestionRepository.findAll();
+        List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
         assertEquals(1, savedAliasSuggestions.size());
-        assertEquals("HSaF", savedAliasSuggestions.get(0).getName());
-        assertEquals(1, savedAliasSuggestions.get(0).getMapID());
+        assertEquals(aliasSuggestionToVoteFor, savedAliasSuggestions.get(0));
         assertEquals(1, savedAliasSuggestions.get(0).getPosVotes());
         assertEquals(0, savedAliasSuggestions.get(0).getNegVotes());
     }
 
     @Test
     void whenAliasSuggestionSaved_thenSuggesterVoteForAlias() {
-        // add alias suggestion
-        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "suggester"));
-
-        // check if alias suggestion was added to database
-        List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
-        assertEquals(1, savedAliasSuggestions.size());
-        assertEquals("HSaF", savedAliasSuggestions.get(0).getName());
-        assertEquals(1, savedAliasSuggestions.get(0).getMapID());
+        // save alias suggestion in database
+        AliasSuggestion aliasSuggestionToVoteFor = new AliasSuggestion("HSaF", 1, "suggester");
+        aliasSuggestionRepository.save(aliasSuggestionToVoteFor);
 
         // vote for alias suggestion
         assertFalse(aliasSuggestionService.voteForAlias("HSaF", 1, "suggester", true));
         assertFalse(aliasSuggestionService.voteForAlias("HSaF", 1, "suggester", false));
 
         // check if amount of votes remained unchanged
-        savedAliasSuggestions = aliasSuggestionRepository.findAll();
+        List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
         assertEquals(1, savedAliasSuggestions.size());
-        assertEquals("HSaF", savedAliasSuggestions.get(0).getName());
-        assertEquals(1, savedAliasSuggestions.get(0).getMapID());
+        assertEquals(aliasSuggestionToVoteFor, savedAliasSuggestions.get(0));
         assertEquals(0, savedAliasSuggestions.get(0).getPosVotes());
         assertEquals(0, savedAliasSuggestions.get(0).getNegVotes());
     }
