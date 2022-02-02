@@ -19,6 +19,9 @@ class BlacklistServiceTest {
     private BlacklistService blacklistService;
 
     @Autowired
+    private AliasSuggestionService aliasSuggestionService;
+
+    @Autowired
     private BlacklistRepository blacklistRepository;
 
     @BeforeEach
@@ -47,5 +50,19 @@ class BlacklistServiceTest {
         List<BlacklistEntry> blacklistEntries = blacklistRepository.findAll();
         assertEquals(1, blacklistEntries.size());
         assertEquals("forbidden", blacklistEntries.get(0).getName());
+    }
+
+    @Test
+    void whenWordInBlacklist_thenRemoveFromBlacklist() {
+        // add forbidden word to blacklist
+        BlacklistEntry blacklistEntryToRemove = new BlacklistEntry("forbidden");
+        blacklistRepository.save(blacklistEntryToRemove);
+
+        // remove forbidden word from blacklist
+        assertTrue(blacklistService.removeFromBlacklist("forbidden"));
+
+        // check if forbidden word is no longer in blacklist
+        List<BlacklistEntry> blacklistEntries = blacklistRepository.findAll();
+        assertEquals(0, blacklistEntries.size());
     }
 }
