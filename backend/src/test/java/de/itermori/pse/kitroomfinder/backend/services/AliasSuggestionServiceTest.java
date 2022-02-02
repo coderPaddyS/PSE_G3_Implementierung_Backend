@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -31,6 +32,22 @@ class AliasSuggestionServiceTest {
         assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "user"));
 
         // check if alias suggestion was added to database
+        List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
+        assertEquals(1, savedAliasSuggestions.size());
+        assertEquals("HSaF", savedAliasSuggestions.get(0).getName());
+        assertEquals(1, savedAliasSuggestions.get(0).getMapID());
+        assertEquals("user", savedAliasSuggestions.get(0).getSuggester());
+    }
+
+    @Test
+    void whenAliasSuggestionAlreadyAdded_thenAddAliasSuggestion() {
+        // add alias suggestion once
+        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "user"));
+
+        // add same alias suggestion again
+        assertFalse(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "user2"));
+
+        // check if only the first alias suggestion was added to database
         List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
         assertEquals(1, savedAliasSuggestions.size());
         assertEquals("HSaF", savedAliasSuggestions.get(0).getName());
