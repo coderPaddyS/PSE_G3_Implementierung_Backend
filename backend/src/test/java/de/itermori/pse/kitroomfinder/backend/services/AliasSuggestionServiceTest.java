@@ -189,4 +189,28 @@ class AliasSuggestionServiceTest {
         assertEquals(1, aliasSuggestions.size());
         assertEquals(aliasSuggestion1, aliasSuggestions.get(0));
     }
+
+    @Test
+    void whenAliasSuggestionsSaved_thenGetAliasSuggestionsAmount() {
+        // save alias suggestions in database
+        AliasSuggestion aliasSuggestion1 = new AliasSuggestion("HSaF", 1, "user");
+        AliasSuggestion aliasSuggestion2 = new AliasSuggestion("Infobau", 1, "user");
+        AliasSuggestion aliasSuggestion3 = new AliasSuggestion("Info", 1, "user");
+        aliasSuggestionRepository.save(aliasSuggestion1);
+        aliasSuggestionRepository.save(aliasSuggestion2);
+        aliasSuggestionRepository.save(aliasSuggestion3);
+
+        // get alias suggestions and save them in a list for simpler testing
+        Iterable<AliasSuggestion> aliasSuggestionIterable
+                = aliasSuggestionService.getAliasSuggestionsAmount(1, 2, "user");
+        Iterator<AliasSuggestion> iterator = aliasSuggestionIterable.iterator();
+        List<AliasSuggestion> aliasSuggestions = new ArrayList<>();
+        while (iterator.hasNext()) {
+            aliasSuggestions.add(iterator.next());
+        }
+
+        assertEquals(2, aliasSuggestions.size());
+        assertEquals(aliasSuggestion1, aliasSuggestions.get(0));
+        assertEquals(aliasSuggestion2, aliasSuggestions.get(1));
+    }
 }
