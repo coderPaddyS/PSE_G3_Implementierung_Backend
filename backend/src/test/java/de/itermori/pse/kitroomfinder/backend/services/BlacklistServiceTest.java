@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -31,6 +32,18 @@ class BlacklistServiceTest {
         assertTrue(blacklistService.addToBlacklist("forbidden"));
 
         // check if forbidden word was added to blacklist
+        List<BlacklistEntry> blacklistEntries = blacklistRepository.findAll();
+        assertEquals(1, blacklistEntries.size());
+        assertEquals("forbidden", blacklistEntries.get(0).getName());
+    }
+
+    @Test
+    void whenWordAlreadyAddedToBlacklist_thenAddToBlacklist() {
+        // add forbidden word twice
+        assertTrue(blacklistService.addToBlacklist("forbidden"));
+        assertFalse(blacklistService.addToBlacklist("forbidden"));
+
+        // check if forbidden word was only added once to blacklist
         List<BlacklistEntry> blacklistEntries = blacklistRepository.findAll();
         assertEquals(1, blacklistEntries.size());
         assertEquals("forbidden", blacklistEntries.get(0).getName());
