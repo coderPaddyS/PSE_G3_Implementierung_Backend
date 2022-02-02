@@ -103,7 +103,7 @@ class AliasSuggestionServiceTest {
         assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "user"));
         assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 2, "user"));
 
-        // check if alias suggestion was added to database
+        // check if alias suggestions were added to database
         List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
         assertEquals(2, savedAliasSuggestions.size());
         assertEquals("HSaF", savedAliasSuggestions.get(0).getName());
