@@ -2,6 +2,8 @@ package de.itermori.pse.kitroomfinder.backend.services;
 
 import de.itermori.pse.kitroomfinder.backend.models.AliasSuggestion;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasSuggestionRepository;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -192,5 +194,31 @@ class AliasSuggestionServiceTest {
         assertEquals(1, savedAliasSuggestions.get(0).getMapID());
         assertEquals(0, savedAliasSuggestions.get(0).getPosVotes());
         assertEquals(0, savedAliasSuggestions.get(0).getNegVotes());
+    }
+
+    @Test
+    void whenAliasSuggestionsSaved_thenGetAliasSuggestions() {
+        // save alias suggestions in database
+        AliasSuggestion aliasSuggestion1 = new AliasSuggestion("HSaF", 1, "user");
+        AliasSuggestion aliasSuggestion2 = new AliasSuggestion("HSaF", 2, "user");
+        aliasSuggestionRepository.save(aliasSuggestion1);
+        aliasSuggestionRepository.save(aliasSuggestion2);
+
+        // vote for alias suggestion
+        assertTrue(aliasSuggestionService.voteForAlias("HSaF", 1, "voter1", true));
+        assertTrue(aliasSuggestionService.voteForAlias("HSaF", 1, "voter2", true));
+        assertTrue(aliasSuggestionService.voteForAlias("HSaF", 1, "voter3", false));
+        assertTrue(aliasSuggestionService.voteForAlias("HSaF", 2, "voter1", true));
+
+        // get alias suggestions and save them in a list for simpler testing
+        Iterable<AliasSuggestion> aliasSuggestionIterable = aliasSuggestionService.getAliasSuggestions(1, 1);
+        Iterator<AliasSuggestion> iterator = aliasSuggestionIterable.iterator();
+        List<AliasSuggestion> aliasSuggestions = new ArrayList<>();
+        while (iterator.hasNext()) {
+            aliasSuggestions.add(iterator.next());
+        }
+
+        assertEquals(1, aliasSuggestions.size());
+        assertEquals(aliasSuggestion1, aliasSuggestions.get(0));
     }
 }
