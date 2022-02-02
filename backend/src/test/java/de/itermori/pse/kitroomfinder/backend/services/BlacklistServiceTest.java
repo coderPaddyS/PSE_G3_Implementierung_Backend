@@ -74,4 +74,9 @@ class BlacklistServiceTest {
 
         assertTrue(blacklistService.isBlacklisted("forbidden"));
     }
+
+    @Test
+    void whenWordNotInBlacklist_thenIsBlacklisted() {
+        assertFalse(blacklistService.isBlacklisted("notForbidden"));
+    }
 }
