@@ -51,6 +51,7 @@ class AliasSuggestionServiceTest {
         List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
 
         assertEquals(2, savedAliasSuggestions.size());
+        
         assertEquals("HSaF", savedAliasSuggestions.get(0).getName());
         assertEquals(1, savedAliasSuggestions.get(0).getMapID());
         assertEquals("user", savedAliasSuggestions.get(0).getSuggester());
