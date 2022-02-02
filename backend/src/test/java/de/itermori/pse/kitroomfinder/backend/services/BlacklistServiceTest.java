@@ -2,6 +2,8 @@ package de.itermori.pse.kitroomfinder.backend.services;
 
 import de.itermori.pse.kitroomfinder.backend.models.BlacklistEntry;
 import de.itermori.pse.kitroomfinder.backend.repositories.BlacklistRepository;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -78,5 +80,27 @@ class BlacklistServiceTest {
     @Test
     void whenWordNotInBlacklist_thenIsBlacklisted() {
         assertFalse(blacklistService.isBlacklisted("notForbidden"));
+    }
+
+    @Test
+    void whenWordsInBlacklist_thenGetBlacklist() {
+        // add forbidden words to blacklist
+        BlacklistEntry blacklistEntry1 = new BlacklistEntry("forbidden1");
+        BlacklistEntry blacklistEntry2 = new BlacklistEntry("forbidden2");
+        blacklistRepository.save(blacklistEntry1);
+        blacklistRepository.save(blacklistEntry2);
+
+        // get blacklisted words and save them in a list for simpler testing
+        Iterable<String> iterable
+                = blacklistService.getBlacklist();
+        Iterator<String> iterator = iterable.iterator();
+        List<String> blacklisted = new ArrayList<>();
+        while (iterator.hasNext()) {
+            blacklisted.add(iterator.next());
+        }
+
+        assertEquals(2, blacklisted.size());
+        assertEquals("forbidden1", blacklisted.get(0));
+        assertEquals("forbidden2", blacklisted.get(1));
     }
 }
