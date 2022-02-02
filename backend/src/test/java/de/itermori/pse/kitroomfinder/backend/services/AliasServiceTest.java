@@ -25,10 +25,10 @@ class AliasServiceTest {
 
     @Test
     void whenAliasNotYetAdded_thenAddAlias() {
-        Alias expectedAlias = new Alias("Infobau", 1, 1);
-        aliasService.addAlias(expectedAlias.getName(), expectedAlias.getMapID());
-        Alias actualAlias = aliasRepository.findByName(expectedAlias.getName());
-        assertEquals(expectedAlias, actualAlias);
+        aliasService.addAlias("Infobau", 1);
+        Alias actualAlias = aliasRepository.findByName("Infobau");
+        assertEquals("Infobau", actualAlias.getName());
+        assertEquals(1, actualAlias.getMapID());
     }
 
 
