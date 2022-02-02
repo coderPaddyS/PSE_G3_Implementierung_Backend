@@ -40,6 +40,27 @@ class AliasSuggestionServiceTest {
     }
 
     @Test
+    void whenAliasSuggestionAddedWithDifferentMapID_thenAddAliasSuggestion() {
+        // add alias suggestion once
+        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "user"));
+
+        // add same alias suggestion but with different mapID
+        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 2, "user"));
+
+        // check if both alias suggestions were added to database
+        List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
+
+        assertEquals(2, savedAliasSuggestions.size());
+        assertEquals("HSaF", savedAliasSuggestions.get(0).getName());
+        assertEquals(1, savedAliasSuggestions.get(0).getMapID());
+        assertEquals("user", savedAliasSuggestions.get(0).getSuggester());
+
+        assertEquals("HSaF", savedAliasSuggestions.get(1).getName());
+        assertEquals(2, savedAliasSuggestions.get(1).getMapID());
+        assertEquals("user", savedAliasSuggestions.get(1).getSuggester());
+    }
+
+    @Test
     void whenAliasSuggestionAlreadyAdded_thenAddAliasSuggestion() {
         // add alias suggestion once
         assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "user"));
