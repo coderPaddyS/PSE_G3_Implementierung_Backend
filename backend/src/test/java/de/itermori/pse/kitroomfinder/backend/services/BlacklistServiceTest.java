@@ -1,12 +1,18 @@
 package de.itermori.pse.kitroomfinder.backend.services;
 
+import de.itermori.pse.kitroomfinder.backend.models.BlacklistEntry;
 import de.itermori.pse.kitroomfinder.backend.repositories.BlacklistRepository;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class BlacklistServiceTest {
+class BlacklistServiceTest {
 
     @Autowired
     private BlacklistService blacklistService;
@@ -18,5 +24,15 @@ public class BlacklistServiceTest {
     void setUp() {
         blacklistRepository.deleteAll();
     }
-    
+
+    @Test
+    void whenWordNotYetAddedToBlacklist_thenAddToBlacklist() {
+        // add forbidden word
+        assertTrue(blacklistService.addToBlacklist("forbidden"));
+
+        // check if forbidden word was added to blacklist
+        List<BlacklistEntry> blacklistEntries = blacklistRepository.findAll();
+        assertEquals(1, blacklistEntries.size());
+        assertEquals("forbidden", blacklistEntries.get(0).getName());
+    }
 }
