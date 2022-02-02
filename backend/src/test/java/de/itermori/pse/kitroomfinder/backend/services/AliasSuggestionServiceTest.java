@@ -20,6 +20,11 @@ class AliasSuggestionServiceTest {
     @Autowired
     private AliasSuggestionRepository aliasSuggestionRepository;
 
+    @BeforeEach
+    void setUp() {
+        aliasSuggestionRepository.deleteAll();
+    }
+
     @Test
     void whenAliasSuggestionNotYetAdded_thenAddAliasSuggestion() {
         // add alias suggestion
