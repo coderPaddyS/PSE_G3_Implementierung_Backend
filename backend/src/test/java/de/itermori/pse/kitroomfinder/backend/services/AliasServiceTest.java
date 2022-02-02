@@ -2,6 +2,9 @@ package de.itermori.pse.kitroomfinder.backend.services;
 
 import de.itermori.pse.kitroomfinder.backend.models.Alias;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasRepository;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +46,27 @@ class AliasServiceTest {
 
         // add alias a second time
         assertFalse(aliasService.addAlias("Infobau", 1));
+    }
+
+    @Test
+    void whenAliasesSaved_thenGetAlias() {
+        // save aliases
+        Alias toSave1 = new Alias("Infobau", 1, 1);
+        Alias toSave2 = new Alias("HSaF", 1, 1);
+        aliasRepository.save(toSave1);
+        aliasRepository.save(toSave2);
+
+        // get aliases and save them in a list for simpler testing
+        Iterable<Alias> aliasIterable = aliasService.getAlias(1);
+        Iterator<Alias> iterator = aliasIterable.iterator();
+        List<Alias> aliases = new ArrayList<>();
+        while (iterator.hasNext()) {
+            aliases.add(iterator.next());
+        }
+
+        // assert correct aliases are retrieved
+        assertEquals(toSave1, aliases.get(0));
+        assertEquals(toSave2, aliases.get(1));
     }
 
 }
