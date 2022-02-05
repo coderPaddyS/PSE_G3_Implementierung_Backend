@@ -15,15 +15,21 @@ import org.springframework.transaction.annotation.Transactional;
 public class AliasSuggestionServiceImp implements AliasSuggestionService {
 
     private AliasSuggestionRepository aliasSuggestionRepository;
+    private BlacklistService blacklistService;
 
     @Autowired
-    public AliasSuggestionServiceImp(AliasSuggestionRepository aliasSuggestionRepository) {
+    public AliasSuggestionServiceImp(AliasSuggestionRepository aliasSuggestionRepository,
+                                     BlacklistService blacklistService) {
         this.aliasSuggestionRepository = aliasSuggestionRepository;
+        this.blacklistService = blacklistService;
     }
 
     @Transactional
     @Override
     public boolean addAliasSuggestion(String aliasSuggestion, int mapID, String user) {
+        if (blacklistService.isBlacklisted(aliasSuggestion)) {
+            return false;
+        }
         if (aliasSuggestionRepository.findByNameAndMapID(aliasSuggestion, mapID) != null){
             return false;
         }
