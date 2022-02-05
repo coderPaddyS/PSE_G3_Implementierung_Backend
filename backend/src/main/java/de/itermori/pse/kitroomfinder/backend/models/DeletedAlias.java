@@ -74,8 +74,8 @@ public class DeletedAlias {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Alias alias = (Alias) o;
-        return getId().equals(alias.getId());
+        DeletedAlias deletedAlias = (DeletedAlias) o;
+        return getId().equals(deletedAlias.getId());
     }
 
     @Override
