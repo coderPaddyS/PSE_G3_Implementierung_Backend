@@ -42,15 +42,7 @@ class AliasRepositoryTest {
     void whenAliasSaved_thenFindByName() {
         Alias expectedAlias = new Alias("Infobau", 1, 1);
         aliasRepository.save(expectedAlias);
-        Iterable<Alias> actualAliases = aliasRepository.findByName("Infobau");
-        Iterator<Alias> aliasIterator = actualAliases.iterator();
-        int actualAmountAliases = 0;
-        Alias actualAlias = new Alias("AnotherAlias", 2, 2);
-        while (aliasIterator.hasNext()) {
-            ++actualAmountAliases;
-            actualAlias = aliasIterator.next(); // now correct value should be saved in actualAlias
-        }
-        assertEquals(1, actualAmountAliases);
+        Alias actualAlias = aliasRepository.findByName("Infobau");
         assertEquals(expectedAlias, actualAlias);
     }
 
@@ -61,15 +53,7 @@ class AliasRepositoryTest {
         aliasRepository.save(toDelete);
 
         // now check if it is saved in database
-        Iterable<Alias> actualAliases = aliasRepository.findByName("Infobau");
-        Iterator<Alias> aliasIterator = actualAliases.iterator();
-        int actualAmountAliases = 0;
-        Alias actualAlias = new Alias("AnotherAlias", 2, 2);
-        while (aliasIterator.hasNext()) {
-            ++actualAmountAliases;
-            actualAlias = aliasIterator.next(); // now correct value should be saved in actualAlias
-        }
-        assertEquals(1, actualAmountAliases);
+        Alias actualAlias = aliasRepository.findByName("Infobau");
         assertEquals(toDelete, actualAlias);
 
         // now delete it
