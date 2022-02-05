@@ -24,10 +24,10 @@ public class BlacklistServiceImp implements BlacklistService{
     @Transactional
     @Override
     public boolean addToBlacklist(String toBlacklist) {
-        if (blacklistRepository.save(new BlacklistEntry(toBlacklist)) == null) {
+        if (isBlacklisted(toBlacklist)) {
             return false;
         }
-        return true;
+        return blacklistRepository.save(new BlacklistEntry(toBlacklist)) != null;
     }
 
     @Transactional
