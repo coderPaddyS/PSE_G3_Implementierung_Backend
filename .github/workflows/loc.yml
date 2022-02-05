@@ -3,6 +3,8 @@ name: Generate LoC Badge
 on: 
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
 
 jobs:
   hello_world_job:
