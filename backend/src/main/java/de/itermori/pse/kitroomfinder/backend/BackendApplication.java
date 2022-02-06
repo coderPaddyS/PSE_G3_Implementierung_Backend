@@ -1,10 +1,11 @@
 package de.itermori.pse.kitroomfinder.backend;
 
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+@EnableEncryptableProperties
 @EnableJpaRepositories(basePackages = "de.itermori.pse.kitroomfinder.backend.repositories")
 @SpringBootApplication()
 public class BackendApplication {

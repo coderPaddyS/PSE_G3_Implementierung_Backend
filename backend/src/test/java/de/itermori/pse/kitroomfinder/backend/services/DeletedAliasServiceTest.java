@@ -44,7 +44,7 @@ public class DeletedAliasServiceTest {
     public void removeDeletedAliasTest() {
         deletedAliasService.addDeletedAlias("Deleted", 1);
         deletedAliasService.removeDeletedAlias("Deleted", 1);
-        assertTrue(deletedAliasRepository.findNewerThanVersion(0) == null);
+        assertTrue(deletedAliasRepository.findNewerThanVersion(0).spliterator().getExactSizeIfKnown() == 0);
     }
 
     @Test
