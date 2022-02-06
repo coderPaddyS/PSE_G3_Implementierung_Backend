@@ -120,7 +120,7 @@ public class AliasSuggestionTest {
                 .withIssuer("my-graphql-api")
                 .withIssuedAt(Calendar.getInstance().getTime())
                 .withExpiresAt(new Date(Calendar.getInstance().getTime().getTime() + 600000))
-                .withSubject(USER)
+                .withClaim("preferred_username", "user")
                 .sign(Algorithm.HMAC256("secret"));
         graphQLTestTemplate.withBearerAuth(token);
         graphQLTestTemplate.postForResource(format(GRAPHQL_QUERY_REQUEST_PATH, testname));
@@ -137,7 +137,7 @@ public class AliasSuggestionTest {
                 .withIssuer("my-graphql-api")
                 .withIssuedAt(Calendar.getInstance().getTime())
                 .withExpiresAt(new Date(Calendar.getInstance().getTime().getTime() + 600000))
-                .withSubject(UtilTests.USER)
+                .withClaim("preferred_username", "user")
                 .sign(Algorithm.HMAC256("secret"));
         graphQLTestTemplate.withBearerAuth(token);
         graphQLTestTemplate.postForResource(format(GRAPHQL_QUERY_REQUEST_PATH, testname));
