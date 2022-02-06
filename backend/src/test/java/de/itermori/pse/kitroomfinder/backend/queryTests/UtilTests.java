@@ -42,7 +42,7 @@ public class UtilTests {
                 .withIssuer("my-graphql-api")
                 .withIssuedAt(Calendar.getInstance().getTime())
                 .withExpiresAt(new Date(Calendar.getInstance().getTime().getTime() + 600000))
-                .withSubject(user)
+                .withClaim("preferred_username", user)
                 .sign(Algorithm.HMAC256("secret"));
         graphQLTestTemplate.withBearerAuth(token);
         compare(graphQLTestTemplate, testname);
