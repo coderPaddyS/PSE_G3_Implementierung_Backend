@@ -10,7 +10,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT u FROM User AS u WHERE u.name=:user")
     public User findByName(@Param("user") String user);
 
-    @Query
-    Boolean isAdmin();
-
 }
