@@ -34,11 +34,14 @@ type Mutation {
     removeFromBlacklist(blacklistedToRem : String!) : Boolean
 }
 
-type AliasSuggestion{
+type AliasSuggestion {
     suggester : String
     name : String!
     getVoters : String
+    posVotes : Int
+    negVotes : Int
     mapID : Int
+    mapObject : String
 }
 
 type Alias {

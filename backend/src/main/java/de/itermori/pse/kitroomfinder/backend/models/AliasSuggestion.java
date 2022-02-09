@@ -23,6 +23,9 @@ public class AliasSuggestion {
     @Column(name = "mapID", nullable = false)
     private Integer mapID;
 
+    @Column(name = "mapObject", nullable = false)
+    private String mapObject;
+
     @Column(name = "suggester", nullable = false)
     private String suggester;
 
@@ -38,9 +41,10 @@ public class AliasSuggestion {
     public AliasSuggestion() {
     }
 
-    public AliasSuggestion(String name, Integer mapID, String suggester) {
+    public AliasSuggestion(String name, Integer mapID, String mapObject, String suggester) {
         this.name = name;
         this.mapID = mapID;
+        this.mapObject = mapObject;
         this.suggester = suggester;
         this.posVotes = 0;
         this.negVotes = 0;

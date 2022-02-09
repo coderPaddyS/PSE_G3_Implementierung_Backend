@@ -26,14 +26,14 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
 
     @Transactional
     @Override
-    public boolean addAliasSuggestion(String aliasSuggestion, int mapID, String user) {
+    public boolean addAliasSuggestion(String aliasSuggestion, int mapID, String mapObject, String user) {
         if (blacklistService.isBlacklisted(aliasSuggestion)) {
             return false;
         }
         if (aliasSuggestionRepository.findByNameAndMapID(aliasSuggestion, mapID) != null){
             return false;
         }
-        aliasSuggestionRepository.save(new AliasSuggestion(aliasSuggestion, mapID, user));
+        aliasSuggestionRepository.save(new AliasSuggestion(aliasSuggestion, mapID, mapObject, user));
         return true;
     }
 
