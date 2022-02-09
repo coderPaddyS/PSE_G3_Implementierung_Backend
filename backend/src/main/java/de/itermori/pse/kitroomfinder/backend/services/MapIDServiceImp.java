@@ -34,4 +34,11 @@ public class MapIDServiceImp implements MapIDService{
                 .map(MapID::getMapID);
         return stream::iterator;
     }
+
+    @Override
+    public Iterable<String> getAllMapIDsName() {
+        Stream<String> stream = mapIDRepository.findAll().parallelStream()
+                .map(MapID::getName);
+        return stream::iterator;
+    }
 }

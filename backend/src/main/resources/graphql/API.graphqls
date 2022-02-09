@@ -13,6 +13,7 @@ type Query {
     getMapObject(mapID : Int!) : String
     getMapIDByName(mapObject : String!) : Int
     getAllMapIDs : [Int]
+    getAllMapIDsName : [String]
 
     isAdmin : Boolean
 }

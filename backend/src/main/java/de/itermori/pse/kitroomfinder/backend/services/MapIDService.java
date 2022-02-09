@@ -5,5 +5,6 @@ public interface MapIDService {
     public String getMapObject(int mapID);
     public int getMapIDByName(String mapObject);
     public Iterable<Integer> getAllMapIDs();
+    public Iterable<String> getAllMapIDsName();
 
 }
