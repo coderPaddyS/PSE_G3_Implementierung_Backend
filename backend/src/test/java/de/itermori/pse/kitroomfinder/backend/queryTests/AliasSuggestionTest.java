@@ -108,6 +108,14 @@ public class AliasSuggestionTest {
     @Test
     public void suggestAlias() throws IOException {
         String testname = "suggestAlias";
+        String token = JWT
+                .create()
+                .withIssuer("my-graphql-api")
+                .withIssuedAt(Calendar.getInstance().getTime())
+                .withExpiresAt(new Date(Calendar.getInstance().getTime().getTime() + 600000))
+                .withClaim("preferred_username", "user")
+                .sign(Algorithm.HMAC256("secret"));
+        graphQLTestTemplate.withBearerAuth(token);
         graphQLTestTemplate.postForResource(format(GRAPHQL_QUERY_REQUEST_PATH, testname));
         assertTrue(aliasSuggestionRepository.findByNameAndMapID("alias", 1) != null);
     }

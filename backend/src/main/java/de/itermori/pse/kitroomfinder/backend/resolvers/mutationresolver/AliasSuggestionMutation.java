@@ -42,10 +42,10 @@ public class AliasSuggestionMutation implements GraphQLMutationResolver {
     }
 
     @PreAuthorize("hasAuthority('USER')")
-    public Boolean suggestAlias(String aliasSuggestion, int mapID, String user) {
+    public Boolean suggestAlias(String aliasSuggestion, int mapID, String mapObject, String user) {
         if (blacklistService.isBlacklisted(aliasSuggestion)) {
             return false;
         }
-        return aliasSuggestionService.addAliasSuggestion(aliasSuggestion, mapID, user);
+        return aliasSuggestionService.addAliasSuggestion(aliasSuggestion, mapID, mapObject, user);
     }
 }

@@ -36,7 +36,7 @@ class AliasSuggestionServiceTest {
     @Test
     void whenAliasSuggestionNotYetAdded_thenAddAliasSuggestion() {
         // add alias suggestion
-        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "user"));
+        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "50.34", "user"));
 
         // check if alias suggestion was added to database
         List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
@@ -49,10 +49,10 @@ class AliasSuggestionServiceTest {
     @Test
     void whenAliasSuggestionAddedWithDifferentMapID_thenAddAliasSuggestion() {
         // add alias suggestion once
-        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "user"));
+        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "50.34", "user"));
 
         // add same alias suggestion but with different mapID
-        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 2, "user"));
+        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 2, "50.34", "user"));
 
         // check if both alias suggestions were added to database
         List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
@@ -71,10 +71,10 @@ class AliasSuggestionServiceTest {
     @Test
     void whenAliasSuggestionAlreadyAdded_thenAddAliasSuggestion() {
         // add alias suggestion once
-        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "user"));
+        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "50.34", "user"));
 
         // add same alias suggestion again
-        assertFalse(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "user2"));
+        assertFalse(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "50.34", "user2"));
 
         // check if only the first alias suggestion was added to database
         List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
