@@ -35,5 +35,5 @@ public class MapIDQuery implements GraphQLQueryResolver {
     public Iterable<String> getAllMapIDsName() {
         return mapIDService.getAllMapIDsName();
     }
-    
+
 }

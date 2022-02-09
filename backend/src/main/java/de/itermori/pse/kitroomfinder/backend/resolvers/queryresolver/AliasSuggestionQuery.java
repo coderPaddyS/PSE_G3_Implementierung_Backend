@@ -28,4 +28,14 @@ public class AliasSuggestionQuery implements GraphQLQueryResolver {
         return aliasSuggestionService.getAliasSuggestionsAmount(mapID, amount, user);
     }
 
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public Integer getPosVotes(String aliasSuggestion, int mapID) {
+        return aliasSuggestionService.getPosVotes(aliasSuggestion, mapID);
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public Integer getNegVotes(String aliasSuggestion, int mapID) {
+        return aliasSuggestionService.getNegVotes(aliasSuggestion, mapID);
+    }
+
 }

@@ -83,5 +83,15 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
     public Iterable<AliasSuggestion> getAliasSuggestionsAmount(int mapID, int amount, String user) {
         return aliasSuggestionRepository.findAmount( mapID, "%" + user + "%", amount);
     }
-    
+
+    @Override
+    public int getPosVotes(String aliasSuggestion, int mapID) {
+        return aliasSuggestionRepository.getPosVotes(aliasSuggestion, mapID);
+    }
+
+    @Override
+    public int getNegVotes(String aliasSuggestion, int mapID) {
+        return aliasSuggestionRepository.getNegVotes(aliasSuggestion, mapID);
+    }
+
 }

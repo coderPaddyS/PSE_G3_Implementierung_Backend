@@ -9,6 +9,8 @@ type Query {
 
     getAliasSuggestions(minValToShowPos : Int!, minValToShowNeg : Int!) : [AliasSuggestion]
     getAliasSuggestionsAmount(mapID : Int!, amount : Int!, user : String!) : [AliasSuggestion]
+    getPosVotes : Int!
+    getNegVotes : Int!
 
     getMapObject(mapID : Int!) : String
     getMapIDByName(mapObject : String!) : Int
