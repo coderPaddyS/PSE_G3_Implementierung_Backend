@@ -6,5 +6,6 @@ public interface UserService {
 
     public String addUser(String accessToken);
     public User loadUserByToken(String accessToken);
+    public Boolean isAdmin();
 
 }

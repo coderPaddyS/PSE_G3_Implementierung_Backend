@@ -67,6 +67,11 @@ public class UserServiceImp implements UserService{
         return user;
     }
 
+    @Override
+    public Boolean isAdmin() {
+        return true;
+    }
+
     private Optional<DecodedJWT> verifyAndDecodeToken(String token) {
         try {
             DecodedJWT decodedJWT = JWT.decode(token);
