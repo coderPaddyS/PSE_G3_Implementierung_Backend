@@ -41,6 +41,10 @@ public class AliasQuery implements GraphQLQueryResolver {
         return aliasService.getAlias(mapID);
     }
 
+    public Iterable<Alias> getAllAliases() {
+        return aliasService.getAllAliases();
+    }
+
     public Iterable<Alias> getNewAliases(int version) {
         return aliasService.getAliasUpdates(version);
     }

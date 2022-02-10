@@ -2,6 +2,7 @@
 # Root
 type Query {
     getAlias(mapID : Int!) : [Alias]
+    getAllAliases : [Alias]
     getNewAliases(version : Int!) : [Alias]
     getNewDeletedAliases(version : Int!) : [DeletedAlias]
     getVersion : Int!
