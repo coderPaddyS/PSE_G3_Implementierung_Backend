@@ -23,7 +23,7 @@ public class AliasServiceImp implements AliasService {
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     @Override
-    public boolean addAlias(String alias, int mapID) {
+    public boolean addAlias(String alias, int mapID, String mapObject) {
         Alias exists = aliasRepository.findByName(alias);
         if (exists != null) {
             return false;
@@ -34,7 +34,7 @@ public class AliasServiceImp implements AliasService {
             versionRepository.save(new Version(1));
             currentVersion = 1;
         }
-        Alias newEntry = new Alias(alias, mapID, currentVersion);
+        Alias newEntry = new Alias(alias, mapID, mapObject, currentVersion);
 
         aliasRepository.save(newEntry);
         return true;

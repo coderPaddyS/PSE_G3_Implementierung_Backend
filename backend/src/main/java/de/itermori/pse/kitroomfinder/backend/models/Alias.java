@@ -19,6 +19,9 @@ public class Alias {
     @Column(name = "mapID", nullable = false)
     private Integer mapID;
 
+    @Column(name = "mapObject", nullable = false)
+    private String mapObject;
+
     @Column(name = "version", nullable = false)
     private int version;
 
@@ -26,9 +29,10 @@ public class Alias {
     public Alias() {
     }
 
-    public Alias(String name, Integer mapID, int version) {
+    public Alias(String name, Integer mapID, String mapObject, int version) {
         this.name = name;
         this.mapID = mapID;
+        this.mapObject = mapObject;
         this.version = version;
     }
 
@@ -59,6 +63,15 @@ public class Alias {
     // Hibernate requires the setter for reading values from the database.
     private void setMapID(Integer mapID) {
         this.mapID = mapID;
+    }
+
+    public String getMapObject() {
+        return mapObject;
+    }
+
+    // Hibernate requires the setter for reading values from the database.
+    private void setMapObject(String mapObject) {
+        this.mapObject = mapObject;
     }
 
     @Override

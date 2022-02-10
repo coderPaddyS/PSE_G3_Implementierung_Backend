@@ -49,21 +49,21 @@ public class AliasQueryTest {
     @Test
     public void getAliasTest() throws IOException, JSONException {
         String testname = "getAlias";
-        aliasRepository.save(new Alias("alias", 1, 1));
+        aliasRepository.save(new Alias("alias", 1, "50.34", 1));
         UtilTests.validate(graphQLTestTemplate, testname);
     }
 
     @Test
     public void removeAliasTest() throws JSONException, IOException {
         String testname = "removeAlias";
-        aliasRepository.save(new Alias("dalias", 1 ,1));
+        aliasRepository.save(new Alias("dalias", 1 , "50.34", 1));
         UtilTests.validate(graphQLTestTemplate, testname, UtilTests.ADMIN);
     }
 
     @Test
     public void getNewAliasesTest() throws JSONException, IOException {
         String testname = "getNewAliases";
-        aliasRepository.save(new Alias("alias2", 1, 2));
+        aliasRepository.save(new Alias("alias2", 1, "50.34", 2));
         UtilTests.validate(graphQLTestTemplate, testname);
     }
 

@@ -24,11 +24,11 @@ public class AliasSuggestionMutation implements GraphQLMutationResolver {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    public Boolean approveAliasSuggestion(String aliasSuggestion, int mapID) {
+    public Boolean approveAliasSuggestion(String aliasSuggestion, int mapID, String mapObject) {
         if (!aliasSuggestionService.removeAliasSuggestion(aliasSuggestion, mapID)) {
             return false;
         }
-        return aliasService.addAlias(aliasSuggestion, mapID);
+        return aliasService.addAlias(aliasSuggestion, mapID, mapObject);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
