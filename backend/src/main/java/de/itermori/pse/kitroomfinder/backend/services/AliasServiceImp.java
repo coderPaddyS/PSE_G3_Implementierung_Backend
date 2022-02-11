@@ -57,6 +57,17 @@ public class AliasServiceImp implements AliasService {
         return aliasRepository.findUpdatesByVersion(version);
     }
 
+    @Override
+    public Integer getAmountEntriesAlias() {
+        int count = 0;
+        try {
+            count = Math.toIntExact(aliasRepository.count());
+        } catch (ArithmeticException e) {
+            return Integer.MAX_VALUE;
+        }
+        return count;
+    }
+
     @Transactional
     @Override
     public boolean removeAlias(String name) {

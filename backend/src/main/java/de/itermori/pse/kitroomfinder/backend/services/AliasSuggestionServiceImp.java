@@ -85,6 +85,17 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
     }
 
     @Override
+    public Integer getAmountEntriesAliasSuggestion() {
+        int count = 0;
+        try {
+            count = Math.toIntExact(aliasSuggestionRepository.count());
+        } catch (ArithmeticException e) {
+            return Integer.MAX_VALUE;
+        }
+        return count;
+    }
+
+    @Override
     public int getPosVotes(String aliasSuggestion, int mapID) {
         return aliasSuggestionRepository.getPosVotes(aliasSuggestion, mapID);
     }

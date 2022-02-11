@@ -4,12 +4,15 @@ type Query {
     getAlias(mapID : Int!) : [Alias]
     getAllAliases : [Alias]
     getNewAliases(version : Int!) : [Alias]
+    getAmountEntriesAlias : Int
     getNewDeletedAliases(version : Int!) : [DeletedAlias]
     getVersion : Int!
     getBlacklist : [String]
+    getAmountEntriesBlacklist : Int
 
     getAliasSuggestions(minValToShowPos : Int!, minValToShowNeg : Int!) : [AliasSuggestion]
     getAliasSuggestionsAmount(mapID : Int!, amount : Int!, user : String!) : [AliasSuggestion]
+    getAmountEntriesAliasSuggestion : Int
     getPosVotes(aliasSuggestion : String, mapID : Int!) : Int!
     getNegVotes(aliasSuggestion : String, mapID : Int!) : Int!
 

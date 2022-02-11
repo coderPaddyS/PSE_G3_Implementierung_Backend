@@ -6,5 +6,6 @@ public interface BlacklistService {
     public boolean removeFromBlacklist(String blacklistedToRem);
     public boolean isBlacklisted(String word);
     public Iterable<String> getBlacklist();
+    public Integer getAmountEntriesBlacklist();
 
 }
