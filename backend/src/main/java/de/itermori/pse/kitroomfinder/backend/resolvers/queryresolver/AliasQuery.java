@@ -67,8 +67,13 @@ public class AliasQuery implements GraphQLQueryResolver {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    public Integer getAmountEntriesAlias() {
+    public String getAmountEntriesAlias() {
         return aliasService.getAmountEntriesAlias();
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String getAmountEntriesBlacklist() {
+        return blacklistService.getAmountEntriesBlacklist();
     }
 
 }

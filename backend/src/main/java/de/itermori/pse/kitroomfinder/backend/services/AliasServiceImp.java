@@ -58,14 +58,8 @@ public class AliasServiceImp implements AliasService {
     }
 
     @Override
-    public Integer getAmountEntriesAlias() {
-        int count = 0;
-        try {
-            count = Math.toIntExact(aliasRepository.count());
-        } catch (ArithmeticException e) {
-            return Integer.MAX_VALUE;
-        }
-        return count;
+    public String getAmountEntriesAlias() {
+        return String.valueOf(aliasRepository.count());
     }
 
     @Transactional

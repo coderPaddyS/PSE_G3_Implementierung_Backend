@@ -53,14 +53,8 @@ public class BlacklistServiceImp implements BlacklistService{
     }
 
     @Override
-    public Integer getAmountEntriesBlacklist() {
-        int count = 0;
-        try {
-            count = Math.toIntExact(blacklistRepository.count());
-        } catch (ArithmeticException e) {
-            return Integer.MAX_VALUE;
-        }
-        return count;
+    public String getAmountEntriesBlacklist() {
+        return String.valueOf(blacklistRepository.count());
     }
-    
+
 }

@@ -8,6 +8,6 @@ public interface AliasService {
     public Iterable<Alias> getAlias(int mapID);
     public Iterable<Alias> getAllAliases();
     public Iterable<Alias> getAliasUpdates(int version);
-    public Integer getAmountEntriesAlias();
+    public String getAmountEntriesAlias();
     public boolean removeAlias(String name);
 }
