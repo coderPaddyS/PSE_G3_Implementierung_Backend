@@ -1,6 +1,5 @@
 package de.itermori.pse.kitroomfinder.backend.repositories;
 
-import de.itermori.pse.kitroomfinder.backend.models.Alias;
 import de.itermori.pse.kitroomfinder.backend.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

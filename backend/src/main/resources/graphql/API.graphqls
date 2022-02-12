@@ -2,25 +2,34 @@
 # Root
 type Query {
     getAlias(mapID : Int!) : [Alias]
+    getAllAliases : [Alias]
     getNewAliases(version : Int!) : [Alias]
+    getAmountEntriesAlias : String
     getNewDeletedAliases(version : Int!) : [DeletedAlias]
     getVersion : Int!
     getBlacklist : [String]
+    getAmountEntriesBlacklist : String
 
     getAliasSuggestions(minValToShowPos : Int!, minValToShowNeg : Int!) : [AliasSuggestion]
     getAliasSuggestionsAmount(mapID : Int!, amount : Int!, user : String!) : [AliasSuggestion]
+    getAmountEntriesAliasSuggestion : String
+    getPosVotes(aliasSuggestion : String, mapID : Int!) : Int!
+    getNegVotes(aliasSuggestion : String, mapID : Int!) : Int!
 
     getMapObject(mapID : Int!) : String
     getMapIDByName(mapObject : String!) : Int
     getAllMapIDs : [Int]
+    getAllMapIDsName : [String]
+
+    isAdmin : Boolean
 }
 
 # Root
 type Mutation {
-    approveAliasSuggestion(aliasSuggestion : String!, mapID : Int!) : Boolean
+    approveAliasSuggestion(aliasSuggestion : String!, mapID : Int!, mapObject : String!) : Boolean
     disapproveAliasSuggestion(aliasSuggestion : String!, mapID : Int!) : Boolean
     voteForAliasSuggestion(aliasSuggestion : String!, mapID : Int!, user : String!, vote : Boolean!) : Boolean
-    suggestAlias(aliasSuggestion : String!, mapID : Int!, user : String!) : Boolean
+    suggestAlias(aliasSuggestion : String!, mapID : Int!, mapObject : String!, user : String!) : Boolean
 
     registerUser(accessToken : String) : String
 
@@ -29,16 +38,20 @@ type Mutation {
     removeFromBlacklist(blacklistedToRem : String!) : Boolean
 }
 
-type AliasSuggestion{
+type AliasSuggestion {
     suggester : String
     name : String!
     getVoters : String
+    posVotes : Int
+    negVotes : Int
     mapID : Int
+    mapObject : String
 }
 
 type Alias {
     name : String
     mapID : Int
+    mapObject : String
     version : Int
 }
 

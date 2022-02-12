@@ -30,4 +30,10 @@ public class MapIDQuery implements GraphQLQueryResolver {
     public Iterable<Integer> getAllMapIDs() {
         return mapIDService.getAllMapIDs();
     }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public Iterable<String> getAllMapIDsName() {
+        return mapIDService.getAllMapIDsName();
+    }
+
 }

@@ -24,12 +24,12 @@ class AliasRepositoryTest {
 
     @Test
     void whenAliasSaved_thenFindByMapID() {
-        Alias expectedAlias = new Alias("Infobau", 1, 1);
+        Alias expectedAlias = new Alias("Infobau", 1, "50.34", 1);
         aliasRepository.save(expectedAlias);
         Iterable<Alias> actualAliases = aliasRepository.findByMapID(1);
         Iterator<Alias> aliasIterator = actualAliases.iterator();
         int actualAmountAliases = 0;
-        Alias actualAlias = new Alias("AnotherAlias", 2, 2);
+        Alias actualAlias = new Alias("AnotherAlias", 2, "50.34", 2);
         while (aliasIterator.hasNext()) {
             ++actualAmountAliases;
             actualAlias = aliasIterator.next(); // now correct value should be saved in actualAlias
@@ -40,7 +40,7 @@ class AliasRepositoryTest {
 
     @Test
     void whenAliasSaved_thenFindByName() {
-        Alias expectedAlias = new Alias("Infobau", 1, 1);
+        Alias expectedAlias = new Alias("Infobau", 1, "50.34", 1);
         aliasRepository.save(expectedAlias);
         Alias actualAlias = aliasRepository.findByName("Infobau");
         assertEquals(expectedAlias, actualAlias);
@@ -49,7 +49,7 @@ class AliasRepositoryTest {
     @Test
     void whenAliasSaved_thenDeleteByName() {
         // first save alias in database
-        Alias toDelete = new Alias("Infobau", 1, 1);
+        Alias toDelete = new Alias("Infobau", 1, "50.34", 1);
         aliasRepository.save(toDelete);
 
         // now check if it is saved in database
@@ -65,7 +65,7 @@ class AliasRepositoryTest {
 
     @Test
     void whenNewerAlias_thenFindUpdatesByVersion() {
-        Alias newerAlias = new Alias("Infobau", 1, 1);
+        Alias newerAlias = new Alias("Infobau", 1, "50.34", 1);
         aliasRepository.save(newerAlias);
         Iterable<Alias> newAliases = aliasRepository.findUpdatesByVersion(0);
         Iterator<Alias> aliasIterator = newAliases.iterator();

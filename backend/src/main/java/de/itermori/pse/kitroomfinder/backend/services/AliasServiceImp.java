@@ -1,9 +1,11 @@
 package de.itermori.pse.kitroomfinder.backend.services;
 
 import de.itermori.pse.kitroomfinder.backend.models.Alias;
+import de.itermori.pse.kitroomfinder.backend.models.MapID;
 import de.itermori.pse.kitroomfinder.backend.models.Version;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasRepository;
 import de.itermori.pse.kitroomfinder.backend.repositories.VersionRepository;
+import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
@@ -23,7 +25,7 @@ public class AliasServiceImp implements AliasService {
 
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     @Override
-    public boolean addAlias(String alias, int mapID) {
+    public boolean addAlias(String alias, int mapID, String mapObject) {
         Alias exists = aliasRepository.findByName(alias);
         if (exists != null) {
             return false;
@@ -34,7 +36,7 @@ public class AliasServiceImp implements AliasService {
             versionRepository.save(new Version(1));
             currentVersion = 1;
         }
-        Alias newEntry = new Alias(alias, mapID, currentVersion);
+        Alias newEntry = new Alias(alias, mapID, mapObject, currentVersion);
 
         aliasRepository.save(newEntry);
         return true;
@@ -46,8 +48,18 @@ public class AliasServiceImp implements AliasService {
     }
 
     @Override
+    public Iterable<Alias> getAllAliases() {
+        return aliasRepository.findAll();
+    }
+
+    @Override
     public Iterable<Alias> getAliasUpdates(int version) {
         return aliasRepository.findUpdatesByVersion(version);
+    }
+
+    @Override
+    public String getAmountEntriesAlias() {
+        return String.valueOf(aliasRepository.count());
     }
 
     @Transactional

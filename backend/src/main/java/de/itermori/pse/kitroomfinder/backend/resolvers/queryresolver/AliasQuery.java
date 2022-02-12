@@ -41,6 +41,10 @@ public class AliasQuery implements GraphQLQueryResolver {
         return aliasService.getAlias(mapID);
     }
 
+    public Iterable<Alias> getAllAliases() {
+        return aliasService.getAllAliases();
+    }
+
     public Iterable<Alias> getNewAliases(int version) {
         return aliasService.getAliasUpdates(version);
     }
@@ -60,6 +64,16 @@ public class AliasQuery implements GraphQLQueryResolver {
     @PreAuthorize("hasAuthority('ADMIN')")
     public Iterable<String> getBlacklist() {
         return blacklistService.getBlacklist();
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String getAmountEntriesAlias() {
+        return aliasService.getAmountEntriesAlias();
+    }
+
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public String getAmountEntriesBlacklist() {
+        return blacklistService.getAmountEntriesBlacklist();
     }
 
 }

@@ -24,11 +24,11 @@ public class AliasSuggestionMutation implements GraphQLMutationResolver {
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
-    public Boolean approveAliasSuggestion(String aliasSuggestion, int mapID) {
+    public Boolean approveAliasSuggestion(String aliasSuggestion, int mapID, String mapObject) {
         if (!aliasSuggestionService.removeAliasSuggestion(aliasSuggestion, mapID)) {
             return false;
         }
-        return aliasService.addAlias(aliasSuggestion, mapID);
+        return aliasService.addAlias(aliasSuggestion, mapID, mapObject);
     }
 
     @PreAuthorize("hasAuthority('ADMIN')")
@@ -42,10 +42,10 @@ public class AliasSuggestionMutation implements GraphQLMutationResolver {
     }
 
     @PreAuthorize("hasAuthority('USER')")
-    public Boolean suggestAlias(String aliasSuggestion, int mapID, String user) {
+    public Boolean suggestAlias(String aliasSuggestion, int mapID, String mapObject, String user) {
         if (blacklistService.isBlacklisted(aliasSuggestion)) {
             return false;
         }
-        return aliasSuggestionService.addAliasSuggestion(aliasSuggestion, mapID, user);
+        return aliasSuggestionService.addAliasSuggestion(aliasSuggestion, mapID, mapObject, user);
     }
 }

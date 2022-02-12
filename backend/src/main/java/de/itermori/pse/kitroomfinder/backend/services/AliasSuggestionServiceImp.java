@@ -26,14 +26,14 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
 
     @Transactional
     @Override
-    public boolean addAliasSuggestion(String aliasSuggestion, int mapID, String user) {
+    public boolean addAliasSuggestion(String aliasSuggestion, int mapID, String mapObject, String user) {
         if (blacklistService.isBlacklisted(aliasSuggestion)) {
             return false;
         }
         if (aliasSuggestionRepository.findByNameAndMapID(aliasSuggestion, mapID) != null){
             return false;
         }
-        aliasSuggestionRepository.save(new AliasSuggestion(aliasSuggestion, mapID, user));
+        aliasSuggestionRepository.save(new AliasSuggestion(aliasSuggestion, mapID, mapObject, user));
         return true;
     }
 
@@ -83,5 +83,20 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
     public Iterable<AliasSuggestion> getAliasSuggestionsAmount(int mapID, int amount, String user) {
         return aliasSuggestionRepository.findAmount( mapID, "%" + user + "%", amount);
     }
-    
+
+    @Override
+    public String getAmountEntriesAliasSuggestion() {
+        return String.valueOf(aliasSuggestionRepository.count());
+    }
+
+    @Override
+    public int getPosVotes(String aliasSuggestion, int mapID) {
+        return aliasSuggestionRepository.getPosVotes(aliasSuggestion, mapID);
+    }
+
+    @Override
+    public int getNegVotes(String aliasSuggestion, int mapID) {
+        return aliasSuggestionRepository.getNegVotes(aliasSuggestion, mapID);
+    }
+
 }

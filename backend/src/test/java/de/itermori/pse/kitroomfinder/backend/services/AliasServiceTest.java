@@ -30,7 +30,7 @@ class AliasServiceTest {
 
     @Test
     void whenAliasNotYetAdded_thenAddAlias() {
-        assertTrue(aliasService.addAlias("Infobau", 1));
+        assertTrue(aliasService.addAlias("Infobau", 1, "50.34"));
         Alias actualAlias = aliasRepository.findByName("Infobau");
         assertEquals("Infobau", actualAlias.getName());
         assertEquals(1, actualAlias.getMapID());
@@ -39,20 +39,20 @@ class AliasServiceTest {
     @Test
     void whenAliasAlreadyAdded_thenAddAlias() {
         // add alias once
-        assertTrue(aliasService.addAlias("Infobau", 1));
+        assertTrue(aliasService.addAlias("Infobau", 1, "50.34"));
         Alias actualAlias = aliasRepository.findByName("Infobau");
         assertEquals("Infobau", actualAlias.getName());
         assertEquals(1, actualAlias.getMapID());
 
         // add alias a second time
-        assertFalse(aliasService.addAlias("Infobau", 1));
+        assertFalse(aliasService.addAlias("Infobau", 1, "50.34"));
     }
 
     @Test
     void whenAliasesSaved_thenGetAlias() {
         // save aliases
-        Alias toSave1 = new Alias("Infobau", 1, 1);
-        Alias toSave2 = new Alias("HSaF", 1, 1);
+        Alias toSave1 = new Alias("Infobau", 1, "50.34", 1);
+        Alias toSave2 = new Alias("HSaF", 1, "50.34", 1);
         aliasRepository.save(toSave1);
         aliasRepository.save(toSave2);
 
@@ -73,7 +73,7 @@ class AliasServiceTest {
     @Test
     void whenNewerAliasSaved_thenGetAliasUpdates() {
         // save alias
-        Alias toSave = new Alias("Infobau", 1, 1);
+        Alias toSave = new Alias("Infobau", 1, "50.34", 1);
         aliasRepository.save(toSave);
 
         // get aliases and save them in a list for simpler testing
@@ -92,7 +92,7 @@ class AliasServiceTest {
     @Test
     void whenNotNewerAliasSaved_thenGetAliasUpdates() {
         // save alias
-        Alias toSave = new Alias("Infobau", 1, 1);
+        Alias toSave = new Alias("Infobau", 1, "50.34", 1);
         aliasRepository.save(toSave);
 
         // get aliases and save them in a list for simpler testing
@@ -110,7 +110,7 @@ class AliasServiceTest {
     @Test
     void whenAliasSaved_thenRemoveAlias() {
         // save alias
-        Alias toDelete = new Alias("Infobau", 1, 1);
+        Alias toDelete = new Alias("Infobau", 1, "50.34", 1);
         aliasRepository.save(toDelete);
 
         // check if alias is saved

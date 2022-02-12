@@ -1,10 +1,8 @@
 package de.itermori.pse.kitroomfinder.backend.services;
 
 import de.itermori.pse.kitroomfinder.backend.models.BlacklistEntry;
-import de.itermori.pse.kitroomfinder.backend.models.MapID;
 import de.itermori.pse.kitroomfinder.backend.repositories.BlacklistRepository;
 import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -27,7 +25,8 @@ public class BlacklistServiceImp implements BlacklistService{
         if (isBlacklisted(toBlacklist)) {
             return false;
         }
-        return blacklistRepository.save(new BlacklistEntry(toBlacklist)) != null;
+        blacklistRepository.save(new BlacklistEntry(toBlacklist));
+        return true;
     }
 
     @Transactional
@@ -52,4 +51,10 @@ public class BlacklistServiceImp implements BlacklistService{
                 .map(BlacklistEntry::getName);
         return stream::iterator;
     }
+
+    @Override
+    public String getAmountEntriesBlacklist() {
+        return String.valueOf(blacklistRepository.count());
+    }
+
 }

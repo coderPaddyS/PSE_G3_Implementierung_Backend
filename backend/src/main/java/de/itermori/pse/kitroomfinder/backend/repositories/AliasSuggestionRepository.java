@@ -50,4 +50,11 @@ public interface AliasSuggestionRepository extends JpaRepository<AliasSuggestion
     @Query("SELECT a FROM AliasSuggestion AS a WHERE a.name=:aliasSuggestion AND a.mapID=:mapID")
     public AliasSuggestion findByNameAndMapID(@Param("aliasSuggestion") String aliasSuggestion,
                                     @Param("mapID") int mapID);
+
+    @Query("SELECT a.posVotes FROM AliasSuggestion AS a WHERE a.name=:aliasSuggestion AND a.mapID=:mapID")
+    public Integer getPosVotes(@Param("aliasSuggestion") String aliasSuggestion, @Param("mapID") int mapID);
+
+    @Query("SELECT a.negVotes FROM AliasSuggestion AS a WHERE a.name=:aliasSuggestion AND a.mapID=:mapID")
+    public Integer getNegVotes(@Param("aliasSuggestion") String aliasSuggestion, @Param("mapID") int mapID);
+
 }

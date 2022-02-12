@@ -36,7 +36,7 @@ class AliasSuggestionServiceTest {
     @Test
     void whenAliasSuggestionNotYetAdded_thenAddAliasSuggestion() {
         // add alias suggestion
-        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "user"));
+        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "50.34", "user"));
 
         // check if alias suggestion was added to database
         List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
@@ -49,10 +49,10 @@ class AliasSuggestionServiceTest {
     @Test
     void whenAliasSuggestionAddedWithDifferentMapID_thenAddAliasSuggestion() {
         // add alias suggestion once
-        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "user"));
+        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "50.34", "user"));
 
         // add same alias suggestion but with different mapID
-        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 2, "user"));
+        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 2, "50.34", "user"));
 
         // check if both alias suggestions were added to database
         List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
@@ -71,10 +71,10 @@ class AliasSuggestionServiceTest {
     @Test
     void whenAliasSuggestionAlreadyAdded_thenAddAliasSuggestion() {
         // add alias suggestion once
-        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "user"));
+        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "50.34", "user"));
 
         // add same alias suggestion again
-        assertFalse(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "user2"));
+        assertFalse(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "50.34", "user2"));
 
         // check if only the first alias suggestion was added to database
         List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
@@ -87,7 +87,7 @@ class AliasSuggestionServiceTest {
     @Test
     void whenAliasSuggestionAdded_thenRemoveAliasSuggestion() {
         // save alias suggestion in database
-        AliasSuggestion aliasSuggestionToRemove = new AliasSuggestion("HSaF", 1, "suggester");
+        AliasSuggestion aliasSuggestionToRemove = new AliasSuggestion("HSaF", 1, "50.34", "suggester");
         aliasSuggestionRepository.save(aliasSuggestionToRemove);
 
         // now remove saved alias suggestion
@@ -101,8 +101,8 @@ class AliasSuggestionServiceTest {
     @Test
     void whenAliasSuggestionsAdded_thenRemoveAliasSuggestion() {
         // save alias suggestion in database
-        AliasSuggestion aliasSuggestionToRemove1 = new AliasSuggestion("HSaF", 1, "suggester");
-        AliasSuggestion aliasSuggestionToRemove2 = new AliasSuggestion("HSaF", 2, "suggester");
+        AliasSuggestion aliasSuggestionToRemove1 = new AliasSuggestion("HSaF", 1, "50.34", "suggester");
+        AliasSuggestion aliasSuggestionToRemove2 = new AliasSuggestion("HSaF", 2, "50.34", "suggester");
         aliasSuggestionRepository.save(aliasSuggestionToRemove1);
         aliasSuggestionRepository.save(aliasSuggestionToRemove2);
 
@@ -117,7 +117,7 @@ class AliasSuggestionServiceTest {
     @Test
     void whenAliasSuggestionSaved_thenVoteForAlias() {
         // save alias suggestion in database
-        AliasSuggestion aliasSuggestionToVoteFor = new AliasSuggestion("HSaF", 1, "suggester");
+        AliasSuggestion aliasSuggestionToVoteFor = new AliasSuggestion("HSaF", 1, "50.34", "suggester");
         aliasSuggestionRepository.save(aliasSuggestionToVoteFor);
 
         // vote for alias suggestion
@@ -135,7 +135,7 @@ class AliasSuggestionServiceTest {
     @Test
     void whenAlreadyVotedForAlias_thenVoteForAlias() {
         // save alias suggestion in database
-        AliasSuggestion aliasSuggestionToVoteFor = new AliasSuggestion("HSaF", 1, "suggester");
+        AliasSuggestion aliasSuggestionToVoteFor = new AliasSuggestion("HSaF", 1, "50.34", "suggester");
         aliasSuggestionRepository.save(aliasSuggestionToVoteFor);
 
         // vote for alias suggestion
@@ -154,7 +154,7 @@ class AliasSuggestionServiceTest {
     @Test
     void whenAliasSuggestionSaved_thenSuggesterVoteForAlias() {
         // save alias suggestion in database
-        AliasSuggestion aliasSuggestionToVoteFor = new AliasSuggestion("HSaF", 1, "suggester");
+        AliasSuggestion aliasSuggestionToVoteFor = new AliasSuggestion("HSaF", 1, "50.34", "suggester");
         aliasSuggestionRepository.save(aliasSuggestionToVoteFor);
 
         // vote for alias suggestion
@@ -172,8 +172,8 @@ class AliasSuggestionServiceTest {
     @Test
     void whenAliasSuggestionsSaved_thenGetAliasSuggestions() {
         // save alias suggestions in database
-        AliasSuggestion aliasSuggestion1 = new AliasSuggestion("HSaF", 1, "user");
-        AliasSuggestion aliasSuggestion2 = new AliasSuggestion("HSaF", 2, "user");
+        AliasSuggestion aliasSuggestion1 = new AliasSuggestion("HSaF", 1, "50.34", "user");
+        AliasSuggestion aliasSuggestion2 = new AliasSuggestion("HSaF", 2, "50.34", "user");
         aliasSuggestionRepository.save(aliasSuggestion1);
         aliasSuggestionRepository.save(aliasSuggestion2);
 
@@ -198,9 +198,9 @@ class AliasSuggestionServiceTest {
     @Test
     void whenAliasSuggestionsSaved_thenGetAliasSuggestionsAmount() {
         // save alias suggestions in database
-        AliasSuggestion aliasSuggestion1 = new AliasSuggestion("HSaF", 1, "user");
-        AliasSuggestion aliasSuggestion2 = new AliasSuggestion("Infobau", 1, "user");
-        AliasSuggestion aliasSuggestion3 = new AliasSuggestion("Info", 1, "user");
+        AliasSuggestion aliasSuggestion1 = new AliasSuggestion("HSaF", 1, "50.34", "user");
+        AliasSuggestion aliasSuggestion2 = new AliasSuggestion("Infobau", 1, "50.34", "user");
+        AliasSuggestion aliasSuggestion3 = new AliasSuggestion("Info", 1, "50.34", "user");
         aliasSuggestionRepository.save(aliasSuggestion1);
         aliasSuggestionRepository.save(aliasSuggestion2);
         aliasSuggestionRepository.save(aliasSuggestion3);
@@ -224,7 +224,7 @@ class AliasSuggestionServiceTest {
         BlacklistEntry blacklistEntry = new BlacklistEntry("forbidden");
         blacklistRepository.save(blacklistEntry);
 
-        assertFalse(aliasSuggestionService.addAliasSuggestion("forbidden", 1, "suggester"));
+        assertFalse(aliasSuggestionService.addAliasSuggestion("forbidden", 1, "50.34", "suggester"));
 
         // check if alias suggestion was not added to database
         List<AliasSuggestion> aliasSuggestions = aliasSuggestionRepository.findAll();

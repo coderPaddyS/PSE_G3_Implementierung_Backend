@@ -87,7 +87,7 @@ public class AliasSuggestionTest {
     @Test
     public void getAliasSuggestionsTest() throws IOException, JSONException {
         String testname = "getAliasSuggestions";
-        aliasSuggestionRepository.save(new AliasSuggestion("suggestion", 1, "user1"));
+        aliasSuggestionRepository.save(new AliasSuggestion("suggestion", 1, "50.34", "user1"));
         aliasSuggestionRepository.votePos(1, "suggestion");
         aliasSuggestionRepository.voteNeg(1, "suggestion");
         UtilTests.validate(graphQLTestTemplate, testname, ADMIN);
@@ -96,9 +96,9 @@ public class AliasSuggestionTest {
     @Test
     public void getAliasSuggestionAmountTest() throws JSONException, IOException {
         String testname = "getAliasSuggestionAmount";
-        aliasSuggestionRepository.save(new AliasSuggestion("a", 1 , "sug"));
-        aliasSuggestionRepository.save(new AliasSuggestion("b", 1 , "sug"));
-        aliasSuggestionRepository.save(new AliasSuggestion("c", 1 , "sug"));
+        aliasSuggestionRepository.save(new AliasSuggestion("a", 1 , "50.34", "sug"));
+        aliasSuggestionRepository.save(new AliasSuggestion("b", 1 , "50.34", "sug"));
+        aliasSuggestionRepository.save(new AliasSuggestion("c", 1 , "50.34", "sug"));
         aliasSuggestionService.voteForAlias("a", 1, "user", true);
         aliasSuggestionService.voteForAlias("a", 1, "user2", false);
         aliasSuggestionService.voteForAlias("a", 1, "user3", false);
@@ -108,6 +108,14 @@ public class AliasSuggestionTest {
     @Test
     public void suggestAlias() throws IOException {
         String testname = "suggestAlias";
+        String token = JWT
+                .create()
+                .withIssuer("my-graphql-api")
+                .withIssuedAt(Calendar.getInstance().getTime())
+                .withExpiresAt(new Date(Calendar.getInstance().getTime().getTime() + 600000))
+                .withClaim("preferred_username", "user")
+                .sign(Algorithm.HMAC256("secret"));
+        graphQLTestTemplate.withBearerAuth(token);
         graphQLTestTemplate.postForResource(format(GRAPHQL_QUERY_REQUEST_PATH, testname));
         assertTrue(aliasSuggestionRepository.findByNameAndMapID("alias", 1) != null);
     }
@@ -120,7 +128,7 @@ public class AliasSuggestionTest {
                 .withIssuer("my-graphql-api")
                 .withIssuedAt(Calendar.getInstance().getTime())
                 .withExpiresAt(new Date(Calendar.getInstance().getTime().getTime() + 600000))
-                .withSubject(USER)
+                .withClaim("preferred_username", "user")
                 .sign(Algorithm.HMAC256("secret"));
         graphQLTestTemplate.withBearerAuth(token);
         graphQLTestTemplate.postForResource(format(GRAPHQL_QUERY_REQUEST_PATH, testname));
@@ -131,13 +139,13 @@ public class AliasSuggestionTest {
     public void voteForAliasTest() throws IOException, JSONException {
         String testname = "voteForAlias";
 
-        aliasSuggestionRepository.save(new AliasSuggestion("alias", 1, "suggester"));
+        aliasSuggestionRepository.save(new AliasSuggestion("alias", 1, "50.34", "suggester"));
         String token = JWT
                 .create()
                 .withIssuer("my-graphql-api")
                 .withIssuedAt(Calendar.getInstance().getTime())
                 .withExpiresAt(new Date(Calendar.getInstance().getTime().getTime() + 600000))
-                .withSubject(UtilTests.USER)
+                .withClaim("preferred_username", "user")
                 .sign(Algorithm.HMAC256("secret"));
         graphQLTestTemplate.withBearerAuth(token);
         graphQLTestTemplate.postForResource(format(GRAPHQL_QUERY_REQUEST_PATH, testname));

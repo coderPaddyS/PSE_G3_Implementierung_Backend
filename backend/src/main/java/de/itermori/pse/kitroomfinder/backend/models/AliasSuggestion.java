@@ -1,15 +1,11 @@
 package de.itermori.pse.kitroomfinder.backend.models;
 
-import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 
 @Entity
 public class AliasSuggestion {
@@ -22,6 +18,9 @@ public class AliasSuggestion {
 
     @Column(name = "mapID", nullable = false)
     private Integer mapID;
+
+    @Column(name = "mapObject", nullable = false)
+    private String mapObject;
 
     @Column(name = "suggester", nullable = false)
     private String suggester;
@@ -38,9 +37,10 @@ public class AliasSuggestion {
     public AliasSuggestion() {
     }
 
-    public AliasSuggestion(String name, Integer mapID, String suggester) {
+    public AliasSuggestion(String name, Integer mapID, String mapObject, String suggester) {
         this.name = name;
         this.mapID = mapID;
+        this.mapObject = mapObject;
         this.suggester = suggester;
         this.posVotes = 0;
         this.negVotes = 0;
@@ -67,6 +67,15 @@ public class AliasSuggestion {
     // Hibernate requires the setter for reading values from the database.
     private void setMapID(Integer mapID) {
         this.mapID = mapID;
+    }
+
+    public String getMapObject() {
+        return mapObject;
+    }
+
+    // Hibernate requires the setter for reading values from the database.
+    private void setMapObject(String mapObject) {
+        this.mapObject = mapObject;
     }
 
     public String getSuggester() {
