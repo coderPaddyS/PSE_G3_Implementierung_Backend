@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Provides a {@link JpaRepository} for the model {@link Alias}.
+ * Provides a {@link JpaRepository} interface for the model {@link Alias}.
  * Communicates with the database, more precisely with the table regarding the aliases.
  *
  * @author Lukas Zetto
