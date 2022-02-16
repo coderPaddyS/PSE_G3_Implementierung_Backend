@@ -1,21 +1,16 @@
 package de.itermori.pse.kitroomfinder.backend.services;
 
-import de.itermori.pse.kitroomfinder.backend.models.Alias;
 import de.itermori.pse.kitroomfinder.backend.models.AliasSuggestion;
-import de.itermori.pse.kitroomfinder.backend.models.User;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasSuggestionRepository;
-import de.itermori.pse.kitroomfinder.backend.repositories.UserRepository;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AliasSuggestionServiceImp implements AliasSuggestionService {
 
-    private AliasSuggestionRepository aliasSuggestionRepository;
-    private BlacklistService blacklistService;
+    private final AliasSuggestionRepository aliasSuggestionRepository;
+    private final BlacklistService blacklistService;
 
     @Autowired
     public AliasSuggestionServiceImp(AliasSuggestionRepository aliasSuggestionRepository,
@@ -43,7 +38,7 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
         if (aliasSuggestionRepository.findByNameAndMapID(aliasSuggestion, mapID) == null){
             return false;
         }
-        aliasSuggestionRepository.deleteByNameAndID(mapID, aliasSuggestion);
+        aliasSuggestionRepository.deleteByNameAndID(aliasSuggestion, mapID);
         return true;
     }
 
@@ -81,7 +76,7 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
 
     @Override
     public Iterable<AliasSuggestion> getAliasSuggestionsAmount(int mapID, int amount, String user) {
-        return aliasSuggestionRepository.findAmount( mapID, "%" + user + "%", amount);
+        return aliasSuggestionRepository.findAmount( mapID, amount, "%" + user + "%");
     }
 
     @Override
