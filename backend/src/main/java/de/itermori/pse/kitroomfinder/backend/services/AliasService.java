@@ -19,7 +19,8 @@ public interface AliasService {
      * @param mapID     The mapID for which the alias should serve as an additional description.
      * @param mapObject The name of the mapID.
      *
-     * @return          True when the addition of the alias to the database succeeds, otherwise false.
+     * @return          True when the addition of the alias to the database succeeds, otherwise false
+     *                  (e.g. when the alias is already stored in the database).
      */
     boolean addAlias(String alias, int mapID, String mapObject);
 
@@ -55,7 +56,9 @@ public interface AliasService {
     /**
      * Returns the amount of aliases stored in the database.
      *
-     * @return  The amount of aliases stored in the database.
+     * @return  The amount of aliases stored in the database, converted to a {@link String}.
+     *          A {@link String} is returned since GraphQL does not (currently) support
+     *          a long datatype.
      */
     String getAmountEntriesAlias();
 
