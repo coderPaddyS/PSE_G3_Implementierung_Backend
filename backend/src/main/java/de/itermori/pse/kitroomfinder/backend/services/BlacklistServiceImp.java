@@ -11,7 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Provides a service for the model {@link BlacklistEntry}.
- * Implements the service interface which defines the corresponding GraphQL schema methods.
+ * Implements the service interface {@link BlacklistService} which defines
+ * the corresponding GraphQL schema methods related to the model {@link BlacklistEntry}.
  * Uses the repository {@link BlacklistRepository}.
  *
  * @author Lukas Zetto

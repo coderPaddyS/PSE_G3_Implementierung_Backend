@@ -9,7 +9,8 @@ import java.util.stream.Stream;
 
 /**
  * Provides a service for the model {@link MapID}.
- * Implements the service interface {@link MapIDService} which defines the corresponding GraphQL schema methods.
+ * Implements the service interface {@link MapIDService} which defines
+ * the corresponding GraphQL schema methods related to the model {@link MapID}.
  * Uses the repository {@link MapIDRepository}.
  *
  * @author Lukas Zetto

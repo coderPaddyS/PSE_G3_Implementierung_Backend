@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Provides a service for the model {@link AliasSuggestion}.
- * Implements the service interface defines the corresponding GraphQL schema methods
- * related to the model {@link AliasSuggestion}.
+ * Implements the service interface {@link AliasSuggestionService} defines
+ * the corresponding GraphQL schema methods related to the model {@link AliasSuggestion}.
  * Uses the classes {@link AliasSuggestionRepository}, {@link BlacklistService}.
  *
  * @author Lukas Zetto

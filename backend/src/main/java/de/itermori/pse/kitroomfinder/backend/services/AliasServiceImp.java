@@ -12,7 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Provides a service for the model {@link Alias}.
- * Implements the service interface which defines the corresponding GraphQL schema methods.
+ * Implements the service interface {@link AliasService} which defines
+ * the corresponding GraphQL schema methods related to the model {@link Alias}.
  * Uses the repositories {@link AliasRepository}, {@link VersionRepository}.
  *
  * @author Lukas Zetto
