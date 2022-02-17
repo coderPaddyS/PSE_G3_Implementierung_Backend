@@ -1,19 +1,20 @@
 package de.itermori.pse.kitroomfinder.backend.models;
 
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import org.springframework.security.core.GrantedAuthority;
 
+/**
+ * Provides a model for the entity User.
+ * Represents a user of the application.
+ *
+ * @author Lukas Zetto
+ * @author Adriano Castro
+ * @version 1.0
+ */
 @Entity
 public class User {
     @Id
@@ -26,41 +27,88 @@ public class User {
     @Column
     private String authorities;
 
-    // Hibernate requires an explicitly written standard constructor.
+    /**
+     * The standard constructor of the model.
+     */
     public User() {
+        // Hibernate requires an explicitly written standard constructor.
     }
 
+    /**
+     * The constructor for the initialization of a user entity.
+     *
+     * @param name          The name of the user.
+     * @param authorities   The authorities of the user.
+     */
     public User(String name, String authorities) {
         this.name = name;
         this.authorities = authorities;
     }
 
+    /**
+     * Getter method for the id of the user.
+     *
+     * @return  The id of the user.
+     */
     public Long getId() {
         return id;
     }
 
+    /**
+     * Getter method for the name of the user.
+     *
+     * @return  The name of the user.
+     */
     public String getName() {
         return name;
     }
 
-    // Hibernate requires the setter for reading values from the database.
+    /**
+     * Setter method for the name of the user.
+     *
+     * @param name  The new name to set for the user.
+     */
     private void setName(String name) {
+        // Hibernate requires the setter for reading values from the database.
         this.name = name;
     }
 
+    /**
+     * Getter method for the authorities of the user.
+     *
+     * @return  The authorities of the user.
+     */
     public String getAuthorities() {
         return authorities;
     }
 
+    /**
+     * Setter method for the authorities of the user.
+     *
+     * @param authorities  The new authorities to set for the user.
+     */
     public void setAuthorities(String authorities) {
         this.authorities = authorities;
     }
 
+    /**
+     * Returns a string representation of the model.
+     *
+     * @return  The string representation of the model.
+     */
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + "-" + this.getId();
     }
 
+    /**
+     * Defines the equals method of the model.
+     * Two {@link User} models are equal, if their id is equal.
+     *
+     * @param o The object to compare to.
+     * @return  True if the model and the provided object are equal concerning
+     *          their id, otherwise false.
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -73,6 +121,11 @@ public class User {
         return getId().equals(user.getId());
     }
 
+    /**
+     * Defines the hashCode of the model.
+     *
+     * @return  The hashCode of the model.
+     */
     @Override
     public int hashCode() {
         return Objects.hash(getId());
