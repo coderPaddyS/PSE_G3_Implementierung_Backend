@@ -3,9 +3,9 @@ package de.itermori.pse.kitroomfinder.backend.services;
 import de.itermori.pse.kitroomfinder.backend.models.MapID;
 
 /**
- * Provides a service for the model {@link MapIDService}.
+ * Provides a service for the model {@link MapID}.
  * This service interface defines the corresponding GraphQL schema methods
- * related to the model {@link MapIDService}.
+ * related to the model {@link MapID}.
  *
  * @author Lukas Zetto
  * @author Adriano Castro
