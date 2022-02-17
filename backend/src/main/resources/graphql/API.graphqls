@@ -16,10 +16,10 @@ type Query {
     getPosVotes(aliasSuggestion : String, mapID : Int!) : Int!
     getNegVotes(aliasSuggestion : String, mapID : Int!) : Int!
 
-    getMapObject(mapID : Int!) : String
+    getMapObjectName(mapID : Int!) : String
     getMapIDByName(mapObject : String!) : Int
     getAllMapIDs : [Int]
-    getAllMapIDsName : [String]
+    getAllMapObjectsName : [String]
 
     isAdmin : Boolean
 }

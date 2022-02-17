@@ -9,7 +9,7 @@ import javax.persistence.Id;
 
 /**
  * Provides a model for the entity Alias.
- * Represents an alias for a specific {@link MapID}.
+ * Represents an alias for a specific {@link MapObject}.
  *
  * @author Lukas Zetto
  * @author Adriano Castro

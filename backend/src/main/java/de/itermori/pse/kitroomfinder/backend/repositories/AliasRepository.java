@@ -1,6 +1,7 @@
 package de.itermori.pse.kitroomfinder.backend.repositories;
 
 import de.itermori.pse.kitroomfinder.backend.models.Alias;
+import de.itermori.pse.kitroomfinder.backend.models.MapObject;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,7 +22,7 @@ public interface AliasRepository extends JpaRepository<Alias, Long> {
      * that serve as an additional description for the provided
      * {@param mapID}.
      *
-     * @param mapID The {@link de.itermori.pse.kitroomfinder.backend.models.MapID},
+     * @param mapID The {@link MapObject},
      *              whose aliases (type: {@link Alias}) are to be found and returned.
      * @return      An {@link Iterable} of all the aliases (type: {@link Alias}) that serve as an additional
      *              description for the provided {@param mapID}.

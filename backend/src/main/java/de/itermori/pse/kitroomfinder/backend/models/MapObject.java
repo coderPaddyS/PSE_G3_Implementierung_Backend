@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- * Provides a model for the entity MapID.
+ * Provides a model for the entity MapObject.
  * Represents a map object in the map of the KIT Campus.
  *
  * @author Lukas Zetto
@@ -16,7 +16,7 @@ import javax.persistence.Id;
  * @version 1.0
  */
 @Entity
-public class MapID {
+public class MapObject {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -30,32 +30,32 @@ public class MapID {
     /**
      * The standard constructor of the model.
      */
-    public MapID() {
+    public MapObject() {
         // Hibernate requires an explicitly written standard constructor.
     }
 
     /**
      * The constructor for the initialization of a mapID entity.
      *
-     * @param name      The name of the mapID entity.
+     * @param name      The name of the map object entity.
      * @param mapID     The id of the map object in the KIT Campus.
      */
-    public MapID(String name, Integer mapID) {
+    public MapObject(String name, Integer mapID) {
         this.name = name;
         this.mapID = mapID;
     }
 
     /**
-     * Getter method for the id of the mapID entity.
+     * Getter method for the id of the map object entity.
      *
-     * @return  The id of the mapID entity.
+     * @return  The id of the map object entity.
      */
     public Long getId() {
         return id;
     }
 
     /**
-     * Getter method for the name of the mapID entity.
+     * Getter method for the name of the map object entity.
      *
      * @return  The name of the mapID entity.
      */
@@ -64,9 +64,9 @@ public class MapID {
     }
 
     /**
-     * Setter method for the name of the mapID entity.
+     * Setter method for the name of the map object entity.
      *
-     * @param name  The new name to set for the mapID entity.
+     * @param name  The new name to set for the map object entity.
      */
     private void setName(String name) {
         // Hibernate requires the setter for reading values from the database.
@@ -74,18 +74,18 @@ public class MapID {
     }
 
     /**
-     * Getter method for the mapID of the mapID entity.
+     * Getter method for the mapID of the map object entity.
      *
-     * @return  The mapID of the mapID entity.
+     * @return  The mapID of the map object entity.
      */
     public Integer getMapID() {
         return mapID;
     }
 
     /**
-     * Setter method for the mapID of the mapID entity.
+     * Setter method for the mapID of the map object entity.
      *
-     * @param mapID  The new mapID to set for the mapID entity.
+     * @param mapID  The new mapID to set for the map object entity.
      */
     private void setMapID(Integer mapID) {
         // Hibernate requires the setter for reading values from the database.
@@ -104,7 +104,7 @@ public class MapID {
 
     /**
      * Defines the equals method of the model.
-     * Two {@link MapID} models are equal, if their id is equal.
+     * Two {@link MapObject} models are equal, if their id is equal.
      *
      * @param o The object to compare to.
      * @return  True if the model and the provided object are equal concerning
@@ -118,7 +118,7 @@ public class MapID {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        MapID mapID = (MapID) o;
+        MapObject mapID = (MapObject) o;
         return getId().equals(mapID.getId());
     }
 
