@@ -66,6 +66,7 @@ public interface AliasService {
     /**
      * Removes the alias stored from the database
      * whose name corresponds to the provided one.
+     * Adds the alias to the deleted alias table of the database.
      *
      * @param name  The name of the alias that should be removed from the database.
      * @return      True if the alias is deleted successfully from the database

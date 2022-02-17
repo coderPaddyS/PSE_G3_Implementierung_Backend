@@ -3,6 +3,7 @@ package de.itermori.pse.kitroomfinder.backend.services;
 import de.itermori.pse.kitroomfinder.backend.models.Alias;
 import de.itermori.pse.kitroomfinder.backend.models.Version;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasRepository;
+import de.itermori.pse.kitroomfinder.backend.repositories.DeletedAliasRepository;
 import de.itermori.pse.kitroomfinder.backend.repositories.VersionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,18 +23,22 @@ import org.springframework.transaction.annotation.Transactional;
 public class AliasServiceImp implements AliasService {
 
     private final AliasRepository aliasRepository;
+    private final DeletedAliasService deletedAliasService;
     private final VersionRepository versionRepository;
 
     /**
      * The constructor which initializes the alias service implementation
      * with the required repositories.
      *
-     * @param aliasRepository   The required {@link AliasRepository}.
-     * @param versionRepository The required {@link VersionRepository}.
+     * @param aliasRepository           The required {@link AliasRepository}.
+     * @param deletedAliasService    The required {@link DeletedAliasRepository}.
+     * @param versionRepository         The required {@link VersionRepository}.
      */
     @Autowired
-    public AliasServiceImp(AliasRepository aliasRepository, VersionRepository versionRepository) {
+    public AliasServiceImp(AliasRepository aliasRepository, DeletedAliasService deletedAliasService,
+                           VersionRepository versionRepository) {
         this.aliasRepository = aliasRepository;
+        this.deletedAliasService = deletedAliasService;
         this.versionRepository = versionRepository;
     }
 
@@ -97,6 +102,8 @@ public class AliasServiceImp implements AliasService {
     @Transactional
     @Override
     public boolean removeAlias(String name) {
+        Alias toRemove = aliasRepository.findByName(name);
+        deletedAliasService.addDeletedAlias(toRemove.getName(), toRemove.getMapID());
         aliasRepository.deleteByName(name);
         return true;
     }
