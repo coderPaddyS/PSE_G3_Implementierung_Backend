@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- * Provides a model for the entity {@link AliasSuggestion}.
+ * Provides a model for the entity AliasSuggestion.
  * Represents an alias suggestion for a specific {@link MapID}.
  *
  * @author Lukas Zetto
@@ -54,7 +54,7 @@ public class AliasSuggestion {
      * @param name      The name of the alias suggestion.
      * @param mapID     The mapID for which the alias suggestion should serve as an additional description.
      * @param mapObject The name of the mapID.
-     * @param suggester The suggester of the alias.
+     * @param suggester The suggester of the alias suggestion.
      */
     public AliasSuggestion(String name, Integer mapID, String mapObject, String suggester) {
         this.name = name;

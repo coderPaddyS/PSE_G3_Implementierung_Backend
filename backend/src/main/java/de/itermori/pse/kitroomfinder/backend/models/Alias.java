@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- * Provides a model for the entity {@link Alias}.
+ * Provides a model for the entity Alias.
  * Represents an alias for a specific {@link MapID}.
  *
  * @author Lukas Zetto

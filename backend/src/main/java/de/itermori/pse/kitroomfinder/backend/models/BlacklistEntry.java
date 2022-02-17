@@ -4,7 +4,7 @@ import java.util.Objects;
 import javax.persistence.*;
 
 /**
- * Provides a model for the entity {@link BlacklistEntry}.
+ * Provides a model for the entity BlacklistEntry.
  *
  * @author Lukas Zetto
  * @author Adriano Castro
