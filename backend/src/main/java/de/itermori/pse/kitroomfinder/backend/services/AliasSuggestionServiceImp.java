@@ -125,7 +125,7 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
      * {@inheritDoc}
      */
     @Override
-    public int getPosVotes(String aliasSuggestion, int mapID) {
+    public Integer getPosVotes(String aliasSuggestion, int mapID) {
         if (aliasSuggestionRepository.findByNameAndMapID(aliasSuggestion, mapID) == null) {
             throw new NoSuchAliasSuggestionException();
         }
@@ -136,7 +136,7 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
      * {@inheritDoc}
      */
     @Override
-    public int getNegVotes(String aliasSuggestion, int mapID) {
+    public Integer getNegVotes(String aliasSuggestion, int mapID) {
         if (aliasSuggestionRepository.findByNameAndMapID(aliasSuggestion, mapID) == null) {
             throw new NoSuchAliasSuggestionException();
         }

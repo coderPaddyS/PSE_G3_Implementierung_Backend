@@ -113,7 +113,7 @@ public interface AliasSuggestionService {
      * @param mapID             The mapID for which the alias suggestion serves as an additional description.
      * @return                  The amount of upvotes the alias suggestion stored in the database has.
      */
-    int getPosVotes(String aliasSuggestion, int mapID);
+    Integer getPosVotes(String aliasSuggestion, int mapID);
 
     /**
      * Returns the amount of downvotes the
@@ -126,6 +126,6 @@ public interface AliasSuggestionService {
      * @param mapID             The mapID for which the alias suggestion serves as an additional description.
      * @return                  The amount of downvotes the alias suggestion stored in the database has.
      */
-    int getNegVotes(String aliasSuggestion, int mapID);
+    Integer getNegVotes(String aliasSuggestion, int mapID);
 
 }
