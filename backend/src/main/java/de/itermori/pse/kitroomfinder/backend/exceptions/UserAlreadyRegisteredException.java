@@ -1,4 +1,4 @@
-package de.itermori.pse.kitroomfinder.backend.Exceptions;
+package de.itermori.pse.kitroomfinder.backend.exceptions;
 
 public class UserAlreadyRegisteredException extends RuntimeException {
 
