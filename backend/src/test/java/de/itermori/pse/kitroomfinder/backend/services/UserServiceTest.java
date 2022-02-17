@@ -2,21 +2,20 @@ package de.itermori.pse.kitroomfinder.backend.services;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import de.itermori.pse.kitroomfinder.backend.Exceptions.BadTokenException;
-import de.itermori.pse.kitroomfinder.backend.Exceptions.UserNotFoundException;
+import de.itermori.pse.kitroomfinder.backend.exceptions.BadTokenException;
+import de.itermori.pse.kitroomfinder.backend.exceptions.UserNotFoundException;
 import de.itermori.pse.kitroomfinder.backend.repositories.UserRepository;
+import java.util.Calendar;
+import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import de.itermori.pse.kitroomfinder.backend.Exceptions.UserNotFoundException;
 
-
-import java.util.Calendar;
-import java.util.Date;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class UserServiceTest {
