@@ -29,7 +29,7 @@ public interface BlacklistService {
      * whose {@link String} representation (name) corresponds
      * to the one provided.
      *
-     * @param blacklistedToRem  The String which the name of the to-be-removed blacklist entry should have.
+     * @param blacklistedToRem  The {@link String} which the name of the to-be-removed blacklist entry should have.
      * @return                  True if the removal of the blacklist entry succeeds
      *                          or if no blacklist entry with the provided name exists in the database,
      *                          otherwise false.
