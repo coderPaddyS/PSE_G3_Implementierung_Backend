@@ -35,7 +35,7 @@ public class Alias {
 
 
     /**
-     * The standard constructor of the class.
+     * The standard constructor of the model.
      */
     public Alias() {
         // Hibernate requires an explicitly written standard constructor.

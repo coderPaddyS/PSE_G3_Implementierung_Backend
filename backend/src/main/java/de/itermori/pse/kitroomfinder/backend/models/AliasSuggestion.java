@@ -42,7 +42,7 @@ public class AliasSuggestion {
     private Integer negVotes;
 
     /**
-     * The standard constructor of the class.
+     * The standard constructor of the model.
      */
     public AliasSuggestion() {
         // Hibernate requires an explicitly written standard constructor.
