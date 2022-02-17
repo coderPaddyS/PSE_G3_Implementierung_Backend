@@ -1,6 +1,5 @@
 package de.itermori.pse.kitroomfinder.backend.services;
 
-import de.itermori.pse.kitroomfinder.backend.exceptions.NoSuchAliasSuggestionException;
 import de.itermori.pse.kitroomfinder.backend.models.AliasSuggestion;
 
 /**
