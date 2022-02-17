@@ -4,7 +4,8 @@ import de.itermori.pse.kitroomfinder.backend.models.Alias;
 
 /**
  * Provides a service for the model {@link Alias}.
- * The service interface defines the corresponding GraphQL schema methods.
+ * This service interface defines the corresponding GraphQL schema methods
+ * related to the model {@link Alias}.
  *
  * @author Lukas Zetto
  * @author Adriano Castro
