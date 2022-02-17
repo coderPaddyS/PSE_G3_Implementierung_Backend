@@ -77,7 +77,7 @@ public class Alias {
     /**
      * Setter method for the name of the alias.
      *
-     * @param name  The new name to set as the name of the alias.
+     * @param name  The new name to set for the alias.
      */
     private void setName(String name) {
         // Hibernate requires the setter for reading values from the database.
@@ -96,7 +96,7 @@ public class Alias {
     /**
      * Setter method for the version of the alias.
      *
-     * @param version  The new version to set as the version of the alias.
+     * @param version  The new version to set for the alias.
      */
     private void setVersion(int version) {
         // Hibernate requires the setter for reading values from the database.
@@ -115,7 +115,7 @@ public class Alias {
     /**
      * Setter method for the mapID of the alias.
      *
-     * @param mapID  The new mapID to set as the mapID of the alias.
+     * @param mapID  The new mapID to set for the alias.
      */
     private void setMapID(Integer mapID) {
         // Hibernate requires the setter for reading values from the database.
@@ -134,7 +134,7 @@ public class Alias {
     /**
      * Setter method for the name of the mapID of the alias.
      *
-     * @param mapObject  The new name of the mapID to set as the name of the alias.
+     * @param mapObject  The new name of the mapID to set for the alias.
      */
     private void setMapObject(String mapObject) {
         // Hibernate requires the setter for reading values from the database.
