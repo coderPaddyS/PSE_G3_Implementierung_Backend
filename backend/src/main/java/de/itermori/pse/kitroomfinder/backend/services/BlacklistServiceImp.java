@@ -42,7 +42,7 @@ public class BlacklistServiceImp implements BlacklistService{
     @Override
     public boolean addToBlacklist(String toBlacklist) {
         if (isBlacklisted(toBlacklist)) {
-            return true;
+            return false;
         }
         blacklistRepository.save(new BlacklistEntry(toBlacklist));
         return true;
