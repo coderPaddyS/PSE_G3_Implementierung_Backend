@@ -13,10 +13,7 @@ import de.itermori.pse.kitroomfinder.backend.exceptions.BadTokenException;
 import de.itermori.pse.kitroomfinder.backend.exceptions.UserAlreadyRegisteredException;
 import de.itermori.pse.kitroomfinder.backend.exceptions.UserNotFoundException;
 import de.itermori.pse.kitroomfinder.backend.models.User;
-import de.itermori.pse.kitroomfinder.backend.repositories.AliasRepository;
-import de.itermori.pse.kitroomfinder.backend.repositories.DeletedAliasRepository;
 import de.itermori.pse.kitroomfinder.backend.repositories.UserRepository;
-import de.itermori.pse.kitroomfinder.backend.repositories.VersionRepository;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.interfaces.RSAPublicKey;
@@ -116,5 +113,5 @@ public class UserServiceImp implements UserService{
             }
         }
     }
-    
+
 }
