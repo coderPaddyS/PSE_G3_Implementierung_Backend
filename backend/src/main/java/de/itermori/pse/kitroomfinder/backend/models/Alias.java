@@ -33,7 +33,6 @@ public class Alias {
     @Column(name = "version", nullable = false)
     private int version;
 
-
     /**
      * The standard constructor of the model.
      */
