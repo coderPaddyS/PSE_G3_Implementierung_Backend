@@ -103,5 +103,5 @@ class UserServiceTest {
             userService.loadUserByToken(fakeToken);
         });
     }
-    
+
 }

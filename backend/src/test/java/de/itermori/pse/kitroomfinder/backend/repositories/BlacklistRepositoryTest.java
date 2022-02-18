@@ -23,7 +23,7 @@ class BlacklistRepositoryTest {
     private BlacklistRepository blacklistRepository;
 
     /**
-     * Sets the test resources up.
+     * Sets up the test resources.
      */
     @BeforeEach
     void setUp() {

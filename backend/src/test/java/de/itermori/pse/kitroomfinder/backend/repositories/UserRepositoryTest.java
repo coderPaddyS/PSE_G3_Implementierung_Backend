@@ -21,7 +21,7 @@ class UserRepositoryTest {
     private UserRepository userRepository;
 
     /**
-     * Sets the test resources up.
+     * Sets up the test resources.
      */
     @BeforeEach
     void setUp() {

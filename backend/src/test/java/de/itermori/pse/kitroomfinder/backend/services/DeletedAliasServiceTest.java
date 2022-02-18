@@ -32,7 +32,7 @@ class DeletedAliasServiceTest {
     private VersionRepository versionRepository;
 
     /**
-     * Sets the test resources up.
+     * Sets up the test resources.
      */
     @BeforeEach
     public void setUp() {

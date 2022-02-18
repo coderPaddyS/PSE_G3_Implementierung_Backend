@@ -21,7 +21,7 @@ class MapObjectRepositoryTest {
     private MapObjectRepository mapObjectRepository;
 
     /**
-     * Sets the test resources up.
+     * Sets up the test resources.
      */
     @BeforeEach
     void setUp() {

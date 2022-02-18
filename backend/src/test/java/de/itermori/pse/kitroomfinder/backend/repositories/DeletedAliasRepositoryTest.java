@@ -25,7 +25,7 @@ class DeletedAliasRepositoryTest {
     private DeletedAliasRepository deletedAliasRepository;
 
     /**
-     * Sets the test resources up.
+     * Sets up the test resources.
      */
     @BeforeEach
     void setUp() {

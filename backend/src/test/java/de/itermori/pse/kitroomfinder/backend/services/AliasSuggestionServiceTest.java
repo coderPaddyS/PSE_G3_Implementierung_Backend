@@ -40,7 +40,7 @@ class AliasSuggestionServiceTest {
     private BlacklistRepository blacklistRepository;
 
     /**
-     * Sets the test resources up.
+     * Sets up the test resources.
      */
     @BeforeEach
     void setUp() {
@@ -287,5 +287,5 @@ class AliasSuggestionServiceTest {
         List<AliasSuggestion> aliasSuggestions = aliasSuggestionRepository.findAll();
         assertTrue(aliasSuggestions.isEmpty());
     }
-    
+
 }

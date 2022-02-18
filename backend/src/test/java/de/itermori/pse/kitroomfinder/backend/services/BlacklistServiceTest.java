@@ -30,7 +30,7 @@ class BlacklistServiceTest {
     private BlacklistRepository blacklistRepository;
 
     /**
-     * Sets the test resources up.
+     * Sets up the test resources.
      */
     @BeforeEach
     void setUp() {
@@ -127,5 +127,5 @@ class BlacklistServiceTest {
         assertEquals("forbidden1", blacklisted.get(0));
         assertEquals("forbidden2", blacklisted.get(1));
     }
-    
+
 }

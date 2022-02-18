@@ -24,7 +24,7 @@ class AliasRepositoryTest {
     private AliasRepository aliasRepository;
 
     /**
-     * Sets the test resources up.
+     * Sets up the test resources.
      */
     @BeforeEach
     void setUp() {
