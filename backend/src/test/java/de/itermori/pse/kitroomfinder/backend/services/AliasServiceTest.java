@@ -14,6 +14,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Test class for {@link AliasService}.
+ *
+ * @author Adriano Castro
+ * @version 1.0
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AliasServiceTest {
 
@@ -23,11 +29,17 @@ class AliasServiceTest {
     @Autowired
     private AliasRepository aliasRepository;
 
+    /**
+     * Sets the test resources up.
+     */
     @BeforeEach
     void setUp() {
         aliasRepository.deleteAll();
     }
 
+    /**
+     * Tests the method {@link AliasService#addAlias(String, int)}.
+     */
     @Test
     void whenAliasNotYetAdded_thenAddAlias() {
         assertTrue(aliasService.addAlias("Infobau", 1));
@@ -36,6 +48,9 @@ class AliasServiceTest {
         assertEquals(1, actualAlias.getMapID());
     }
 
+    /**
+     * Tests the method {@link AliasService#addAlias(String, int)}.
+     */
     @Test
     void whenAliasAlreadyAdded_thenAddAlias() {
         // add alias once
@@ -48,6 +63,9 @@ class AliasServiceTest {
         assertFalse(aliasService.addAlias("Infobau", 1));
     }
 
+    /**
+     * Tests the method {@link AliasService#getAlias(int)}.
+     */
     @Test
     void whenAliasesSaved_thenGetAlias() {
         // save aliases
@@ -70,6 +88,9 @@ class AliasServiceTest {
         assertEquals(toSave2, aliases.get(1));
     }
 
+    /**
+     * Tests the method {@link AliasService#getAliasUpdates(int)}.
+     */
     @Test
     void whenNewerAliasSaved_thenGetAliasUpdates() {
         // save alias
@@ -89,6 +110,9 @@ class AliasServiceTest {
         assertEquals(toSave, aliases.get(0));
     }
 
+    /**
+     * Tests the method {@link AliasService#getAliasUpdates(int)}.
+     */
     @Test
     void whenNotNewerAliasSaved_thenGetAliasUpdates() {
         // save alias
@@ -107,6 +131,9 @@ class AliasServiceTest {
         assertEquals(0, aliases.size());
     }
 
+    /**
+     * Tests the method {@link AliasService#removeAlias(String)}.
+     */
     @Test
     void whenAliasSaved_thenRemoveAlias() {
         // save alias
@@ -127,5 +154,3 @@ class AliasServiceTest {
     }
 
 }
-
-
