@@ -8,17 +8,29 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test class for {@link MapObjectRepository}.
+ *
+ * @author Adriano Castro
+ * @version 1.0
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class MapObjectRepositoryTest {
 
     @Autowired
     private MapObjectRepository mapObjectRepository;
 
+    /**
+     * Sets the test resources up.
+     */
     @BeforeEach
     void setUp() {
         mapObjectRepository.deleteAll();
     }
 
+    /**
+     * Tests the method {@link MapObjectRepository#findByID(int)}.
+     */
     @Test
     void whenMapObjectSaved_thenFindByID() {
         // save MapObject to the database
@@ -30,6 +42,9 @@ class MapObjectRepositoryTest {
         assertEquals(expectedMapID.getName(), actualMapIDName);
     }
 
+    /**
+     * Tests the method {@link MapObjectRepository#findByName(String)}.
+     */
     @Test
     void whenMapObjectSaved_thenFindByName() {
         // save MapObject to the database
