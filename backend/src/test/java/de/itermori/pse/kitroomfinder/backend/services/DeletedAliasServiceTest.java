@@ -4,56 +4,72 @@ import com.google.common.collect.Iterables;
 import de.itermori.pse.kitroomfinder.backend.models.DeletedAlias;
 import de.itermori.pse.kitroomfinder.backend.repositories.DeletedAliasRepository;
 import de.itermori.pse.kitroomfinder.backend.repositories.VersionRepository;
-import org.jetbrains.annotations.NotNull;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Iterator;
-import java.util.Optional;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Test class for {@link DeletedAliasService}.
+ *
+ * @author Lukas Zetto
+ * @version 1.0
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class DeletedAliasServiceTest {
+class DeletedAliasServiceTest {
 
     @Autowired
-    DeletedAliasService deletedAliasService;
+    private DeletedAliasService deletedAliasService;
 
     @Autowired
-    DeletedAliasRepository deletedAliasRepository;
+    private DeletedAliasRepository deletedAliasRepository;
 
     @Autowired
-    VersionRepository versionRepository;
+    private VersionRepository versionRepository;
 
+    /**
+     * Sets the test resources up.
+     */
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         deletedAliasRepository.deleteAll();
         versionRepository.deleteAll();
     }
 
+    /**
+     * Tests the method {@link DeletedAliasService#addDeletedAlias(String, int)}.
+     */
     @Test
-    public void addDeletedAliasTest() {
+    void addDeletedAliasTest() {
         deletedAliasService.addDeletedAlias("Deleted", 1);
-        assertTrue(deletedAliasRepository.findNewerThanVersion(0) != null);
+        assertNotNull(deletedAliasRepository.findNewerThanVersion(0));
     }
 
+    /**
+     * Tests the method {@link DeletedAliasService#removeDeletedAlias(String, int)}.
+     */
     @Test
-    public void removeDeletedAliasTest() {
+    void removeDeletedAliasTest() {
         deletedAliasService.addDeletedAlias("Deleted", 1);
         deletedAliasService.removeDeletedAlias("Deleted", 1);
-        assertTrue(deletedAliasRepository.findNewerThanVersion(0).spliterator().getExactSizeIfKnown() == 0);
+        assertEquals(0, deletedAliasRepository.findNewerThanVersion(0).spliterator().getExactSizeIfKnown());
     }
 
+    /**
+     * Tests the method {@link DeletedAliasService#removeDeletedAlias(String, int)}.
+     */
     @Test
-    public void addGetRemoveDeletedAliasTest() {
+    void addGetRemoveDeletedAliasTest() {
         deletedAliasService.addDeletedAlias("Deleted", 1);
-        assertTrue(deletedAliasRepository.findNewerThanVersion(0) != null);
+        assertNotNull(deletedAliasRepository.findNewerThanVersion(0));
         DeletedAlias deletedAlias = Iterables.getOnlyElement(deletedAliasService.getDeletedAlias(0));
         assertTrue(deletedAlias.getName().equals("Deleted") && deletedAlias.getMapID().equals(1));
         deletedAliasService.removeDeletedAlias("Deleted", 1);
-        assertTrue(deletedAliasRepository.findNewerThanVersion(0).spliterator().getExactSizeIfKnown() == 0);
+        assertEquals(0, deletedAliasRepository.findNewerThanVersion(0).spliterator().getExactSizeIfKnown());
     }
+
 }
