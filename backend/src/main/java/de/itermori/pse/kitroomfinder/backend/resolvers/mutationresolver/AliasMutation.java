@@ -14,6 +14,10 @@ import org.springframework.stereotype.Component;
  * Provides a {@link GraphQLMutationResolver} for the model {@link Alias}.
  * Uses the services {@link AliasService}, {@link AliasSuggestionService},
  * {@link BlacklistService}.
+ *
+ * @author Lukas Zetto
+ * @author Adriano Castro
+ * @version 1.0
  */
 @Component
 public class AliasMutation implements GraphQLMutationResolver {
