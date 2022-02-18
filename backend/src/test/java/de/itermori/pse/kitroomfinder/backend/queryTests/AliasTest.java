@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  * Tests {@link AliasQuery}, {@link AliasMutation} (integration test).
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class AliasQueryMutationTest {
+class AliasTest {
 
     @Autowired
     private GraphQLTestTemplate graphQLTestTemplate;
@@ -43,14 +43,6 @@ class AliasQueryMutationTest {
     private UserRepository userRepository;
 
     /**
-     * Cleans up the test resources.
-     */
-    @AfterEach
-    void cleanUp() {
-        userRepository.deleteAll();
-    }
-
-    /**
      * Sets up the test resources.
      */
     @BeforeEach
@@ -60,6 +52,14 @@ class AliasQueryMutationTest {
         aliasRepository.deleteAll();
         deletedAliasRepository.deleteAll();
         versionRepository.deleteAll();
+    }
+
+    /**
+     * Cleans up the test resources.
+     */
+    @AfterEach
+    void cleanUp() {
+        userRepository.deleteAll();
     }
 
     /**
