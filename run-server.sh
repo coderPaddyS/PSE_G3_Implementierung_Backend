@@ -2,4 +2,5 @@
 
 git pull
 docker build -t kit-finder .
-docker run kit-finder
+cd /opt/docker/kit-finder || exit
+docker-compose up -d
