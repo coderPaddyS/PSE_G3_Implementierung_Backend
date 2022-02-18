@@ -13,14 +13,13 @@ import org.springframework.stereotype.Component;
 /**
  * Provides a {@link GraphQLMutationResolver} for the model {@link Alias}.
  * Uses the services {@link AliasService}, {@link AliasSuggestionService},
- * {@link DeletedAliasService}, {@link BlacklistService}.
+ * {@link BlacklistService}.
  */
 @Component
 public class AliasMutation implements GraphQLMutationResolver {
 
     private final AliasService aliasService;
     private final AliasSuggestionService aliasSuggestionService;
-    private final DeletedAliasService deletedAliasService;
     private final BlacklistService blacklistService;
 
     /**
@@ -28,14 +27,12 @@ public class AliasMutation implements GraphQLMutationResolver {
      * {@link DeletedAliasService}, {@link BlacklistService}.
      * @param aliasService              The required {@link AliasService}.
      * @param aliasSuggestionService    The required {@link AliasSuggestionService}.
-     * @param deletedAliasService       The required {@link DeletedAliasService}.
      * @param blacklistService          The required {@link BlacklistService}.
      */
     @Autowired
     public AliasMutation(AliasService aliasService, AliasSuggestionService aliasSuggestionService,
-                         DeletedAliasService deletedAliasService, BlacklistService blacklistService) {
+                         BlacklistService blacklistService) {
         this.aliasService = aliasService;
-        this.deletedAliasService = deletedAliasService;
         this.blacklistService = blacklistService;
         this.aliasSuggestionService = aliasSuggestionService;
     }
@@ -82,5 +79,5 @@ public class AliasMutation implements GraphQLMutationResolver {
         }
         return false;
     }
-    
+
 }
