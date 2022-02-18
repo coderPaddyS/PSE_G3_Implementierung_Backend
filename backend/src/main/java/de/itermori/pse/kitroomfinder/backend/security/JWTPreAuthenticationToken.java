@@ -45,7 +45,7 @@ public class JWTPreAuthenticationToken extends PreAuthenticatedAuthenticationTok
 
     private static Set<GrantedAuthority> parseAuthorities(String authorities) {
         return Stream.of(authorities.split(","))
-                .map(authority -> buildSimpleGrantedAuthority(authority))
+                .map(JWTPreAuthenticationToken::buildSimpleGrantedAuthority)
                 .collect(Collectors.toSet());
     }
 
