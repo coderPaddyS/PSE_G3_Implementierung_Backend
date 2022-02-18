@@ -32,7 +32,6 @@ import static java.lang.String.format;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 /**
@@ -72,7 +71,7 @@ class AliasSuggestionTest {
      * Sets up the test resources.
      */
     @BeforeEach
-    void setUp(){
+    void setUp() {
         userRepository.save(new User(UtilTests.USER, UtilTests.USER_AUTHORITY));
         userRepository.save(new User(UtilTests.ADMIN, UtilTests.ADMIN_AUTHORITY));
         aliasRepository.deleteAll();
@@ -190,5 +189,6 @@ class AliasSuggestionTest {
         } catch (IOException e) {
             fail(e.getMessage());
         }
-
     }
+
+}
