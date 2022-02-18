@@ -1,5 +1,6 @@
 package de.itermori.pse.kitroomfinder.backend.resolvers.mutationresolver;
 
+import de.itermori.pse.kitroomfinder.backend.models.Alias;
 import de.itermori.pse.kitroomfinder.backend.services.AliasService;
 import de.itermori.pse.kitroomfinder.backend.services.AliasSuggestionService;
 import de.itermori.pse.kitroomfinder.backend.services.BlacklistService;
@@ -9,14 +10,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
+/**
+ * Provides a {@link GraphQLMutationResolver} for the model {@link Alias}.
+ * Uses the services {@link AliasService}, {@link AliasSuggestionService},
+ * {@link DeletedAliasService}, {@link BlacklistService}.
+ */
 @Component
 public class AliasMutation implements GraphQLMutationResolver {
 
-    private AliasService aliasService;
-    private AliasSuggestionService aliasSuggestionService;
-    private DeletedAliasService deletedAliasService;
-    private BlacklistService blacklistService;
+    private final AliasService aliasService;
+    private final AliasSuggestionService aliasSuggestionService;
+    private final DeletedAliasService deletedAliasService;
+    private final BlacklistService blacklistService;
 
+    /**
+     * Constructor: Demands for the initialization of the class {@link AliasService}, {@link AliasSuggestionService},
+     * {@link DeletedAliasService}, {@link BlacklistService}.
+     * @param aliasService              The required {@link AliasService}.
+     * @param aliasSuggestionService    The required {@link AliasSuggestionService}.
+     * @param deletedAliasService       The required {@link DeletedAliasService}.
+     * @param blacklistService          The required {@link BlacklistService}.
+     */
     @Autowired
     public AliasMutation(AliasService aliasService, AliasSuggestionService aliasSuggestionService,
                          DeletedAliasService deletedAliasService, BlacklistService blacklistService) {
@@ -26,11 +40,24 @@ public class AliasMutation implements GraphQLMutationResolver {
         this.aliasSuggestionService = aliasSuggestionService;
     }
 
+    /**
+     * Removes an alias with the name provided.
+     *
+     * @param alias The name of the alias to remove.
+     * @return      True if the removal of the alias succeeds, otherwise false.
+     */
     @PreAuthorize("hasAuthority('ADMIN')")
     public Boolean removeAlias(String alias) {
         return aliasService.removeAlias(alias);
     }
 
+    /**
+     * Blacklists an alias with the name provided.
+     *
+     * @param toBlacklist   The {@link String} to blacklist.
+     * @return              True if the addition of the {@link String} to the blacklist succeeds, otherwise false
+     *                      (e.g. when the {@link String} is already blacklisted).
+     */
     @PreAuthorize("hasAuthority('ADMIN')")
     public Boolean blacklistAlias(String toBlacklist) {
         if (!blacklistService.isBlacklisted(toBlacklist)) {
@@ -41,6 +68,13 @@ public class AliasMutation implements GraphQLMutationResolver {
         return false;
     }
 
+    /**
+     * Removes an alias from the blacklist.
+     *
+     * @param blacklistedToRem  The blacklisted {@link String} to remove from the blacklist.
+     * @return                  True if the removal of the {@link String} from the blacklist succeeds, otherwise false
+     *                          (e.g. when the {@link String} is not blacklisted).
+     */
     @PreAuthorize("hasAuthority('ADMIN')")
     public Boolean removeFromBlacklist(String blacklistedToRem) {
         if (blacklistService.isBlacklisted(blacklistedToRem)) {
@@ -48,4 +82,5 @@ public class AliasMutation implements GraphQLMutationResolver {
         }
         return false;
     }
+    
 }
