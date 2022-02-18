@@ -28,7 +28,7 @@ public class AliasMutation implements GraphQLMutationResolver {
 
     /**
      * Constructor: Demands for the initialization of the class {@link AliasService}, {@link AliasSuggestionService},
-     * {@link DeletedAliasService}, {@link BlacklistService}.
+     * {@link BlacklistService}.
      * @param aliasService              The required {@link AliasService}.
      * @param aliasSuggestionService    The required {@link AliasSuggestionService}.
      * @param blacklistService          The required {@link BlacklistService}.
