@@ -12,17 +12,29 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test class for {@link AliasSuggestionRepository}.
+ *
+ * @author Adriano Castro
+ * @version 1.0
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AliasSuggestionRepositoryTest {
 
     @Autowired
     private AliasSuggestionRepository aliasSuggestionRepository;
 
+    /**
+     * Sets the test resources up.
+     */
     @BeforeEach
     void setUp() {
         aliasSuggestionRepository.deleteAll();
     }
 
+    /**
+     * Tests the method {@link AliasSuggestionRepository#findByNameAndMapID(String, int)}.
+     */
     @Test
     void whenAliasSuggestionSaved_thenFindByNameAndMapID() {
         AliasSuggestion expectedAliasSuggestion = new AliasSuggestion("HSaF", 1, "50.34", "Suggester");
@@ -31,6 +43,9 @@ class AliasSuggestionRepositoryTest {
         assertEquals(expectedAliasSuggestion, actualAliasSuggestion);
     }
 
+    /**
+     * Tests the method {@link AliasSuggestionRepository#deleteByNameAndID(String, int)}.
+     */
     @Test
     void whenAliasSuggestionSaved_thenDeleteByNameAndID() {
         // first save alias suggestion in database
@@ -49,6 +64,9 @@ class AliasSuggestionRepositoryTest {
         assertTrue(actualAliasSuggestions.isEmpty());
     }
 
+    /**
+     * Tests the method {@link AliasSuggestionRepository#votePos(int, String)}.
+     */
     @Test
     void whenAliasSuggestionSaved_thenVotePos() {
         // first save alias suggestion in database
@@ -70,6 +88,9 @@ class AliasSuggestionRepositoryTest {
         assertEquals(1, actualAliasSuggestions.get(0).getPosVotes());
     }
 
+    /**
+     * Tests the method {@link AliasSuggestionRepository#voteNeg(int, String)}.
+     */
     @Test
     void whenAliasSuggestionSaved_thenVoteNeg() {
         // first save alias suggestion in database
@@ -91,6 +112,9 @@ class AliasSuggestionRepositoryTest {
         assertEquals(1, actualAliasSuggestions.get(0).getNegVotes());
     }
 
+    /**
+     * Tests the method {@link AliasSuggestionRepository#deleteByName(String)}.
+     */
     @Test
     void whenAliasSuggestionsSaved_thenDeleteByName() {
         // first save alias suggestions in database
@@ -114,6 +138,9 @@ class AliasSuggestionRepositoryTest {
         assertTrue(aliasSuggestionsSaved.isEmpty());
     }
 
+    /**
+     * Tests the method {@link AliasSuggestionRepository#findByVotes(int, int)}.
+     */
     @Test
     void whenAliasSuggestionsSaved_thenFindByVotes() {
         // first save alias suggestions in database
