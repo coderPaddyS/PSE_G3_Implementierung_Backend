@@ -43,6 +43,7 @@ public class AliasMutation implements GraphQLMutationResolver {
 
     /**
      * Removes an alias with the name provided.
+     * The caller has to be an admin.
      *
      * @param alias The name of the alias to remove.
      * @return      True if the removal of the alias succeeds, otherwise false.
@@ -54,6 +55,7 @@ public class AliasMutation implements GraphQLMutationResolver {
 
     /**
      * Blacklists an alias with the name provided.
+     * The caller has to be an admin.
      *
      * @param toBlacklist   The {@link String} to blacklist.
      * @return              True if the addition of the {@link String} to the blacklist succeeds, otherwise false
@@ -71,6 +73,7 @@ public class AliasMutation implements GraphQLMutationResolver {
 
     /**
      * Removes an alias from the blacklist.
+     * The caller has to be an admin.
      *
      * @param blacklistedToRem  The blacklisted {@link String} to remove from the blacklist.
      * @return                  True if the removal of the {@link String} from the blacklist succeeds, otherwise false
