@@ -10,7 +10,6 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import de.itermori.pse.kitroomfinder.backend.exceptions.BadTokenException;
-import de.itermori.pse.kitroomfinder.backend.exceptions.UserAlreadyRegisteredException;
 import de.itermori.pse.kitroomfinder.backend.exceptions.UserNotFoundException;
 import de.itermori.pse.kitroomfinder.backend.models.User;
 import de.itermori.pse.kitroomfinder.backend.repositories.UserRepository;
@@ -61,7 +60,7 @@ public class UserServiceImp implements UserService{
         DecodedJWT castedDecodedJWT = decodedJWT.get();
         String username = castedDecodedJWT.getClaim("preferred_username").asString();
         if (userRepository.findByName(username) != null) {
-            throw new UserAlreadyRegisteredException();
+            return username;
         }
         userRepository.save(new User(username,"USER"));
         return username;
