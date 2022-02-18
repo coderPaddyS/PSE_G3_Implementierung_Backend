@@ -10,17 +10,29 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Test class for {@link BlacklistRepository}.
+ *
+ * @author Adriano Castro
+ * @version 1.0
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class BlacklistRepositoryTest {
 
     @Autowired
     private BlacklistRepository blacklistRepository;
 
+    /**
+     * Sets the test resources up.
+     */
     @BeforeEach
     void setUp() {
         blacklistRepository.deleteAll();
     }
 
+    /**
+     * Tests the method {@link BlacklistRepository#deleteByName(String)}.
+     */
     @Test
     void whenBlacklisted_thenDeleteByName() {
         // save a BlacklistEntry to the database
