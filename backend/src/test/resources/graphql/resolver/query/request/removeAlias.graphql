@@ -1,3 +1,3 @@
 mutation {
-    removeAlias(alias: "alias")
+    removeAlias(alias: "dalias")
 }

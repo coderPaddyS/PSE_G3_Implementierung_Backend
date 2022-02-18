@@ -16,20 +16,20 @@ type Query {
     getPosVotes(aliasSuggestion : String, mapID : Int!) : Int!
     getNegVotes(aliasSuggestion : String, mapID : Int!) : Int!
 
-    getMapObject(mapID : Int!) : String
+    getMapObjectName(mapID : Int!) : String
     getMapIDByName(mapObject : String!) : Int
     getAllMapIDs : [Int]
-    getAllMapIDsName : [String]
+    getAllMapObjectsName : [String]
 
     isAdmin : Boolean
 }
 
 # Root
 type Mutation {
-    approveAliasSuggestion(aliasSuggestion : String!, mapID : Int!, mapObject : String!) : Boolean
+    approveAliasSuggestion(aliasSuggestion : String!, mapID : Int!) : Boolean
     disapproveAliasSuggestion(aliasSuggestion : String!, mapID : Int!) : Boolean
     voteForAliasSuggestion(aliasSuggestion : String!, mapID : Int!, user : String!, vote : Boolean!) : Boolean
-    suggestAlias(aliasSuggestion : String!, mapID : Int!, mapObject : String!, user : String!) : Boolean
+    suggestAlias(aliasSuggestion : String!, mapID : Int!, user : String!) : Boolean
 
     registerUser(accessToken : String) : String
 

@@ -4,6 +4,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import de.itermori.pse.kitroomfinder.backend.exceptions.BadTokenException;
 import de.itermori.pse.kitroomfinder.backend.exceptions.UserNotFoundException;
+import de.itermori.pse.kitroomfinder.backend.models.User;
 import de.itermori.pse.kitroomfinder.backend.repositories.UserRepository;
 import java.util.Calendar;
 import java.util.Date;
@@ -49,8 +50,9 @@ public class UserServiceTest {
 
     @Test
     public void loadUserByTokenTest() {
+        userRepository.save(new User(USER, "USER"));
         assertTrue(userService.loadUserByToken(token).getName().equals(USER) &&
-                userService.loadUserByToken(token).getAuthorities().equals(new SimpleGrantedAuthority("USER")));
+                userService.loadUserByToken(token).getAuthorities().equals("USER"));
     }
 
     @Test

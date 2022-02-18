@@ -4,6 +4,7 @@ import de.itermori.pse.kitroomfinder.backend.models.Alias;
 import de.itermori.pse.kitroomfinder.backend.models.Version;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasRepository;
 import de.itermori.pse.kitroomfinder.backend.repositories.DeletedAliasRepository;
+import de.itermori.pse.kitroomfinder.backend.repositories.MapObjectRepository;
 import de.itermori.pse.kitroomfinder.backend.repositories.VersionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
  * Provides a service for the model {@link Alias}.
  * Implements the service interface {@link AliasService} which defines
  * the corresponding GraphQL schema methods related to the model {@link Alias}.
- * Uses the repositories {@link AliasRepository}, {@link VersionRepository}.
+ * Uses the repositories {@link AliasRepository}, {@link VersionRepository}
+ * and the services {@link MapObjectService}, {@link DeletedAliasService}.
  *
  * @author Lukas Zetto
  * @author Adriano Castro
@@ -24,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AliasServiceImp implements AliasService {
 
     private final AliasRepository aliasRepository;
+    private final MapObjectService mapObjectService;
     private final DeletedAliasService deletedAliasService;
     private final VersionRepository versionRepository;
 
@@ -32,13 +35,15 @@ public class AliasServiceImp implements AliasService {
      * with the required repositories.
      *
      * @param aliasRepository           The required {@link AliasRepository}.
-     * @param deletedAliasService    The required {@link DeletedAliasRepository}.
+     * @param mapObjectService           The required {@link MapObjectService}.
+     * @param deletedAliasService       The required {@link DeletedAliasService}.
      * @param versionRepository         The required {@link VersionRepository}.
      */
     @Autowired
-    public AliasServiceImp(AliasRepository aliasRepository, DeletedAliasService deletedAliasService,
-                           VersionRepository versionRepository) {
+    public AliasServiceImp(AliasRepository aliasRepository, MapObjectService mapObjectService,
+                           DeletedAliasService deletedAliasService, VersionRepository versionRepository) {
         this.aliasRepository = aliasRepository;
+        this.mapObjectService = mapObjectService;
         this.deletedAliasService = deletedAliasService;
         this.versionRepository = versionRepository;
     }
@@ -48,7 +53,7 @@ public class AliasServiceImp implements AliasService {
      */
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     @Override
-    public boolean addAlias(String alias, int mapID, String mapObject) {
+    public boolean addAlias(String alias, int mapID) {
         Alias exists = aliasRepository.findByName(alias);
         if (exists != null) {
             return false;
@@ -59,8 +64,8 @@ public class AliasServiceImp implements AliasService {
             versionRepository.save(new Version(1));
             currentVersion = 1;
         }
-        Alias newEntry = new Alias(alias, mapID, mapObject, currentVersion);
-
+        String mapObjectName = mapObjectService.getMapObjectName(mapID);
+        Alias newEntry = new Alias(alias, mapID, mapObjectName, currentVersion);
         aliasRepository.save(newEntry);
         return true;
     }
@@ -104,6 +109,9 @@ public class AliasServiceImp implements AliasService {
     @Override
     public boolean removeAlias(String name) {
         Alias toRemove = aliasRepository.findByName(name);
+        if (toRemove == null) {
+            return false;
+        }
         deletedAliasService.addDeletedAlias(toRemove.getName(), toRemove.getMapID());
         aliasRepository.deleteByName(name);
         return true;

@@ -30,7 +30,7 @@ class AliasServiceTest {
 
     @Test
     void whenAliasNotYetAdded_thenAddAlias() {
-        assertTrue(aliasService.addAlias("Infobau", 1, "50.34"));
+        assertTrue(aliasService.addAlias("Infobau", 1));
         Alias actualAlias = aliasRepository.findByName("Infobau");
         assertEquals("Infobau", actualAlias.getName());
         assertEquals(1, actualAlias.getMapID());
@@ -39,13 +39,13 @@ class AliasServiceTest {
     @Test
     void whenAliasAlreadyAdded_thenAddAlias() {
         // add alias once
-        assertTrue(aliasService.addAlias("Infobau", 1, "50.34"));
+        assertTrue(aliasService.addAlias("Infobau", 1));
         Alias actualAlias = aliasRepository.findByName("Infobau");
         assertEquals("Infobau", actualAlias.getName());
         assertEquals(1, actualAlias.getMapID());
 
         // add alias a second time
-        assertFalse(aliasService.addAlias("Infobau", 1, "50.34"));
+        assertFalse(aliasService.addAlias("Infobau", 1));
     }
 
     @Test

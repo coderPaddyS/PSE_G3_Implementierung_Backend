@@ -2,8 +2,10 @@ package de.itermori.pse.kitroomfinder.backend.services;
 
 import de.itermori.pse.kitroomfinder.backend.models.AliasSuggestion;
 import de.itermori.pse.kitroomfinder.backend.models.BlacklistEntry;
+import de.itermori.pse.kitroomfinder.backend.models.MapObject;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasSuggestionRepository;
 import de.itermori.pse.kitroomfinder.backend.repositories.BlacklistRepository;
+import de.itermori.pse.kitroomfinder.backend.repositories.MapObjectRepository;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -26,17 +28,24 @@ class AliasSuggestionServiceTest {
     private AliasSuggestionRepository aliasSuggestionRepository;
 
     @Autowired
+    private MapObjectRepository mapObjectRepository;
+
+    @Autowired
     private BlacklistRepository blacklistRepository;
 
     @BeforeEach
     void setUp() {
         aliasSuggestionRepository.deleteAll();
+        mapObjectRepository.deleteAll();
     }
 
     @Test
     void whenAliasSuggestionNotYetAdded_thenAddAliasSuggestion() {
+        // add map object first
+        mapObjectRepository.save(new MapObject("50.34", 1));
+
         // add alias suggestion
-        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "50.34", "user"));
+        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "user"));
 
         // check if alias suggestion was added to database
         List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
@@ -48,11 +57,14 @@ class AliasSuggestionServiceTest {
 
     @Test
     void whenAliasSuggestionAddedWithDifferentMapID_thenAddAliasSuggestion() {
+        // add map objects first
+        mapObjectRepository.save(new MapObject("50.34", 1));
+        mapObjectRepository.save(new MapObject("50.35", 2));
         // add alias suggestion once
-        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "50.34", "user"));
+        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "user"));
 
         // add same alias suggestion but with different mapID
-        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 2, "50.34", "user"));
+        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 2, "user"));
 
         // check if both alias suggestions were added to database
         List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
@@ -70,11 +82,14 @@ class AliasSuggestionServiceTest {
 
     @Test
     void whenAliasSuggestionAlreadyAdded_thenAddAliasSuggestion() {
+        // add map object first
+        mapObjectRepository.save(new MapObject("50.34", 1));
+
         // add alias suggestion once
-        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "50.34", "user"));
+        assertTrue(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "user"));
 
         // add same alias suggestion again
-        assertFalse(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "50.34", "user2"));
+        assertFalse(aliasSuggestionService.addAliasSuggestion("HSaF", 1, "user2"));
 
         // check if only the first alias suggestion was added to database
         List<AliasSuggestion> savedAliasSuggestions = aliasSuggestionRepository.findAll();
@@ -224,7 +239,7 @@ class AliasSuggestionServiceTest {
         BlacklistEntry blacklistEntry = new BlacklistEntry("forbidden");
         blacklistRepository.save(blacklistEntry);
 
-        assertFalse(aliasSuggestionService.addAliasSuggestion("forbidden", 1, "50.34", "suggester"));
+        assertFalse(aliasSuggestionService.addAliasSuggestion("forbidden", 1, "suggester"));
 
         // check if alias suggestion was not added to database
         List<AliasSuggestion> aliasSuggestions = aliasSuggestionRepository.findAll();

@@ -18,12 +18,11 @@ public interface AliasService {
      *
      * @param alias     The name of the alias.
      * @param mapID     The mapID for which the alias should serve as an additional description.
-     * @param mapObject The name of the mapID.
      *
      * @return          True when the addition of the alias to the database succeeds, otherwise false
      *                  (e.g. when the alias is already stored in the database).
      */
-    boolean addAlias(String alias, int mapID, String mapObject);
+    boolean addAlias(String alias, int mapID);
 
     /**
      * Returns all aliases (type: {@link Alias}) stored in the database
