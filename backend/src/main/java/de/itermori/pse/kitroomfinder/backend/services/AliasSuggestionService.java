@@ -18,13 +18,12 @@ public interface AliasSuggestionService {
      *
      * @param aliasSuggestion   The name of the alias suggestion.
      * @param mapID             The mapID for which the alias suggestion should serve as an additional description.
-     * @param mapObject         The name of the mapID.
      * @param user              The user who suggests the alias.
      * @return                  True when the addition of the alias suggestion to the database succeeds,
      *                          otherwise false (e.g. when the alias suggestion is blacklisted
      *                          or when it is already stored in the database).
      */
-    boolean addAliasSuggestion(String aliasSuggestion, int mapID, String mapObject, String user);
+    boolean addAliasSuggestion(String aliasSuggestion, int mapID, String user);
 
     /**
      * Removes the alias suggestion from the database

@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
  * Provides a service for the model {@link AliasSuggestion}.
  * Implements the service interface {@link AliasSuggestionService} defines
  * the corresponding GraphQL schema methods related to the model {@link AliasSuggestion}.
- * Uses the classes {@link AliasSuggestionRepository}, {@link BlacklistService}.
+ * Uses the classes {@link AliasSuggestionRepository}, {@link BlacklistService}, {@link MapObjectService}.
  *
  * @author Lukas Zetto
  * @author Adriano Castro
@@ -23,6 +23,7 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
 
     private final AliasSuggestionRepository aliasSuggestionRepository;
     private final BlacklistService blacklistService;
+    private final MapObjectService mapObjectService;
 
     /**
      * The constructor which initializes the alias suggestion service implementation
@@ -30,12 +31,14 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
      *
      * @param aliasSuggestionRepository   The required {@link AliasRepository}.
      * @param blacklistService            The required {@link BlacklistService}.
+     * @param mapObjectService            The required {@link MapObjectService}.
      */
     @Autowired
     public AliasSuggestionServiceImp(AliasSuggestionRepository aliasSuggestionRepository,
-                                     BlacklistService blacklistService) {
+                                     BlacklistService blacklistService, MapObjectService mapObjectService) {
         this.aliasSuggestionRepository = aliasSuggestionRepository;
         this.blacklistService = blacklistService;
+        this.mapObjectService = mapObjectService;
     }
 
     /**
@@ -43,14 +46,15 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
      */
     @Transactional
     @Override
-    public boolean addAliasSuggestion(String aliasSuggestion, int mapID, String mapObject, String user) {
+    public boolean addAliasSuggestion(String aliasSuggestion, int mapID, String user) {
         if (blacklistService.isBlacklisted(aliasSuggestion)) {
             return false;
         }
         if (aliasSuggestionRepository.findByNameAndMapID(aliasSuggestion, mapID) != null){
             return false;
         }
-        aliasSuggestionRepository.save(new AliasSuggestion(aliasSuggestion, mapID, mapObject, user));
+        String mapObjectName = mapObjectService.getMapObjectName(mapID);
+        aliasSuggestionRepository.save(new AliasSuggestion(aliasSuggestion, mapID, mapObjectName, user));
         return true;
     }
 
