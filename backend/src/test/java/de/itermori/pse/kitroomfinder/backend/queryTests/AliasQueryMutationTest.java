@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  * Tests {@link AliasQuery}, {@link AliasMutation} (integration test).
  */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class AliasQueryTest {
+class AliasQueryMutationTest {
 
     @Autowired
     private GraphQLTestTemplate graphQLTestTemplate;
