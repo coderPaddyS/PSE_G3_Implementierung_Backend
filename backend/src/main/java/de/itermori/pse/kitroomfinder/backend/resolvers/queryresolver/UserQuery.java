@@ -1,5 +1,6 @@
 package de.itermori.pse.kitroomfinder.backend.resolvers.queryresolver;
 
+import de.itermori.pse.kitroomfinder.backend.models.User;
 import de.itermori.pse.kitroomfinder.backend.services.UserService;
 import graphql.kickstart.tools.GraphQLQueryResolver;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
 /**
- * Provides a {@link GraphQLQueryResolver} for the model {@link UserQuery}.
+ * Provides a {@link GraphQLQueryResolver} for the model {@link User}.
  * Uses the service {@link UserService}.
  *
  * @author Lukas Zetto
