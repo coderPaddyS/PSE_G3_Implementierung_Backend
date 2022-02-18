@@ -5,37 +5,51 @@ import com.auth0.jwk.JwkException;
 import com.auth0.jwk.JwkProvider;
 import com.auth0.jwk.UrlJwkProvider;
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import de.itermori.pse.kitroomfinder.backend.Exceptions.UserAlreadyRegisteredException;
-import de.itermori.pse.kitroomfinder.backend.Exceptions.UserNotFoundException;
+import de.itermori.pse.kitroomfinder.backend.exceptions.BadTokenException;
+import de.itermori.pse.kitroomfinder.backend.exceptions.UserNotFoundException;
 import de.itermori.pse.kitroomfinder.backend.models.User;
 import de.itermori.pse.kitroomfinder.backend.repositories.UserRepository;
-import de.itermori.pse.kitroomfinder.backend.Exceptions.BadTokenException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import com.auth0.jwt.JWTVerifier;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.interfaces.RSAPublicKey;
-import java.util.*;
+import java.util.Optional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * Provides a service for the model {@link User}.
+ * Implements the service interface {@link UserService} which defines
+ * the corresponding GraphQL schema methods related to the model {@link User}.
+ * Uses the repository {@link UserRepository}.
+ *
+ * @author Lukas Zetto
+ * @author Adriano Castro
+ * @version 1.0
+ */
 @Service
 public class UserServiceImp implements UserService{
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
+    /**
+     * The constructor which initializes the alias service implementation
+     * with the required repositories.
+     *
+     * @param userRepository    The required {@link UserRepository}.
+     */
     @Autowired
     public UserServiceImp(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Transactional
     @Override
     public String addUser(String accessToken) {
@@ -46,12 +60,15 @@ public class UserServiceImp implements UserService{
         DecodedJWT castedDecodedJWT = decodedJWT.get();
         String username = castedDecodedJWT.getClaim("preferred_username").asString();
         if (userRepository.findByName(username) != null) {
-            throw new UserAlreadyRegisteredException();
+            return username;
         }
         userRepository.save(new User(username,"USER"));
         return username;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public User loadUserByToken(String accessToken) {
         Optional<DecodedJWT> decodedJWT = verifyAndDecodeToken(accessToken);
@@ -67,6 +84,9 @@ public class UserServiceImp implements UserService{
         return user;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Boolean isAdmin() {
         return true;
@@ -93,4 +113,5 @@ public class UserServiceImp implements UserService{
             }
         }
     }
+
 }
