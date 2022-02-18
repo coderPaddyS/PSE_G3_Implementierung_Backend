@@ -70,6 +70,7 @@ public class AliasSuggestionQuery implements GraphQLQueryResolver {
      * Returns the amount of upvotes the alias suggestion has.
      * The alias suggestion is the one which corresponds to the name provided
      * and which serves as an additional description for the provided mapID.
+     * The caller has to be an admin.
      *
      * @param aliasSuggestion   The name of the alias suggestion.
      * @param mapID             The mapID for which the alias suggestion serves as an additional description.
@@ -84,6 +85,7 @@ public class AliasSuggestionQuery implements GraphQLQueryResolver {
      * Returns the amount of downvotes the alias suggestion has.
      * The alias suggestion is the one which corresponds to the name provided
      * and which serves as an additional description for the provided mapID.
+     * The caller has to be an admin.
      *
      * @param aliasSuggestion   The name of the alias suggestion.
      * @param mapID             The mapID for which the alias suggestion serves as an additional description.
@@ -96,6 +98,7 @@ public class AliasSuggestionQuery implements GraphQLQueryResolver {
 
     /**
      * Returns the amount of alias suggestions.
+     * The caller has to be an admin.
      *
      * @return  The amount of alias suggestions, converted to a {@link String}.
      *          A {@link String} is returned since GraphQL does not (currently) support
