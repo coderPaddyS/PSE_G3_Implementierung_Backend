@@ -12,24 +12,30 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Test class for {@link UserService}.
+ *
+ * @author Lukas Zetto
+ * @version 1.0
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class UserServiceTest {
+class UserServiceTest {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
-    String USER = "username";
+    private final String USER = "username";
 
-    String token = JWT
+    private final String token = JWT
             .create()
             .withIssuer("my-graphql-api")
             .withIssuedAt(Calendar.getInstance().getTime())
@@ -37,26 +43,38 @@ public class UserServiceTest {
             .withClaim("preferred_username", USER)
             .sign(Algorithm.HMAC256("secret"));
 
+    /**
+     * Sets up the test resources.
+     */
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         userRepository.deleteAll();
     }
 
+    /**
+     * Tests the method {@link UserService#addUser(String)}.
+     */
     @Test
-    public void addUserTest() {
+    void addUserTest() {
         assertEquals(userService.addUser(token), USER);
-        assertTrue(userRepository.findByName(USER) != null);
+        assertNotNull(userRepository.findByName(USER));
     }
 
+    /**
+     * Tests the method {@link UserService#loadUserByToken(String)}.
+     */
     @Test
-    public void loadUserByTokenTest() {
+    void loadUserByTokenTest() {
         userRepository.save(new User(USER, "USER"));
         assertTrue(userService.loadUserByToken(token).getName().equals(USER) &&
                 userService.loadUserByToken(token).getAuthorities().equals("USER"));
     }
 
+    /**
+     * Tests the method {@link UserService#loadUserByToken(String)}.
+     */
     @Test
-    public void falseTokenTest() {
+    void falseTokenTest() {
         String fakeToken = JWT
                 .create()
                 .withIssuer("my-graphql-api")
@@ -69,8 +87,11 @@ public class UserServiceTest {
         });
     }
 
+    /**
+     * Tests the method {@link UserService#loadUserByToken(String)}.
+     */
     @Test
-    public void userNotRegisteredTest() {
+    void userNotRegisteredTest() {
         String fakeToken = JWT
                 .create()
                 .withIssuer("my-graphql-api")
@@ -82,4 +103,5 @@ public class UserServiceTest {
             userService.loadUserByToken(fakeToken);
         });
     }
+
 }

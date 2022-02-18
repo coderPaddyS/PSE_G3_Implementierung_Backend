@@ -1,6 +1,5 @@
 package de.itermori.pse.kitroomfinder.backend.repositories;
 
-import de.itermori.pse.kitroomfinder.backend.models.Alias;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,17 +12,29 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Test class for {@link DeletedAliasRepository}.
+ *
+ * @author Adriano Castro
+ * @version 1.0
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class DeletedAliasRepositoryTest {
 
     @Autowired
     private DeletedAliasRepository deletedAliasRepository;
 
+    /**
+     * Sets up the test resources.
+     */
     @BeforeEach
     void setUp() {
         deletedAliasRepository.deleteAll();
     }
 
+    /**
+     * Tests the method {@link DeletedAliasRepository#findNewerThanVersion(int)}.
+     */
     @Test
     void whenDeletedAlias_thenFindNewerThanVersion() {
         // save alias to database
@@ -43,6 +54,9 @@ class DeletedAliasRepositoryTest {
         assertEquals(deletedAlias, actualDeletedAlias);
     }
 
+    /**
+     * Tests the method {@link DeletedAliasRepository#deleteByNameAndMapID(String, int)}.
+     */
     @Test
     void whenDeletedAlias_thenDeleteByNameAndMapID() {
         // save alias to database

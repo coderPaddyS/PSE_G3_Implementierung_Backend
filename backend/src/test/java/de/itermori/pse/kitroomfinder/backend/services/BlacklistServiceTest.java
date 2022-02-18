@@ -14,6 +14,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Test class for {@link BlacklistService}.
+ *
+ * @author Adriano Castro
+ * @version 1.0
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class BlacklistServiceTest {
 
@@ -23,11 +29,17 @@ class BlacklistServiceTest {
     @Autowired
     private BlacklistRepository blacklistRepository;
 
+    /**
+     * Sets up the test resources.
+     */
     @BeforeEach
     void setUp() {
         blacklistRepository.deleteAll();
     }
 
+    /**
+     * Tests the method {@link BlacklistService#addToBlacklist(String)}.
+     */
     @Test
     void whenWordNotYetAddedToBlacklist_thenAddToBlacklist() {
         // add forbidden word
@@ -39,6 +51,9 @@ class BlacklistServiceTest {
         assertEquals("forbidden", blacklistEntries.get(0).getName());
     }
 
+    /**
+     * Tests the method {@link BlacklistService#addToBlacklist(String)}.
+     */
     @Test
     void whenWordAlreadyAddedToBlacklist_thenAddToBlacklist() {
         // add forbidden word twice
@@ -51,6 +66,9 @@ class BlacklistServiceTest {
         assertEquals("forbidden", blacklistEntries.get(0).getName());
     }
 
+    /**
+     * Tests the method {@link BlacklistService#removeFromBlacklist(String)}.
+     */
     @Test
     void whenWordInBlacklist_thenRemoveFromBlacklist() {
         // add forbidden word to blacklist
@@ -65,6 +83,9 @@ class BlacklistServiceTest {
         assertEquals(0, blacklistEntries.size());
     }
 
+    /**
+     * Tests the method {@link BlacklistService#isBlacklisted(String)}.
+     */
     @Test
     void whenWordInBlacklist_thenIsBlacklisted() {
         // add forbidden word to blacklist
@@ -74,11 +95,17 @@ class BlacklistServiceTest {
         assertTrue(blacklistService.isBlacklisted("forbidden"));
     }
 
+    /**
+     * Tests the method {@link BlacklistService#isBlacklisted(String)}.
+     */
     @Test
     void whenWordNotInBlacklist_thenIsBlacklisted() {
         assertFalse(blacklistService.isBlacklisted("notForbidden"));
     }
 
+    /**
+     * Tests the method {@link BlacklistService#getBlacklist()}.
+     */
     @Test
     void whenWordsInBlacklist_thenGetBlacklist() {
         // add forbidden words to blacklist
@@ -100,4 +127,5 @@ class BlacklistServiceTest {
         assertEquals("forbidden1", blacklisted.get(0));
         assertEquals("forbidden2", blacklisted.get(1));
     }
+
 }

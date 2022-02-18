@@ -11,17 +11,29 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Test class for {@link AliasRepository}.
+ *
+ * @author Adriano Castro
+ * @version 1.0
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AliasRepositoryTest {
 
     @Autowired
     private AliasRepository aliasRepository;
 
+    /**
+     * Sets up the test resources.
+     */
     @BeforeEach
     void setUp() {
         aliasRepository.deleteAll();
     }
 
+    /**
+     * Tests the method {@link AliasRepository#findByMapID(int)}.
+     */
     @Test
     void whenAliasSaved_thenFindByMapID() {
         Alias expectedAlias = new Alias("Infobau", 1, "50.34", 1);
@@ -38,6 +50,9 @@ class AliasRepositoryTest {
         assertEquals(expectedAlias, actualAlias);
     }
 
+    /**
+     * Tests the method {@link AliasRepository#findByName(String)}.
+     */
     @Test
     void whenAliasSaved_thenFindByName() {
         Alias expectedAlias = new Alias("Infobau", 1, "50.34", 1);
@@ -46,6 +61,9 @@ class AliasRepositoryTest {
         assertEquals(expectedAlias, actualAlias);
     }
 
+    /**
+     * Tests the method {@link AliasRepository#deleteByName(String)}.
+     */
     @Test
     void whenAliasSaved_thenDeleteByName() {
         // first save alias in database
@@ -63,6 +81,9 @@ class AliasRepositoryTest {
         assertTrue(aliasesSaved.isEmpty());
     }
 
+    /**
+     * Tests the method {@link AliasRepository#findUpdatesByVersion(int)}.
+     */
     @Test
     void whenNewerAlias_thenFindUpdatesByVersion() {
         Alias newerAlias = new Alias("Infobau", 1, "50.34", 1);
