@@ -4,7 +4,6 @@ import de.itermori.pse.kitroomfinder.backend.models.Alias;
 import de.itermori.pse.kitroomfinder.backend.models.DeletedAlias;
 import de.itermori.pse.kitroomfinder.backend.repositories.VersionRepository;
 import de.itermori.pse.kitroomfinder.backend.services.AliasService;
-import de.itermori.pse.kitroomfinder.backend.services.AliasSuggestionService;
 import de.itermori.pse.kitroomfinder.backend.services.BlacklistService;
 import de.itermori.pse.kitroomfinder.backend.services.DeletedAliasService;
 import graphql.kickstart.tools.GraphQLQueryResolver;
