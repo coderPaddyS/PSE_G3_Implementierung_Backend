@@ -23,6 +23,9 @@ class AliasRepositoryTest {
     @Autowired
     private AliasRepository aliasRepository;
 
+    /**
+     * Sets the test resources up.
+     */
     @BeforeEach
     void setUp() {
         aliasRepository.deleteAll();
