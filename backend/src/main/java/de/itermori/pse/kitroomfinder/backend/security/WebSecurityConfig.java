@@ -1,6 +1,5 @@
 package de.itermori.pse.kitroomfinder.backend.security;
 
-import java.util.Arrays;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -13,21 +12,28 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.preauth.RequestHeaderAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
-import static org.springframework.security.config.Customizer.withDefaults;
-
+/**
+ * Configuration class which defines the standard rights
+ * for the methods in the resolver package and for the filter.
+ *
+ * @author Lukas Zetto
+ * @version 1.0
+ */
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
 @EnableConfigurationProperties()
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
     private final JWTFilter jwtFilter;
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
@@ -39,6 +45,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(jwtFilter, RequestHeaderAuthenticationFilter.class);
     }
 
+    /**
+     * Configures CORS.
+     * @return  The CORS filter.
+     */
     @Bean
     public CorsFilter corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
@@ -49,4 +59,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         source.registerCorsConfiguration("/**", configuration);
         return new CorsFilter(source);
     }
+    
 }
