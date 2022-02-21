@@ -4,7 +4,6 @@ import de.itermori.pse.kitroomfinder.backend.exceptions.NoSuchAliasSuggestionExc
 import de.itermori.pse.kitroomfinder.backend.models.AliasSuggestion;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasRepository;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasSuggestionRepository;
-import org.hibernate.sql.Alias;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

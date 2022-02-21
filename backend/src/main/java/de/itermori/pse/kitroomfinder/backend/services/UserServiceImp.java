@@ -101,8 +101,6 @@ public class UserServiceImp implements UserService{
             JWTVerifier verifier = JWT
                     .require(Algorithm.RSA256((RSAPublicKey) jwk.getPublicKey(), null))
                     .build();
-            System.out.println(decodedJWT.getHeader());
-            System.out.println(decodedJWT.getKeyId());
             return Optional.of(verifier.verify(token));
         } catch(JWTVerificationException | MalformedURLException | JwkException ex) {
             try {
