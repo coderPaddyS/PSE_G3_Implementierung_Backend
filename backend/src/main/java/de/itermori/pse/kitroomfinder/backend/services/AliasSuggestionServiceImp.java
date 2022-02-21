@@ -4,6 +4,7 @@ import de.itermori.pse.kitroomfinder.backend.exceptions.NoSuchAliasSuggestionExc
 import de.itermori.pse.kitroomfinder.backend.models.AliasSuggestion;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasRepository;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasSuggestionRepository;
+import org.hibernate.sql.Alias;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AliasSuggestionServiceImp implements AliasSuggestionService {
 
     private final AliasSuggestionRepository aliasSuggestionRepository;
+    private final AliasRepository aliasRepository;
     private final BlacklistService blacklistService;
     private final MapObjectService mapObjectService;
 
@@ -29,16 +31,19 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
      * The constructor which initializes the alias suggestion service implementation
      * with the required classes.
      *
-     * @param aliasSuggestionRepository   The required {@link AliasRepository}.
+     * @param aliasSuggestionRepository   The required {@link AliasSuggestionRepository}.
      * @param blacklistService            The required {@link BlacklistService}.
      * @param mapObjectService            The required {@link MapObjectService}.
+     * @param aliasRepository                The required {@link AliasRepository}
      */
     @Autowired
     public AliasSuggestionServiceImp(AliasSuggestionRepository aliasSuggestionRepository,
-                                     BlacklistService blacklistService, MapObjectService mapObjectService) {
+                                     BlacklistService blacklistService, MapObjectService mapObjectService,
+                                     AliasRepository aliasRepository) {
         this.aliasSuggestionRepository = aliasSuggestionRepository;
         this.blacklistService = blacklistService;
         this.mapObjectService = mapObjectService;
+        this.aliasRepository = aliasRepository;
     }
 
     /**
@@ -51,6 +56,9 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
             return false;
         }
         if (aliasSuggestionRepository.findByNameAndMapID(aliasSuggestion, mapID) != null){
+            return false;
+        }
+        if (aliasRepository.findByName(aliasSuggestion) != null) {
             return false;
         }
         String mapObjectName = mapObjectService.getMapObjectName(mapID);
