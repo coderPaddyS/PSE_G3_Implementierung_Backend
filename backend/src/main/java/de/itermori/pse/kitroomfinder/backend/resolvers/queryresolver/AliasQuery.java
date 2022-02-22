@@ -53,7 +53,6 @@ public class AliasQuery implements GraphQLQueryResolver {
      * @return      An {@link Iterable} of the aliases which serve as an additional
      *              description for the specific mapID.
      */
-    @PreAuthorize("hasAuthority('ADMIN')")
     public Iterable<Alias> getAlias(int mapID) {
         return aliasService.getAlias(mapID);
     }
