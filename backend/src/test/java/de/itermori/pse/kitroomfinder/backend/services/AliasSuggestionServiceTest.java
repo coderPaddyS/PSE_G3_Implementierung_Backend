@@ -252,9 +252,9 @@ class AliasSuggestionServiceTest {
     @Test
     void whenAliasSuggestionsSaved_thenGetAliasSuggestionsAmount() {
         // save alias suggestions in database
-        AliasSuggestion aliasSuggestion1 = new AliasSuggestion("HSaF", 1, "50.34", "user");
-        AliasSuggestion aliasSuggestion2 = new AliasSuggestion("Infobau", 1, "50.34", "user");
-        AliasSuggestion aliasSuggestion3 = new AliasSuggestion("Info", 1, "50.34", "user");
+        AliasSuggestion aliasSuggestion1 = new AliasSuggestion("HSaF", 1, "50.34", "user1");
+        AliasSuggestion aliasSuggestion2 = new AliasSuggestion("Infobau", 1, "50.34", "user2");
+        AliasSuggestion aliasSuggestion3 = new AliasSuggestion("Info", 1, "50.34", "user3");
         aliasSuggestionRepository.save(aliasSuggestion1);
         aliasSuggestionRepository.save(aliasSuggestion2);
         aliasSuggestionRepository.save(aliasSuggestion3);
