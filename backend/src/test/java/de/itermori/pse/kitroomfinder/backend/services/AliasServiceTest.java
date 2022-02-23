@@ -61,6 +61,7 @@ class AliasServiceTest {
      */
     @Test
     void whenAliasAlreadyAdded_thenAddAlias() {
+        mapObjectRepository.save(new MapObject("30.34", 1));
         // add alias once
         assertTrue(aliasService.addAlias("Infobau", 1));
         Alias actualAlias = aliasRepository.findByName("Infobau");

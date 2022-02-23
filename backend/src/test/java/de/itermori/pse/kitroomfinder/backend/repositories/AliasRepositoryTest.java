@@ -89,15 +89,9 @@ class AliasRepositoryTest {
         Alias newerAlias = new Alias("Infobau", 1, "50.34", 1);
         aliasRepository.save(newerAlias);
         Iterable<Alias> newAliases = aliasRepository.findUpdatesByVersion(0);
-        Iterator<Alias> aliasIterator = newAliases.iterator();
-        int actualAmountAliases = 0;
-        Alias actualAlias = null;
-        while (aliasIterator.hasNext()) {
-            ++actualAmountAliases;
-            actualAlias = aliasIterator.next(); // now correct value should be saved in actualAlias
-        }
+        long actualAmountAliases = newAliases.spliterator().getExactSizeIfKnown();;
         assertEquals(1, actualAmountAliases);
-        assertEquals(newerAlias, actualAlias);
+        assertEquals(newerAlias, newAliases.iterator().next());
     }
 
 }

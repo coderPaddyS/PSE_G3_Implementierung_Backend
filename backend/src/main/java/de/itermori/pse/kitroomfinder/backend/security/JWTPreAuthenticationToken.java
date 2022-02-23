@@ -34,15 +34,6 @@ public class JWTPreAuthenticationToken extends PreAuthenticatedAuthenticationTok
         super.setDetails(details);
     }
 
-    /**
-     *
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getCredentials() {
-        return null;
-    }
-
     private static Set<GrantedAuthority> parseAuthorities(String authorities) {
         return Stream.of(authorities.split(","))
                 .map(JWTPreAuthenticationToken::buildSimpleGrantedAuthority)

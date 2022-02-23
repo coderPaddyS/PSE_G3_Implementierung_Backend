@@ -47,6 +47,7 @@ class AliasTest {
      */
     @BeforeEach
     void setUp(){
+        userRepository.deleteAll();
         userRepository.save(new User(UtilTests.USER, UtilTests.USER_AUTHORITY));
         userRepository.save(new User(UtilTests.ADMIN, UtilTests.ADMIN_AUTHORITY));
         aliasRepository.deleteAll();
