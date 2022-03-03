@@ -63,7 +63,7 @@ public interface AliasRepository extends JpaRepository<Alias, Long> {
      * @param mapID The mapID for which the alias serves as an additional description.
      */
     @Transactional
-    void deleteByName(String name, int mapID);
+    void deleteByNameAndMapID(String name, int mapID);
 
     /**
      * Finds all aliases (type: {@link Alias}) stored in the database

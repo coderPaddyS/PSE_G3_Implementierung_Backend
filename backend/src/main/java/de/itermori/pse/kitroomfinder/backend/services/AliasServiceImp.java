@@ -1,6 +1,5 @@
 package de.itermori.pse.kitroomfinder.backend.services;
 
-import de.itermori.pse.kitroomfinder.backend.exceptions.NoSuchAliasSuggestionException;
 import de.itermori.pse.kitroomfinder.backend.models.Alias;
 import de.itermori.pse.kitroomfinder.backend.models.Version;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasRepository;
@@ -123,7 +122,7 @@ public class AliasServiceImp implements AliasService {
             return false;
         }
         deletedAliasService.addDeletedAlias(name, mapID);
-        aliasRepository.deleteByName(name, mapID);
+        aliasRepository.deleteByNameAndMapID(name, mapID);
         return true;
     }
 

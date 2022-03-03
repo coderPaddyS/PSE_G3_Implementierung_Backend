@@ -227,7 +227,7 @@ class AliasSuggestionTest {
 
     @Test
     void disapproveAliasSuggestionTest() throws JSONException, IOException {
-        String testname = "disApproveAliasSuggestion";
+        String testname = "disapproveAliasSuggestion";
         aliasSuggestionRepository.save(new AliasSuggestion("alias", 1, "50.34", "suggester"));
         mapObjectRepository.save(new MapObject("50.34", 1));
         UtilTests.validate(graphQLTestTemplate, testname, UtilTests.ADMIN);

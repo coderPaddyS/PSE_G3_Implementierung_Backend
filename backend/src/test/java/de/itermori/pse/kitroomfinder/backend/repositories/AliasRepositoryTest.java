@@ -62,7 +62,7 @@ class AliasRepositoryTest {
     }
 
     /**
-     * Tests the method {@link AliasRepository#deleteByName(String, int)}.
+     * Tests the method {@link AliasRepository#deleteByNameAndMapID(String, int)}.
      */
     @Test
     void whenAliasSaved_thenDeleteByName() {
@@ -75,7 +75,7 @@ class AliasRepositoryTest {
         assertEquals(toDelete, actualAlias);
 
         // now delete it
-        aliasRepository.deleteByName(toDelete.getName(), toDelete.getMapID());
+        aliasRepository.deleteByNameAndMapID(toDelete.getName(), toDelete.getMapID());
 
         List<Alias> aliasesSaved = aliasRepository.findAll();
         assertTrue(aliasesSaved.isEmpty());
