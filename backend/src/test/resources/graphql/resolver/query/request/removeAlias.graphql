@@ -1,3 +1,3 @@
 mutation {
-    removeAlias(alias: "dalias")
+    removeAlias(alias: "dalias", mapID: 1)
 }

@@ -51,18 +51,18 @@ class AliasRepositoryTest {
     }
 
     /**
-     * Tests the method {@link AliasRepository#findByName(String)}.
+     * Tests the method {@link AliasRepository#findByNameAndMapID(String, int)} .
      */
     @Test
     void whenAliasSaved_thenFindByName() {
         Alias expectedAlias = new Alias("Infobau", 1, "50.34", 1);
         aliasRepository.save(expectedAlias);
-        Alias actualAlias = aliasRepository.findByName("Infobau");
+        Alias actualAlias = aliasRepository.findByNameAndMapID("Infobau", 1);
         assertEquals(expectedAlias, actualAlias);
     }
 
     /**
-     * Tests the method {@link AliasRepository#deleteByName(String)}.
+     * Tests the method {@link AliasRepository#deleteByName(String, int)}.
      */
     @Test
     void whenAliasSaved_thenDeleteByName() {
@@ -71,11 +71,11 @@ class AliasRepositoryTest {
         aliasRepository.save(toDelete);
 
         // now check if it is saved in database
-        Alias actualAlias = aliasRepository.findByName("Infobau");
+        Alias actualAlias = aliasRepository.findByNameAndMapID("Infobau", 1);
         assertEquals(toDelete, actualAlias);
 
         // now delete it
-        aliasRepository.deleteByName(toDelete.getName());
+        aliasRepository.deleteByName(toDelete.getName(), toDelete.getMapID());
 
         List<Alias> aliasesSaved = aliasRepository.findAll();
         assertTrue(aliasesSaved.isEmpty());

@@ -31,14 +31,28 @@ public interface AliasRepository extends JpaRepository<Alias, Long> {
     Iterable<Alias> findByMapID(@Param("mapID") int mapID);
 
     /**
-     * Finds the alias (type: {@link Alias}) that is stored in the
-     * database and whose name is the provided alias.
+     * Finds all aliases (type: {@link Alias}) that are stored in the database and
+     * whose names correspond to the provided name.
      *
-     * @param alias The name of the {@link Alias} to be found and returned.
-     * @return      The alias (type: {@link Alias}) whose name is the provided alias.
+     * @param name The name which the aliases should have.
+     * @return      An {@link Iterable} of all the aliases (type: {@link Alias}) whose
+     *              names correspond to the provided name.
      */
-    @Query("SELECT a FROM Alias AS a WHERE a.name=:alias")
-    Alias findByName(@Param("alias") String alias);
+    @Query("SELECT a FROM Alias AS a WHERE a.name=:name")
+    Iterable<Alias> findByName(@Param("name") String name);
+
+    /**
+     * Finds the alias (type: {@link Alias}) that is stored in the
+     * database and whose name is the provided alias and which
+     * serves as an additional description for the provided mapID.
+     *
+     * @param name  The name of the alias to be found and returned.
+     * @param mapID The mapID for which the alias should serve as an additional description.
+     * @return      The alias (type: {@link Alias}) whose name is the provided alias and which
+     *              serve as an additional description for the provided name.
+     */
+    @Query("SELECT a FROM Alias AS a WHERE a.name=:name AND a.mapID=:mapID")
+    Alias findByNameAndMapID(@Param("name") String name, @Param("mapID") int mapID);
 
     /**
      * Deletes the alias (type: {@link Alias}) whose name is the provided
@@ -46,9 +60,10 @@ public interface AliasRepository extends JpaRepository<Alias, Long> {
      * Otherwise the deletion request is ignored.
      *
      * @param name  The name of the alias (type: {@link Alias}) to be deleted from the database.
+     * @param mapID The mapID for which the alias serves as an additional description.
      */
     @Transactional
-    void deleteByName(String name);
+    void deleteByName(String name, int mapID);
 
     /**
      * Finds all aliases (type: {@link Alias}) stored in the database

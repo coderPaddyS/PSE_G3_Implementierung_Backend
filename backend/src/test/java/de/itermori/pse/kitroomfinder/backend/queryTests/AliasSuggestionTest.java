@@ -3,7 +3,6 @@ package de.itermori.pse.kitroomfinder.backend.queryTests;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.graphql.spring.boot.test.GraphQLTestTemplate;
-import de.itermori.pse.kitroomfinder.backend.models.Alias;
 import de.itermori.pse.kitroomfinder.backend.models.AliasSuggestion;
 import de.itermori.pse.kitroomfinder.backend.models.MapObject;
 import de.itermori.pse.kitroomfinder.backend.models.User;
@@ -223,15 +222,16 @@ class AliasSuggestionTest {
         aliasSuggestionRepository.save(new AliasSuggestion("alias", 1, "50.34", "suggester"));
         mapObjectRepository.save(new MapObject("50.34", 1));
         UtilTests.validate(graphQLTestTemplate, testname, UtilTests.ADMIN);
-        assertTrue(aliasRepository.findByName("alias") != null);
+        assertNotNull(aliasRepository.findByNameAndMapID("alias", 1));
     }
 
     @Test
-    void disApproveAliasSuggestionTest() throws JSONException, IOException {
+    void disapproveAliasSuggestionTest() throws JSONException, IOException {
         String testname = "disApproveAliasSuggestion";
         aliasSuggestionRepository.save(new AliasSuggestion("alias", 1, "50.34", "suggester"));
         mapObjectRepository.save(new MapObject("50.34", 1));
         UtilTests.validate(graphQLTestTemplate, testname, UtilTests.ADMIN);
-        assertTrue(aliasSuggestionRepository.findByNameAndMapID("alias", 1) == null);
+        assertNull(aliasSuggestionRepository.findByNameAndMapID("alias", 1));
     }
+
 }

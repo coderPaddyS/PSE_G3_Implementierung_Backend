@@ -51,7 +51,7 @@ class AliasServiceTest {
     void whenAliasNotYetAdded_thenAddAlias() {
         mapObjectRepository.save(new MapObject("50.34", 1));
         assertTrue(aliasService.addAlias("Infobau", 1));
-        Alias actualAlias = aliasRepository.findByName("Infobau");
+        Alias actualAlias = aliasRepository.findByNameAndMapID("Infobau", 1);
         assertEquals("Infobau", actualAlias.getName());
         assertEquals(1, actualAlias.getMapID());
     }
@@ -64,7 +64,7 @@ class AliasServiceTest {
         mapObjectRepository.save(new MapObject("30.34", 1));
         // add alias once
         assertTrue(aliasService.addAlias("Infobau", 1));
-        Alias actualAlias = aliasRepository.findByName("Infobau");
+        Alias actualAlias = aliasRepository.findByNameAndMapID("Infobau", 1);
         assertEquals("Infobau", actualAlias.getName());
         assertEquals(1, actualAlias.getMapID());
 
@@ -141,7 +141,7 @@ class AliasServiceTest {
     }
 
     /**
-     * Tests the method {@link AliasService#removeAlias(String)}.
+     * Tests the method {@link AliasService#removeAlias(String, int)}.
      */
     @Test
     void whenAliasSaved_thenRemoveAlias() {
@@ -155,7 +155,7 @@ class AliasServiceTest {
         assertEquals(toDelete, savedAliases.get(0));
 
         // now remove saved alias
-        assertTrue(aliasService.removeAlias("Infobau"));
+        assertTrue(aliasService.removeAlias("Infobau", 1));
 
         // check if alias was removed
         savedAliases = aliasRepository.findAll();

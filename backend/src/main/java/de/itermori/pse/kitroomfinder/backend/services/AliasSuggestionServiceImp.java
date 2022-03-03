@@ -57,9 +57,6 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
         if (aliasSuggestionRepository.findByNameAndMapID(aliasSuggestion, mapID) != null){
             return false;
         }
-        if (aliasRepository.findByName(aliasSuggestion) != null) {
-            return false;
-        }
         String mapObjectName = mapObjectService.getMapObjectName(mapID);
         aliasSuggestionRepository.save(new AliasSuggestion(aliasSuggestion, mapID, mapObjectName, user));
         return true;
