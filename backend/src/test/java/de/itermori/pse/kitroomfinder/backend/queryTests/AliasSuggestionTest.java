@@ -3,13 +3,11 @@ package de.itermori.pse.kitroomfinder.backend.queryTests;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.graphql.spring.boot.test.GraphQLTestTemplate;
+import de.itermori.pse.kitroomfinder.backend.models.Alias;
 import de.itermori.pse.kitroomfinder.backend.models.AliasSuggestion;
+import de.itermori.pse.kitroomfinder.backend.models.MapObject;
 import de.itermori.pse.kitroomfinder.backend.models.User;
-import de.itermori.pse.kitroomfinder.backend.repositories.AliasRepository;
-import de.itermori.pse.kitroomfinder.backend.repositories.AliasSuggestionRepository;
-import de.itermori.pse.kitroomfinder.backend.repositories.DeletedAliasRepository;
-import de.itermori.pse.kitroomfinder.backend.repositories.UserRepository;
-import de.itermori.pse.kitroomfinder.backend.repositories.VersionRepository;
+import de.itermori.pse.kitroomfinder.backend.repositories.*;
 import de.itermori.pse.kitroomfinder.backend.resolvers.queryresolver.AliasSuggestionQuery;
 import de.itermori.pse.kitroomfinder.backend.resolvers.mutationresolver.AliasSuggestionMutation;
 import de.itermori.pse.kitroomfinder.backend.services.AliasService;
@@ -29,10 +27,7 @@ import static de.itermori.pse.kitroomfinder.backend.queryTests.UtilTests.ADMIN;
 import static de.itermori.pse.kitroomfinder.backend.queryTests.UtilTests.GRAPHQL_QUERY_REQUEST_PATH;
 import static de.itermori.pse.kitroomfinder.backend.queryTests.UtilTests.USER;
 import static java.lang.String.format;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Tests {@link AliasSuggestion} (integration test).
@@ -67,6 +62,9 @@ class AliasSuggestionTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private MapObjectRepository mapObjectRepository;
+
     /**
      * Sets up the test resources.
      */
@@ -74,6 +72,7 @@ class AliasSuggestionTest {
     void setUp() {
         userRepository.save(new User(UtilTests.USER, UtilTests.USER_AUTHORITY));
         userRepository.save(new User(UtilTests.ADMIN, UtilTests.ADMIN_AUTHORITY));
+        mapObjectRepository.deleteAll();
         aliasRepository.deleteAll();
         aliasSuggestionRepository.deleteAll();
     }
@@ -109,9 +108,9 @@ class AliasSuggestionTest {
     void getAliasSuggestionAmountTest() {
         try {
             String testname = "getAliasSuggestionAmount";
+            mapObjectRepository.save(new MapObject("50.34", 1));
             aliasSuggestionRepository.save(new AliasSuggestion("a", 1, "50.34", "sug"));
             aliasSuggestionRepository.save(new AliasSuggestion("b", 1, "50.34", "sug"));
-            aliasSuggestionRepository.save(new AliasSuggestion("c", 1, "50.34", "sug"));
             aliasSuggestionService.voteForAlias("a", 1, "user", true);
             aliasSuggestionService.voteForAlias("a", 1, "user2", false);
             aliasSuggestionService.voteForAlias("a", 1, "user3", false);
@@ -128,6 +127,7 @@ class AliasSuggestionTest {
     void suggestAlias() throws IOException {
         try {
             String testname = "suggestAlias";
+            mapObjectRepository.save(new MapObject("50.34", 1));
             String token = JWT
                     .create()
                     .withIssuer("my-graphql-api")
@@ -191,4 +191,47 @@ class AliasSuggestionTest {
         }
     }
 
+    @Test
+    void getAmountEntriesAliasSuggestionTest() throws JSONException, IOException {
+        String testname = "getAmountEntriesAliasSuggestion";
+        aliasSuggestionRepository.save(new AliasSuggestion("alias", 1, "50.34", "suggester"));
+        aliasSuggestionRepository.save(new AliasSuggestion("alias2", 2, "50.35", "suggester2"));
+        UtilTests.validate(graphQLTestTemplate, testname, UtilTests.ADMIN);
+    }
+
+    @Test
+    void getPosVotesTest() throws JSONException, IOException {
+        String testname = "getPosVotes";
+        aliasSuggestionRepository.save(new AliasSuggestion("alias", 1, "50.34", "suggester"));
+        aliasSuggestionRepository.save(new AliasSuggestion("alias2", 2, "50.35", "suggester2"));
+        aliasSuggestionService.voteForAlias("alias", 1, "user", true);
+        UtilTests.validate(graphQLTestTemplate, testname, UtilTests.ADMIN);
+    }
+
+    @Test
+    void getNegVotesTest() throws JSONException, IOException {
+        String testname = "getNegVotes";
+        aliasSuggestionRepository.save(new AliasSuggestion("alias", 1, "50.34", "suggester"));
+        aliasSuggestionRepository.save(new AliasSuggestion("alias2", 2, "50.35", "suggester2"));
+        aliasSuggestionService.voteForAlias("alias", 1, "user", false);
+        UtilTests.validate(graphQLTestTemplate, testname, UtilTests.ADMIN);
+    }
+
+    @Test
+    void approveAliasSuggestionTest() throws JSONException, IOException {
+        String testname = "approveAliasSuggestion";
+        aliasSuggestionRepository.save(new AliasSuggestion("alias", 1, "50.34", "suggester"));
+        mapObjectRepository.save(new MapObject("50.34", 1));
+        UtilTests.validate(graphQLTestTemplate, testname, UtilTests.ADMIN);
+        assertTrue(aliasRepository.findByName("alias") != null);
+    }
+
+    @Test
+    void disApproveAliasSuggestionTest() throws JSONException, IOException {
+        String testname = "disApproveAliasSuggestion";
+        aliasSuggestionRepository.save(new AliasSuggestion("alias", 1, "50.34", "suggester"));
+        mapObjectRepository.save(new MapObject("50.34", 1));
+        UtilTests.validate(graphQLTestTemplate, testname, UtilTests.ADMIN);
+        assertTrue(aliasSuggestionRepository.findByNameAndMapID("alias", 1) == null);
+    }
 }

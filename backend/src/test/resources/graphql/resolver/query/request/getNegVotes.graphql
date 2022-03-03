@@ -1,0 +1,3 @@
+{
+    getNegVotes(aliasSuggestion: "alias", mapID: 1)
+}

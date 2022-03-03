@@ -39,6 +39,7 @@ class AliasSuggestionServiceTest {
     @Autowired
     private BlacklistRepository blacklistRepository;
 
+
     /**
      * Sets up the test resources.
      */
@@ -251,10 +252,11 @@ class AliasSuggestionServiceTest {
      */
     @Test
     void whenAliasSuggestionsSaved_thenGetAliasSuggestionsAmount() {
+        mapObjectRepository.save(new MapObject("50.34", 1));
         // save alias suggestions in database
-        AliasSuggestion aliasSuggestion1 = new AliasSuggestion("HSaF", 1, "50.34", "user");
-        AliasSuggestion aliasSuggestion2 = new AliasSuggestion("Infobau", 1, "50.34", "user");
-        AliasSuggestion aliasSuggestion3 = new AliasSuggestion("Info", 1, "50.34", "user");
+        AliasSuggestion aliasSuggestion1 = new AliasSuggestion("HSaF", 1, "50.34", "b");
+        AliasSuggestion aliasSuggestion2 = new AliasSuggestion("Infobau", 1, "50.34", "c");
+        AliasSuggestion aliasSuggestion3 = new AliasSuggestion("Info", 1, "50.34", "a");
         aliasSuggestionRepository.save(aliasSuggestion1);
         aliasSuggestionRepository.save(aliasSuggestion2);
         aliasSuggestionRepository.save(aliasSuggestion3);

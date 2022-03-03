@@ -65,6 +65,9 @@ public class AliasServiceImp implements AliasService {
             currentVersion = 1;
         }
         String mapObjectName = mapObjectService.getMapObjectName(mapID);
+        if (mapObjectName == null) {
+            return false;
+        }
         Alias newEntry = new Alias(alias, mapID, mapObjectName, currentVersion);
         aliasRepository.save(newEntry);
         return true;

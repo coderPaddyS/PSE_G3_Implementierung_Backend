@@ -1,10 +1,13 @@
 package de.itermori.pse.kitroomfinder.backend.services;
 
 import de.itermori.pse.kitroomfinder.backend.models.Alias;
+import de.itermori.pse.kitroomfinder.backend.models.MapObject;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasRepository;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import de.itermori.pse.kitroomfinder.backend.repositories.MapObjectRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +32,16 @@ class AliasServiceTest {
     @Autowired
     private AliasRepository aliasRepository;
 
+    @Autowired
+    private MapObjectRepository mapObjectRepository;
+
     /**
      * Sets up the test resources.
      */
     @BeforeEach
     void setUp() {
         aliasRepository.deleteAll();
+        mapObjectRepository.deleteAll();
     }
 
     /**
@@ -42,6 +49,7 @@ class AliasServiceTest {
      */
     @Test
     void whenAliasNotYetAdded_thenAddAlias() {
+        mapObjectRepository.save(new MapObject("50.34", 1));
         assertTrue(aliasService.addAlias("Infobau", 1));
         Alias actualAlias = aliasRepository.findByName("Infobau");
         assertEquals("Infobau", actualAlias.getName());
@@ -53,6 +61,7 @@ class AliasServiceTest {
      */
     @Test
     void whenAliasAlreadyAdded_thenAddAlias() {
+        mapObjectRepository.save(new MapObject("30.34", 1));
         // add alias once
         assertTrue(aliasService.addAlias("Infobau", 1));
         Alias actualAlias = aliasRepository.findByName("Infobau");

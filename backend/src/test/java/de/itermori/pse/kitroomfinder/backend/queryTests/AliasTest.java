@@ -47,6 +47,7 @@ class AliasTest {
      */
     @BeforeEach
     void setUp(){
+        userRepository.deleteAll();
         userRepository.save(new User(UtilTests.USER, UtilTests.USER_AUTHORITY));
         userRepository.save(new User(UtilTests.ADMIN, UtilTests.ADMIN_AUTHORITY));
         aliasRepository.deleteAll();
@@ -144,6 +145,14 @@ class AliasTest {
         } catch (IOException | JSONException e) {
             fail(e.getMessage());
         }
+    }
+
+    @Test
+    void getAmountEntriesAliastest() throws JSONException, IOException {
+        String testname = "getAmountEntriesAlias";
+        aliasRepository.save(new Alias("alias1", 1, "50.34", 0));
+        aliasRepository.save(new Alias("alias2", 2, "50.35", 0));
+        UtilTests.validate(graphQLTestTemplate, testname, UtilTests.ADMIN);
     }
 
 }

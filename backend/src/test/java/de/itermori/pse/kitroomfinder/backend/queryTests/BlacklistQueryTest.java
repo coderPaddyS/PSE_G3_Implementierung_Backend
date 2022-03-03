@@ -46,6 +46,7 @@ public class BlacklistQueryTest {
     @AfterEach
     void cleanup() {
         userRepository.deleteAll();
+        blacklistRepository.deleteAll();
     }
 
     @BeforeEach
@@ -72,10 +73,19 @@ public class BlacklistQueryTest {
     }
 
     @Test
-    public void removeFromBlacklist() throws JSONException, IOException {
+    public void removeFromBlacklistTest() throws JSONException, IOException {
 
         String testname = "removeFromBlacklist";
         blacklistService.addToBlacklist("badWord");
+        UtilTests.validate(graphQLTestTemplate, testname, UtilTests.ADMIN);
+    }
+
+
+    @Test
+    void getAmountEntriesBlacklistTest() throws JSONException, IOException {
+        String testname = "getAmountEntriesBlacklist";
+        blacklistService.addToBlacklist("badWord");
+        blacklistService.addToBlacklist("badWord2");
         UtilTests.validate(graphQLTestTemplate, testname, UtilTests.ADMIN);
     }
 
