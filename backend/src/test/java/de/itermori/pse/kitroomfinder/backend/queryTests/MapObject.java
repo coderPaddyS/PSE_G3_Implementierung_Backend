@@ -45,4 +45,27 @@ public class MapObject {
         UtilTests.validate(graphQLTestTemplate, testname, UtilTests.ADMIN);
     }
 
+    @Test
+    public void getMapIDByNameTest() throws JSONException, IOException {
+        String testname = "getMapIDByName";
+        mapObjectRepository.save(new de.itermori.pse.kitroomfinder.backend.models.MapObject("50.34", 1));
+        UtilTests.validate(graphQLTestTemplate, testname, UtilTests.ADMIN);
+    }
+
+    @Test
+    public void getAllMapObjectsNameTest() throws JSONException, IOException {
+        String testname = "getAllMapObjectsName";
+        mapObjectRepository.save(new de.itermori.pse.kitroomfinder.backend.models.MapObject("50.34", 1));
+        mapObjectRepository.save(new de.itermori.pse.kitroomfinder.backend.models.MapObject("50.35", 2));       UtilTests.validate(graphQLTestTemplate, testname, UtilTests.ADMIN);
+        UtilTests.validate(graphQLTestTemplate, testname, UtilTests.ADMIN);
+    }
+
+    @Test
+    public void getAllMapIDsTest() throws JSONException, IOException {
+        String testname = "getAllMapIDs";
+        mapObjectRepository.save(new de.itermori.pse.kitroomfinder.backend.models.MapObject("50.34", 1));
+        mapObjectRepository.save(new de.itermori.pse.kitroomfinder.backend.models.MapObject("50.35", 2));       UtilTests.validate(graphQLTestTemplate, testname, UtilTests.ADMIN);
+        UtilTests.validate(graphQLTestTemplate, testname, UtilTests.ADMIN);
+    }
+
 }

@@ -147,4 +147,12 @@ class AliasTest {
         }
     }
 
+    @Test
+    void getAmountEntriesAliastest() throws JSONException, IOException {
+        String testname = "getAmountEntriesAlias";
+        aliasRepository.save(new Alias("alias1", 1, "50.34", 0));
+        aliasRepository.save(new Alias("alias2", 2, "50.35", 0));
+        UtilTests.validate(graphQLTestTemplate, testname, UtilTests.ADMIN);
+    }
+
 }

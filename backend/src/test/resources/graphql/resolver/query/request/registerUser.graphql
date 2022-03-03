@@ -1,0 +1,3 @@
+mutation Register($token : String){
+    registerUser(accessToken: $token)
+}
