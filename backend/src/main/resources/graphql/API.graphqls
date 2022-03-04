@@ -2,6 +2,7 @@
 # Root
 type Query {
     getAlias(mapID : Int!) : [Alias]
+    getAliasByName(name : String!) : [Alias]
     getAllAliases : [Alias]
     getNewAliases(version : Int!) : [Alias]
     getAmountEntriesAlias : String
@@ -33,7 +34,7 @@ type Mutation {
 
     registerUser(accessToken : String) : String
 
-    removeAlias(alias : String!) : Boolean
+    removeAlias(alias : String!, mapID : Int!) : Boolean
     blacklistAlias(toBlacklist : String!) : Boolean
     removeFromBlacklist(blacklistedToRem : String!) : Boolean
 }

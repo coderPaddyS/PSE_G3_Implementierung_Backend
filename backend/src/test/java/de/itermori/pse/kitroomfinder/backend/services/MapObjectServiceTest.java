@@ -7,41 +7,59 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import static org.junit.jupiter.api.Assertions.*;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test class for {@link MapObjectService}.
+ *
+ * @author Lukas Zetto
+ * @version 1.0
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class MapObjectServiceTest {
+class MapObjectServiceTest {
 
     @Autowired
-    MapObjectService mapObjectService;
+    private MapObjectService mapObjectService;
 
     @Autowired
-    MapObjectRepository mapObjectRepository;
+    private MapObjectRepository mapObjectRepository;
 
-    String MAPOBJECT1 = "mapObject1";
-    String MAPOBJECT2 = "mapObject2";
+    private final String MAPOBJECT1 = "mapObject1";
+    private final String MAPOBJECT2 = "mapObject2";
 
+    /**
+     * Sets up the test resources.
+     */
     @BeforeEach
-    public void setup() {
+    public void setUp() {
         mapObjectRepository.deleteAll();
 
         mapObjectRepository.save(new MapObject(MAPOBJECT1, 1));
         mapObjectRepository.save(new MapObject(MAPOBJECT2, 2));
     }
 
+    /**
+     * Tests the method {@link MapObjectService#getMapObjectName(int)}.
+     */
     @Test
-    public void getMapObjectNameTest() {
+    void getMapObjectNameTest() {
         assertEquals(MAPOBJECT1, mapObjectService.getMapObjectName(1));
     }
 
+    /**
+     * Tests the method {@link MapObjectService#getMapIDByName(String)}.
+     */
     @Test
-    public void getMapObjectTest() {
+    void getMapIdByNameTest() {
         assertEquals(2, mapObjectService.getMapIDByName(MAPOBJECT2));
     }
 
+    /**
+     * Tests the method {@link MapObjectService#getAllMapIDs()}.
+     */
     @Test
-    public void getAllMapIDsTest() {
+    void getAllMapIDsTest() {
         Iterator<Integer> iterator = mapObjectService.getAllMapIDs().iterator();
         int actualAmountMapIDs = 0;
         while (iterator.hasNext()) {
@@ -51,8 +69,11 @@ public class MapObjectServiceTest {
         assertEquals(2, actualAmountMapIDs);
     }
 
+    /**
+     * Tests the method {@link MapObjectService#getAllMapObjectsName()}.
+     */
     @Test
-    public void getAllMapObjectsNameTest() {
+    void getAllMapObjectsNameTest() {
         Iterator<String> iterator = mapObjectService.getAllMapObjectsName().iterator();
         int actualAmountMapIDs = 0;
         while (iterator.hasNext()) {

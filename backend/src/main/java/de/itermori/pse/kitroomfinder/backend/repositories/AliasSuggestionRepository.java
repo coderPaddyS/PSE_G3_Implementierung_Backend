@@ -64,7 +64,7 @@ public interface AliasSuggestionRepository extends JpaRepository<AliasSuggestion
      * @return          An {@link Iterable} of maximum amount alias suggestions which serve as a description
      *                  of the provided mapID and were evaluated by the provided user.
      */
-    @Query(value = "SELECT * FROM alias_suggestion WHERE mapID=:mapID AND voters LIKE :user LIMIT :amount",
+    @Query(value = "SELECT * FROM alias_suggestion WHERE mapID=:mapID AND voters NOT LIKE :user LIMIT :amount",
             nativeQuery = true)
     Iterable<AliasSuggestion> findAmount(@Param("mapID") int mapID, @Param("amount") int amount,
                                          @Param("user") String user);

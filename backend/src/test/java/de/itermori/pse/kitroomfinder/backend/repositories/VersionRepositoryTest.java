@@ -9,17 +9,29 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+/**
+ * Test class for {@link VersionRepository}.
+ *
+ * @author Adriano Castro
+ * @version 1.0
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class VersionRepositoryTest {
 
     @Autowired
     private VersionRepository versionRepository;
 
+    /**
+     * Sets up the test resources.
+     */
     @BeforeEach
     void setUp() {
         versionRepository.deleteAll();
     }
 
+    /**
+     * Tests the method {@link VersionRepository#incrementVersion()}.
+     */
     @Test
     void whenVersionAtCertainValue_thenIncrementVersion() {
         // save version with start value 1 to database
@@ -42,6 +54,9 @@ class VersionRepositoryTest {
 
     }
 
+    /**
+     * Tests the method {@link VersionRepository#retrieveCurrentVersion()}.
+     */
     @Test
     void whenVersionSaved_thenRetrieveCurrentVersion() {
         // save version to database

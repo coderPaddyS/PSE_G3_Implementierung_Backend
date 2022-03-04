@@ -18,6 +18,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Test class for {@link AliasSuggestionService}.
+ *
+ * @author Adriano Castro
+ * @version 1.0
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AliasSuggestionServiceTest {
 
@@ -33,12 +39,19 @@ class AliasSuggestionServiceTest {
     @Autowired
     private BlacklistRepository blacklistRepository;
 
+
+    /**
+     * Sets up the test resources.
+     */
     @BeforeEach
     void setUp() {
         aliasSuggestionRepository.deleteAll();
         mapObjectRepository.deleteAll();
     }
 
+    /**
+     * Tests the method {@link AliasSuggestionService#addAliasSuggestion(String, int, String)}.
+     */
     @Test
     void whenAliasSuggestionNotYetAdded_thenAddAliasSuggestion() {
         // add map object first
@@ -55,6 +68,9 @@ class AliasSuggestionServiceTest {
         assertEquals("user", savedAliasSuggestions.get(0).getSuggester());
     }
 
+    /**
+     * Tests the method {@link AliasSuggestionService#addAliasSuggestion(String, int, String)}.
+     */
     @Test
     void whenAliasSuggestionAddedWithDifferentMapID_thenAddAliasSuggestion() {
         // add map objects first
@@ -80,6 +96,9 @@ class AliasSuggestionServiceTest {
         assertEquals("user", savedAliasSuggestions.get(1).getSuggester());
     }
 
+    /**
+     * Tests the method {@link AliasSuggestionService#addAliasSuggestion(String, int, String)}.
+     */
     @Test
     void whenAliasSuggestionAlreadyAdded_thenAddAliasSuggestion() {
         // add map object first
@@ -99,6 +118,9 @@ class AliasSuggestionServiceTest {
         assertEquals("user", savedAliasSuggestions.get(0).getSuggester());
     }
 
+    /**
+     * Tests the method {@link AliasSuggestionService#removeAliasSuggestion(String, int)}.
+     */
     @Test
     void whenAliasSuggestionAdded_thenRemoveAliasSuggestion() {
         // save alias suggestion in database
@@ -113,6 +135,9 @@ class AliasSuggestionServiceTest {
         assertEquals(0, savedAliasSuggestions.size());
     }
 
+    /**
+     * Tests the method {@link AliasSuggestionService#removeAliasSuggestion(String)}.
+     */
     @Test
     void whenAliasSuggestionsAdded_thenRemoveAliasSuggestion() {
         // save alias suggestion in database
@@ -129,6 +154,9 @@ class AliasSuggestionServiceTest {
         assertEquals(0, savedAliasSuggestions.size());
     }
 
+    /**
+     * Tests the method {@link AliasSuggestionService#voteForAlias(String, int, String, boolean)}.
+     */
     @Test
     void whenAliasSuggestionSaved_thenVoteForAlias() {
         // save alias suggestion in database
@@ -147,6 +175,9 @@ class AliasSuggestionServiceTest {
         assertEquals(1, savedAliasSuggestions.get(0).getNegVotes());
     }
 
+    /**
+     * Tests the method {@link AliasSuggestionService#voteForAlias(String, int, String, boolean)}.
+     */
     @Test
     void whenAlreadyVotedForAlias_thenVoteForAlias() {
         // save alias suggestion in database
@@ -166,6 +197,9 @@ class AliasSuggestionServiceTest {
         assertEquals(0, savedAliasSuggestions.get(0).getNegVotes());
     }
 
+    /**
+     * Tests the method {@link AliasSuggestionService#voteForAlias(String, int, String, boolean)}.
+     */
     @Test
     void whenAliasSuggestionSaved_thenSuggesterVoteForAlias() {
         // save alias suggestion in database
@@ -184,6 +218,9 @@ class AliasSuggestionServiceTest {
         assertEquals(0, savedAliasSuggestions.get(0).getNegVotes());
     }
 
+    /**
+     * Tests the method {@link AliasSuggestionService#getAliasSuggestions(int, int)}.
+     */
     @Test
     void whenAliasSuggestionsSaved_thenGetAliasSuggestions() {
         // save alias suggestions in database
@@ -210,12 +247,16 @@ class AliasSuggestionServiceTest {
         assertEquals(aliasSuggestion1, aliasSuggestions.get(0));
     }
 
+    /**
+     * Tests the method {@link AliasSuggestionService#getAliasSuggestionsAmount(int, int, String)}.
+     */
     @Test
     void whenAliasSuggestionsSaved_thenGetAliasSuggestionsAmount() {
+        mapObjectRepository.save(new MapObject("50.34", 1));
         // save alias suggestions in database
-        AliasSuggestion aliasSuggestion1 = new AliasSuggestion("HSaF", 1, "50.34", "user");
-        AliasSuggestion aliasSuggestion2 = new AliasSuggestion("Infobau", 1, "50.34", "user");
-        AliasSuggestion aliasSuggestion3 = new AliasSuggestion("Info", 1, "50.34", "user");
+        AliasSuggestion aliasSuggestion1 = new AliasSuggestion("HSaF", 1, "50.34", "b");
+        AliasSuggestion aliasSuggestion2 = new AliasSuggestion("Infobau", 1, "50.34", "c");
+        AliasSuggestion aliasSuggestion3 = new AliasSuggestion("Info", 1, "50.34", "a");
         aliasSuggestionRepository.save(aliasSuggestion1);
         aliasSuggestionRepository.save(aliasSuggestion2);
         aliasSuggestionRepository.save(aliasSuggestion3);
@@ -234,6 +275,9 @@ class AliasSuggestionServiceTest {
         assertEquals(aliasSuggestion2, aliasSuggestions.get(1));
     }
 
+    /**
+     * Tests the method {@link AliasSuggestionService#addAliasSuggestion(String, int, String)}.
+     */
     @Test
     void whenWordBlacklisted_thenAddAliasSuggestion() {
         BlacklistEntry blacklistEntry = new BlacklistEntry("forbidden");
@@ -245,4 +289,5 @@ class AliasSuggestionServiceTest {
         List<AliasSuggestion> aliasSuggestions = aliasSuggestionRepository.findAll();
         assertTrue(aliasSuggestions.isEmpty());
     }
+
 }

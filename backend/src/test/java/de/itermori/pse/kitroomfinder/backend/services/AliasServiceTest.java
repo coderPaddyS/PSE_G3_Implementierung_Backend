@@ -1,10 +1,13 @@
 package de.itermori.pse.kitroomfinder.backend.services;
 
 import de.itermori.pse.kitroomfinder.backend.models.Alias;
+import de.itermori.pse.kitroomfinder.backend.models.MapObject;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasRepository;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import de.itermori.pse.kitroomfinder.backend.repositories.MapObjectRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Test class for {@link AliasService}.
+ *
+ * @author Adriano Castro
+ * @version 1.0
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AliasServiceTest {
 
@@ -23,24 +32,39 @@ class AliasServiceTest {
     @Autowired
     private AliasRepository aliasRepository;
 
+    @Autowired
+    private MapObjectRepository mapObjectRepository;
+
+    /**
+     * Sets up the test resources.
+     */
     @BeforeEach
     void setUp() {
         aliasRepository.deleteAll();
+        mapObjectRepository.deleteAll();
     }
 
+    /**
+     * Tests the method {@link AliasService#addAlias(String, int)}.
+     */
     @Test
     void whenAliasNotYetAdded_thenAddAlias() {
+        mapObjectRepository.save(new MapObject("50.34", 1));
         assertTrue(aliasService.addAlias("Infobau", 1));
-        Alias actualAlias = aliasRepository.findByName("Infobau");
+        Alias actualAlias = aliasRepository.findByNameAndMapID("Infobau", 1);
         assertEquals("Infobau", actualAlias.getName());
         assertEquals(1, actualAlias.getMapID());
     }
 
+    /**
+     * Tests the method {@link AliasService#addAlias(String, int)}.
+     */
     @Test
     void whenAliasAlreadyAdded_thenAddAlias() {
+        mapObjectRepository.save(new MapObject("30.34", 1));
         // add alias once
         assertTrue(aliasService.addAlias("Infobau", 1));
-        Alias actualAlias = aliasRepository.findByName("Infobau");
+        Alias actualAlias = aliasRepository.findByNameAndMapID("Infobau", 1);
         assertEquals("Infobau", actualAlias.getName());
         assertEquals(1, actualAlias.getMapID());
 
@@ -48,6 +72,9 @@ class AliasServiceTest {
         assertFalse(aliasService.addAlias("Infobau", 1));
     }
 
+    /**
+     * Tests the method {@link AliasService#getAlias(int)}.
+     */
     @Test
     void whenAliasesSaved_thenGetAlias() {
         // save aliases
@@ -70,6 +97,9 @@ class AliasServiceTest {
         assertEquals(toSave2, aliases.get(1));
     }
 
+    /**
+     * Tests the method {@link AliasService#getAliasUpdates(int)}.
+     */
     @Test
     void whenNewerAliasSaved_thenGetAliasUpdates() {
         // save alias
@@ -89,6 +119,9 @@ class AliasServiceTest {
         assertEquals(toSave, aliases.get(0));
     }
 
+    /**
+     * Tests the method {@link AliasService#getAliasUpdates(int)}.
+     */
     @Test
     void whenNotNewerAliasSaved_thenGetAliasUpdates() {
         // save alias
@@ -107,6 +140,9 @@ class AliasServiceTest {
         assertEquals(0, aliases.size());
     }
 
+    /**
+     * Tests the method {@link AliasService#removeAlias(String, int)}.
+     */
     @Test
     void whenAliasSaved_thenRemoveAlias() {
         // save alias
@@ -119,7 +155,7 @@ class AliasServiceTest {
         assertEquals(toDelete, savedAliases.get(0));
 
         // now remove saved alias
-        assertTrue(aliasService.removeAlias("Infobau"));
+        assertTrue(aliasService.removeAlias("Infobau", 1));
 
         // check if alias was removed
         savedAliases = aliasRepository.findAll();
@@ -127,5 +163,3 @@ class AliasServiceTest {
     }
 
 }
-
-

@@ -1,0 +1,3 @@
+{
+    getMapIDByName(mapObject: "50.34")
+}

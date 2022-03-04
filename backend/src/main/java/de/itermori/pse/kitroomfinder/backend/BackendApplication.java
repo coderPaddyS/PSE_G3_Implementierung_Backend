@@ -8,13 +8,23 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.time.Clock;
-
+/**
+ * The main class.
+ *
+ * @author Lukas Zetto
+ * @author Adriano Castro
+ * @version 1.0
+ */
 @Configuration
 @EnableEncryptableProperties
 @EnableJpaRepositories(basePackages = "de.itermori.pse.kitroomfinder.backend.repositories")
 @SpringBootApplication()
 public class BackendApplication {
 
+	/**
+	 * The main method.
+	 * @param args	The arguments.
+	 */
 	public static void main(String[] args) {
 		SpringApplication.run(BackendApplication.class, args);
 	}

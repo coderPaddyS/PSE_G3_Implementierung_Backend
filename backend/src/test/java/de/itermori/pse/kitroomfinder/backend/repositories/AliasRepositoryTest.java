@@ -11,17 +11,29 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+/**
+ * Test class for {@link AliasRepository}.
+ *
+ * @author Adriano Castro
+ * @version 1.0
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class AliasRepositoryTest {
 
     @Autowired
     private AliasRepository aliasRepository;
 
+    /**
+     * Sets up the test resources.
+     */
     @BeforeEach
     void setUp() {
         aliasRepository.deleteAll();
     }
 
+    /**
+     * Tests the method {@link AliasRepository#findByMapID(int)}.
+     */
     @Test
     void whenAliasSaved_thenFindByMapID() {
         Alias expectedAlias = new Alias("Infobau", 1, "50.34", 1);
@@ -38,14 +50,20 @@ class AliasRepositoryTest {
         assertEquals(expectedAlias, actualAlias);
     }
 
+    /**
+     * Tests the method {@link AliasRepository#findByNameAndMapID(String, int)} .
+     */
     @Test
     void whenAliasSaved_thenFindByName() {
         Alias expectedAlias = new Alias("Infobau", 1, "50.34", 1);
         aliasRepository.save(expectedAlias);
-        Alias actualAlias = aliasRepository.findByName("Infobau");
+        Alias actualAlias = aliasRepository.findByNameAndMapID("Infobau", 1);
         assertEquals(expectedAlias, actualAlias);
     }
 
+    /**
+     * Tests the method {@link AliasRepository#deleteByNameAndMapID(String, int)}.
+     */
     @Test
     void whenAliasSaved_thenDeleteByName() {
         // first save alias in database
@@ -53,30 +71,27 @@ class AliasRepositoryTest {
         aliasRepository.save(toDelete);
 
         // now check if it is saved in database
-        Alias actualAlias = aliasRepository.findByName("Infobau");
+        Alias actualAlias = aliasRepository.findByNameAndMapID("Infobau", 1);
         assertEquals(toDelete, actualAlias);
 
         // now delete it
-        aliasRepository.deleteByName(toDelete.getName());
+        aliasRepository.deleteByNameAndMapID(toDelete.getName(), toDelete.getMapID());
 
         List<Alias> aliasesSaved = aliasRepository.findAll();
         assertTrue(aliasesSaved.isEmpty());
     }
 
+    /**
+     * Tests the method {@link AliasRepository#findUpdatesByVersion(int)}.
+     */
     @Test
     void whenNewerAlias_thenFindUpdatesByVersion() {
         Alias newerAlias = new Alias("Infobau", 1, "50.34", 1);
         aliasRepository.save(newerAlias);
         Iterable<Alias> newAliases = aliasRepository.findUpdatesByVersion(0);
-        Iterator<Alias> aliasIterator = newAliases.iterator();
-        int actualAmountAliases = 0;
-        Alias actualAlias = null;
-        while (aliasIterator.hasNext()) {
-            ++actualAmountAliases;
-            actualAlias = aliasIterator.next(); // now correct value should be saved in actualAlias
-        }
+        long actualAmountAliases = newAliases.spliterator().getExactSizeIfKnown();;
         assertEquals(1, actualAmountAliases);
-        assertEquals(newerAlias, actualAlias);
+        assertEquals(newerAlias, newAliases.iterator().next());
     }
 
 }

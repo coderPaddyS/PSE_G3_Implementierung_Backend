@@ -9,8 +9,21 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Handles GraphQL errors.
+ *
+ * @author Lukas Zetto
+ * @version 1.0
+ */
 @Component
 public class ErrorHandling implements GraphQLErrorHandler {
+
+    /**
+     * Processes GraphQL errors.
+     *
+     * @param errors    The GraphQL errors.
+     * @return          The processed errors.
+     */
     @Override
     public List<GraphQLError> processErrors(List<GraphQLError> errors) {
         if (errors == null || errors.isEmpty()) {
@@ -28,4 +41,5 @@ public class ErrorHandling implements GraphQLErrorHandler {
         } else
             return error;
     }
+
 }

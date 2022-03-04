@@ -18,6 +18,12 @@ import java.util.regex.Pattern;
 
 import static java.util.function.Predicate.not;
 
+/**
+ * Filter that manages the authentication and authorization.
+ *
+ * @author Lukas Zetto
+ * @version 1.0
+ */
 @Component
 public class JWTFilter extends OncePerRequestFilter {
     private static final String AUTHORIZATION_HEADER = "Authorization";
@@ -51,5 +57,5 @@ public class JWTFilter extends OncePerRequestFilter {
                 .filter(Matcher::find)
                 .map(matcher -> matcher.group(1));
     }
-}
 
+}

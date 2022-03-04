@@ -3,8 +3,6 @@ package de.itermori.pse.kitroomfinder.backend.services;
 import de.itermori.pse.kitroomfinder.backend.models.Alias;
 import de.itermori.pse.kitroomfinder.backend.models.Version;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasRepository;
-import de.itermori.pse.kitroomfinder.backend.repositories.DeletedAliasRepository;
-import de.itermori.pse.kitroomfinder.backend.repositories.MapObjectRepository;
 import de.itermori.pse.kitroomfinder.backend.repositories.VersionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,7 +52,7 @@ public class AliasServiceImp implements AliasService {
     @Transactional(isolation = Isolation.REPEATABLE_READ)
     @Override
     public boolean addAlias(String alias, int mapID) {
-        Alias exists = aliasRepository.findByName(alias);
+        Alias exists = aliasRepository.findByNameAndMapID(alias, mapID);
         if (exists != null) {
             return false;
         }
@@ -65,6 +63,9 @@ public class AliasServiceImp implements AliasService {
             currentVersion = 1;
         }
         String mapObjectName = mapObjectService.getMapObjectName(mapID);
+        if (mapObjectName == null) {
+            return false;
+        }
         Alias newEntry = new Alias(alias, mapID, mapObjectName, currentVersion);
         aliasRepository.save(newEntry);
         return true;
@@ -76,6 +77,14 @@ public class AliasServiceImp implements AliasService {
     @Override
     public Iterable<Alias> getAlias(int mapID) {
         return aliasRepository.findByMapID(mapID);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Iterable<Alias> getAliasByName(String name) {
+        return aliasRepository.findByName(name);
     }
 
     /**
@@ -107,13 +116,13 @@ public class AliasServiceImp implements AliasService {
      */
     @Transactional
     @Override
-    public boolean removeAlias(String name) {
-        Alias toRemove = aliasRepository.findByName(name);
+    public boolean removeAlias(String name, int mapID) {
+        Alias toRemove = aliasRepository.findByNameAndMapID(name, mapID);
         if (toRemove == null) {
             return false;
         }
-        deletedAliasService.addDeletedAlias(toRemove.getName(), toRemove.getMapID());
-        aliasRepository.deleteByName(name);
+        deletedAliasService.addDeletedAlias(name, mapID);
+        aliasRepository.deleteByNameAndMapID(name, mapID);
         return true;
     }
 
