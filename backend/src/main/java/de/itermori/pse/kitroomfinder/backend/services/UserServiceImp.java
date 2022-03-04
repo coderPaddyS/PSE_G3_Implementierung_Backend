@@ -93,7 +93,6 @@ public class UserServiceImp implements UserService{
     }
 
     private Optional<DecodedJWT> verifyAndDecodeToken(String token) {
-        System.out.println(token);
         try {
             DecodedJWT decodedJWT = JWT.decode(token);
             JwkProvider provider = new UrlJwkProvider(new URL("https://oidc.scc.kit.edu/auth/realms/kit/protocol/openid-connect/certs"));

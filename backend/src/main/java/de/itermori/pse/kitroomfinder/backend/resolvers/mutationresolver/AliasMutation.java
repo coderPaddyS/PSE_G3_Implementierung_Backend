@@ -48,8 +48,8 @@ public class AliasMutation implements GraphQLMutationResolver {
      * @return      True if the removal of the alias succeeds, otherwise false.
      */
     @PreAuthorize("hasAuthority('ADMIN')")
-    public Boolean removeAlias(String alias) {
-        return aliasService.removeAlias(alias);
+    public Boolean removeAlias(String alias, int mapID) {
+        return aliasService.removeAlias(alias, mapID);
     }
 
     /**
@@ -63,7 +63,10 @@ public class AliasMutation implements GraphQLMutationResolver {
     @PreAuthorize("hasAuthority('ADMIN')")
     public Boolean blacklistAlias(String toBlacklist) {
         if (!blacklistService.isBlacklisted(toBlacklist)) {
-            aliasService.removeAlias(toBlacklist);
+            Iterable<Alias> aliasesToRemove = aliasService.getAliasByName(toBlacklist);
+            for (Alias toRemove : aliasesToRemove) {
+                aliasService.removeAlias(toRemove.getName(), toRemove.getMapID());
+            }
             aliasSuggestionService.removeAliasSuggestion(toBlacklist);
             return blacklistService.addToBlacklist(toBlacklist);
         }

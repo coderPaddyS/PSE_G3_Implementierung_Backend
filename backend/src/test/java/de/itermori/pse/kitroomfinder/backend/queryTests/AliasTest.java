@@ -78,7 +78,7 @@ class AliasTest {
     }
 
     /**
-     * Tests the method {@link AliasMutation#removeAlias(String)}.
+     * Tests the method {@link AliasMutation#removeAlias(String, int)}.
      */
     @Test
     void removeAliasTest() {

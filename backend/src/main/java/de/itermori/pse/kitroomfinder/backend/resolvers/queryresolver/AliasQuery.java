@@ -47,7 +47,6 @@ public class AliasQuery implements GraphQLQueryResolver {
 
     /**
      * Returns the aliases which serve as an additional description for a specific mapID.
-     * The caller has to be an admin.
      *
      * @param mapID The mapID for which the alias serves as an additional description.
      * @return      An {@link Iterable} of the aliases which serve as an additional
@@ -55,6 +54,19 @@ public class AliasQuery implements GraphQLQueryResolver {
      */
     public Iterable<Alias> getAlias(int mapID) {
         return aliasService.getAlias(mapID);
+    }
+
+    /**
+     * Returns the aliases which have the provided name.
+     * The caller has to be an admin.
+     *
+     * @param name  The name of the aliases.
+     * @return      An {@link Iterable} of the aliases which
+     *              have the provided name.
+     */
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public Iterable<Alias> getAliasByName(String name) {
+        return aliasService.getAliasByName(name);
     }
 
     /**
@@ -129,6 +141,7 @@ public class AliasQuery implements GraphQLQueryResolver {
 
     /**
      * Returns the amount of blacklist entries stored in the database.
+     * The caller has to be an admin.
      *
      * @return  The amount of blacklist entries stored in the database, converted to a {@link String}.
      *          A {@link String} is returned since GraphQL does not (currently) support

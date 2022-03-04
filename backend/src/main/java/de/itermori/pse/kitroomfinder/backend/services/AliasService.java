@@ -35,6 +35,16 @@ public interface AliasService {
     Iterable<Alias> getAlias(int mapID);
 
     /**
+     * Returns all aliases (type: {@link Alias}) stored in the database
+     * which have the provided name.
+     *
+     * @param name  The name which the aliases should have.
+     * @return      An {@link Iterable} which contains all aliases stored in the database
+     *              which have the provided name.
+     */
+    Iterable<Alias> getAliasByName(String name);
+
+    /**
      * Returns all aliases (type: {@link Alias}) stored in the database.
      *
      * @return      An {@link Iterable} which contains all the aliases stored in the database.
@@ -64,14 +74,17 @@ public interface AliasService {
 
     /**
      * Removes the alias stored from the database
-     * whose name corresponds to the provided one.
+     * whose name corresponds to the provided one
+     * and which serves as an additional description
+     * for the provided mapID.
      * Adds the alias to the deleted alias table of the database.
      *
      * @param name  The name of the alias that should be removed from the database.
+     * @param mapID The mapID for which the alias serves as an additional description.
      * @return      True if the alias is deleted successfully from the database
      *              or if no alias with the provided name is stored in the database,
      *              otherwise false.
      */
-    boolean removeAlias(String name);
+    boolean removeAlias(String name, int mapID);
 
 }
