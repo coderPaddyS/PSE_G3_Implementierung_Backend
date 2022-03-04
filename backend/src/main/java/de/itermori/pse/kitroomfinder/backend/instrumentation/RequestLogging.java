@@ -7,7 +7,6 @@ import graphql.execution.instrumentation.SimpleInstrumentation;
 import graphql.execution.instrumentation.SimpleInstrumentationContext;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
@@ -29,7 +28,6 @@ import graphql.ExecutionResult;
 import graphql.execution.instrumentation.parameters.InstrumentationExecutionParameters;
 
 @Import(BackendApplication.class)
-@Slf4j
 @Component
 @RequiredArgsConstructor
 public class RequestLogging extends SimpleInstrumentation {
