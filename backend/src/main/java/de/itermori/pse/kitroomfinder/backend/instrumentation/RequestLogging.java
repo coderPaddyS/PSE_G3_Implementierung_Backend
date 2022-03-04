@@ -6,11 +6,9 @@ import graphql.execution.instrumentation.InstrumentationContext;
 import graphql.execution.instrumentation.SimpleInstrumentation;
 import graphql.execution.instrumentation.SimpleInstrumentationContext;
 
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
 
@@ -25,8 +23,6 @@ import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import graphql.ExecutionResult;
@@ -41,12 +37,17 @@ public class RequestLogging extends SimpleInstrumentation {
     @Autowired
     private final Clock clock;
 
-    Boolean aBoolean = new File("target/log").mkdirs();
-    Path file = Paths.get("target/log/serverLog.txt");
-
     @Override
     public InstrumentationContext<ExecutionResult> beginExecution(
             InstrumentationExecutionParameters parameters) {
+        new File("target/log").mkdirs();
+        File file = new File("target/log/serverLog.txt");
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Path pathOfFile = Paths.get("target/log/serverLog.txt");
         List<String> lines = new ArrayList<>();
         Instant start = Instant.now(clock);
         String receivedLog = "query received at " + start;
@@ -64,7 +65,7 @@ public class RequestLogging extends SimpleInstrumentation {
                 lines.add(failureLog);
             }
             try {
-                Files.write(file, lines, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+                Files.write(pathOfFile, lines, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
             } catch (IOException e) {
                 e.printStackTrace();
             }
