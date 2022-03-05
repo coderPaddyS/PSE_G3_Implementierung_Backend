@@ -6,11 +6,8 @@ import graphql.execution.instrumentation.InstrumentationContext;
 import graphql.execution.instrumentation.SimpleInstrumentation;
 import graphql.execution.instrumentation.SimpleInstrumentationContext;
 
-import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
 import org.springframework.stereotype.Component;
 
@@ -25,15 +22,12 @@ import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 import graphql.ExecutionResult;
 import graphql.execution.instrumentation.parameters.InstrumentationExecutionParameters;
 
 @Import(BackendApplication.class)
-@Slf4j
 @Component
 @RequiredArgsConstructor
 public class RequestLogging extends SimpleInstrumentation {
@@ -41,30 +35,35 @@ public class RequestLogging extends SimpleInstrumentation {
     @Autowired
     private final Clock clock;
 
-    Boolean aBoolean = new File("target/log").mkdirs();
-    Path file = Paths.get("target/log/serverLog.txt");
-
     @Override
     public InstrumentationContext<ExecutionResult> beginExecution(
             InstrumentationExecutionParameters parameters) {
+        new File("target/log").mkdirs();
+        File logFile = new File("target/log/serverLog.txt");
+        try {
+            logFile.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Path pathOfLogFile = Paths.get(logFile.getPath());
         List<String> lines = new ArrayList<>();
         Instant start = Instant.now(clock);
-        String receivedLog = "query received at " + start;
+        String receivedLog = "query " + parameters.getQuery() + " received at " + start;
         lines.add(receivedLog);
         return SimpleInstrumentationContext.whenCompleted((executionResult, throwable) -> {
             Instant finishedTime = Instant.now(clock);
             Duration duration = Duration.between(start, finishedTime);
             if (throwable == null) {
-                String successLog = "query finished successfully at " + finishedTime +
+                String successLog = "query " + parameters.getQuery() + " finished successfully at " + finishedTime +
                         "(duration: " + duration + ")";
                 lines.add(successLog);
             } else {
-                String failureLog = "query failed at " + finishedTime + "with Exception: " + throwable +
-                        "(duration: " + duration + ")";
+                String failureLog = "query " + parameters.getQuery() + " failed at " + finishedTime +
+                        " with exception: " + throwable + " (duration: " + duration + ")";
                 lines.add(failureLog);
             }
             try {
-                Files.write(file, lines, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+                Files.write(pathOfLogFile, lines, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
             } catch (IOException e) {
                 e.printStackTrace();
             }
