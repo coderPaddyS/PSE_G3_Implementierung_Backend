@@ -39,13 +39,13 @@ public class RequestLogging extends SimpleInstrumentation {
     public InstrumentationContext<ExecutionResult> beginExecution(
             InstrumentationExecutionParameters parameters) {
         new File("target/log").mkdirs();
-        File file = new File("target/log/serverLog.txt");
+        File logFile = new File("target/log/serverLog.txt");
         try {
-            file.createNewFile();
+            logFile.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Path pathOfFile = Paths.get("target/log/serverLog.txt");
+        Path pathOfLogFile = Paths.get(logFile.getPath());
         List<String> lines = new ArrayList<>();
         Instant start = Instant.now(clock);
         String receivedLog = "query received at " + start;
@@ -63,7 +63,7 @@ public class RequestLogging extends SimpleInstrumentation {
                 lines.add(failureLog);
             }
             try {
-                Files.write(pathOfFile, lines, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
+                Files.write(pathOfLogFile, lines, StandardCharsets.UTF_8, StandardOpenOption.APPEND);
             } catch (IOException e) {
                 e.printStackTrace();
             }
