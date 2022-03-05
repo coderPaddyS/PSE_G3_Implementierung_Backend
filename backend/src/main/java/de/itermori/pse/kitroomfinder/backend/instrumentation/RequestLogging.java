@@ -48,18 +48,18 @@ public class RequestLogging extends SimpleInstrumentation {
         Path pathOfLogFile = Paths.get(logFile.getPath());
         List<String> lines = new ArrayList<>();
         Instant start = Instant.now(clock);
-        String receivedLog = "query received at " + start;
+        String receivedLog = "query " + parameters.getQuery() + " received at " + start;
         lines.add(receivedLog);
         return SimpleInstrumentationContext.whenCompleted((executionResult, throwable) -> {
             Instant finishedTime = Instant.now(clock);
             Duration duration = Duration.between(start, finishedTime);
             if (throwable == null) {
-                String successLog = "query finished successfully at " + finishedTime +
+                String successLog = "query " + parameters.getQuery() + " finished successfully at " + finishedTime +
                         "(duration: " + duration + ")";
                 lines.add(successLog);
             } else {
-                String failureLog = "query failed at " + finishedTime + "with Exception: " + throwable +
-                        "(duration: " + duration + ")";
+                String failureLog = "query " + parameters.getQuery() + " failed at " + finishedTime +
+                        " with exception: " + throwable + "(duration: " + duration + ")";
                 lines.add(failureLog);
             }
             try {
