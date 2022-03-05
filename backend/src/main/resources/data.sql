@@ -1,0 +1,1 @@
+INSERT INTO MAP_Object (ID,NAME,MAPID) VALUES (1,'test', 1);
