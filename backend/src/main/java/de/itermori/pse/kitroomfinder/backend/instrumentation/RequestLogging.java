@@ -59,7 +59,7 @@ public class RequestLogging extends SimpleInstrumentation {
                 lines.add(successLog);
             } else {
                 String failureLog = "query " + parameters.getQuery() + " failed at " + finishedTime +
-                        " with exception: " + throwable + "(duration: " + duration + ")";
+                        " with exception: " + throwable + " (duration: " + duration + ")";
                 lines.add(failureLog);
             }
             try {
