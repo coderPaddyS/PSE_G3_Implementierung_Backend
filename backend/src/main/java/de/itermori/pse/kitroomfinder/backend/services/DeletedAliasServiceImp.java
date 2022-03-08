@@ -65,7 +65,7 @@ public class DeletedAliasServiceImp implements DeletedAliasService {
     /**
      * {@inheritDoc}
      */
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    @Transactional
     @Override
     public boolean removeDeletedAlias(String alias, int mapID) {
         deletedAliasRepository.deleteByNameAndMapID(alias, mapID);

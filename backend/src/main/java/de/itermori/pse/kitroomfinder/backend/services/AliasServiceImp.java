@@ -114,7 +114,7 @@ public class AliasServiceImp implements AliasService {
     /**
      * {@inheritDoc}
      */
-    @Transactional(isolation = Isolation.REPEATABLE_READ)
+    @Transactional
     @Override
     public boolean removeAlias(String name, int mapID) {
         Alias toRemove = aliasRepository.findByNameAndMapID(name, mapID);

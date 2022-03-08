@@ -6,6 +6,7 @@ import de.itermori.pse.kitroomfinder.backend.repositories.AliasRepository;
 import de.itermori.pse.kitroomfinder.backend.repositories.AliasSuggestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -22,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class AliasSuggestionServiceImp implements AliasSuggestionService {
 
     private final AliasSuggestionRepository aliasSuggestionRepository;
-    private final AliasRepository aliasRepository;
     private final BlacklistService blacklistService;
     private final MapObjectService mapObjectService;
 
@@ -33,16 +33,13 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
      * @param aliasSuggestionRepository   The required {@link AliasSuggestionRepository}.
      * @param blacklistService            The required {@link BlacklistService}.
      * @param mapObjectService            The required {@link MapObjectService}.
-     * @param aliasRepository                The required {@link AliasRepository}
      */
     @Autowired
     public AliasSuggestionServiceImp(AliasSuggestionRepository aliasSuggestionRepository,
-                                     BlacklistService blacklistService, MapObjectService mapObjectService,
-                                     AliasRepository aliasRepository) {
+                                     BlacklistService blacklistService, MapObjectService mapObjectService) {
         this.aliasSuggestionRepository = aliasSuggestionRepository;
         this.blacklistService = blacklistService;
         this.mapObjectService = mapObjectService;
-        this.aliasRepository = aliasRepository;
     }
 
     /**
