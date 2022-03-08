@@ -85,7 +85,7 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
     /**
      * {@inheritDoc}
      */
-    @Transactional
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     @Override
     public boolean voteForAlias(String aliasSuggestion, int mapID, String user, boolean vote) {
         if (aliasSuggestionRepository.findByNameAndMapID(aliasSuggestion, mapID) == null){
