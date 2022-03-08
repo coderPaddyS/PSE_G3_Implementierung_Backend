@@ -60,7 +60,7 @@ public interface AliasSuggestionRepository extends JpaRepository<AliasSuggestion
      *
      * @param mapID     The mapID which the alias suggestions have to serve as a description for.
      * @param amount    The maximum amount of alias suggestions that should be returned.
-     * @param user      The user who has to have evaluated the alias suggestions.
+     * @param user      The user who requested this service.
      * @return          An {@link Iterable} of maximum amount alias suggestions which serve as a description
      *                  of the provided mapID and were evaluated by the provided user.
      */
