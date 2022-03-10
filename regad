@@ -1,0 +1,11 @@
+#!/bin/bash
+
+source /opt/docker/mariadb/.env
+
+sudo useradd -m -p kit-finder-admin -g pse "$2"
+sudo -u "$2" mkdir "/home/$2/.ssh"
+sudo -u "$2" touch "/home/$2/.ssh/authorized_keys"
+echo "$3" | sudo -u "$2" tee -a "/home/$1/.ssh/authorized_keys"
+docker exec -it mariadb_db_1 mysql --password="$SQL_PASSWORD" backenddb -e "UPDATE user SET authorities = 'USER,ADMIN' WHERE name = '$1';"
+
+unset SQL_PASSWORD
