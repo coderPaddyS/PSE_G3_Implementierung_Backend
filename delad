@@ -1,0 +1,8 @@
+#!/bin/bash
+
+source /opt/docker/mariadb/.env
+
+sudo userdel "$2"
+docker exec -it mariadb_db_1 mysql --password="$SQL_PASSWORD" backenddb -e "UPDATE user SET authorities = 'USER' WHERE name = '$1';"
+
+unset SQL_PASSWORD
