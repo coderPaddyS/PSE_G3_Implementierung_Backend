@@ -162,4 +162,29 @@ class AliasServiceTest {
         assertEquals(0, savedAliases.size());
     }
 
+    /**
+     * Tests the method {@link AliasService#getAllAliases()}
+     */
+    @Test
+    void whenAliasesSaved_thenGetAllAliases() {
+        // save aliases
+        Alias alias1 = new Alias("Infobau", 1, "50.34", 1);
+        Alias alias2 = new Alias("HSaF", 1, "50.34", 1);
+        aliasRepository.save(alias1);
+        aliasRepository.save(alias2);
+
+        // get aliases and save them in a list for simpler testing
+        Iterable<Alias> newAliasIterable = aliasService.getAllAliases();
+        Iterator<Alias> iterator = newAliasIterable.iterator();
+        List<Alias> aliases = new ArrayList<>();
+        while (iterator.hasNext()) {
+            aliases.add(iterator.next());
+        }
+
+        // assert correct aliases are retrieved
+        assertEquals(2, aliases.size());
+        assertEquals(alias1, aliases.get(0));
+        assertEquals(alias2, aliases.get(1));
+    }
+
 }
