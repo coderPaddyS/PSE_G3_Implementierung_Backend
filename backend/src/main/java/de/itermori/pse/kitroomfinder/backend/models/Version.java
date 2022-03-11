@@ -64,7 +64,7 @@ public class Version {
      *
      * @param currentVersion  The new current version to set for the version entity (and database).
      */
-    private void setCurrentVersion(Integer currentVersion) {
+    public void setCurrentVersion(Integer currentVersion) {
         // Hibernate requires the setter for reading values from the database.
         this.currentVersion = currentVersion;
     }

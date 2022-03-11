@@ -4,10 +4,9 @@ import graphql.ExceptionWhileDataFetching;
 import graphql.GraphQLError;
 import graphql.kickstart.execution.error.GenericGraphQLError;
 import graphql.kickstart.execution.error.GraphQLErrorHandler;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Component;
 
 /**
  * Handles GraphQL errors.

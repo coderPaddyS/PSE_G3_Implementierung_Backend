@@ -68,7 +68,7 @@ public class User {
      *
      * @param name  The new name to set for the user.
      */
-    private void setName(String name) {
+    public void setName(String name) {
         // Hibernate requires the setter for reading values from the database.
         this.name = name;
     }
@@ -88,6 +88,7 @@ public class User {
      * @param authorities  The new authorities to set for the user.
      */
     public void setAuthorities(String authorities) {
+        // Hibernate requires the setter for reading values from the database.
         this.authorities = authorities;
     }
 
