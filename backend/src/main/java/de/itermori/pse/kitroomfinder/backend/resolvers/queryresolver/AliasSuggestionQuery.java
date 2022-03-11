@@ -104,7 +104,7 @@ public class AliasSuggestionQuery implements GraphQLQueryResolver {
      *          A {@link String} is returned since GraphQL does not (currently) support
      *          a long datatype.
      */
-    @PreAuthorize("hasAuthority('ADMIN')")
+
     public String getAmountEntriesAliasSuggestion() {
         return aliasSuggestionService.getAmountEntriesAliasSuggestion();
     }
