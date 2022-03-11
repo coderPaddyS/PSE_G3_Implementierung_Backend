@@ -11,5 +11,3 @@ Dies ist möglich mit dem Befehl `CREATE DATABASE backenddb` bzw. `CREATE DATABA
 
 # Kompilierung
 Sind die Kompilierungsmindestanforderungen erfüllt, so kann das Backend durch das Ausführen der Hauptklasse, `backend/src/main/java/de/itermori/pse/kitroomfinder/backend/BackendApplication`, gestartet werden.
-
-![](https://raw.githubusercontent.com/coderPaddyS/PSE_G3_Implementierung_Backend/main/cloc.svg)
