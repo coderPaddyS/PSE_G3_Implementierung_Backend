@@ -1,0 +1,12 @@
+version: '3.1'
+
+services:
+
+  kit-finder:
+    image: kit-finder
+    restart: always
+    ports:
+      - 7070:7070
+    network_mode: "host"
+    volumes:
+      - "./logs:/app/target/target/log"
