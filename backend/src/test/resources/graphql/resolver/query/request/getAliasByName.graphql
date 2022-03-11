@@ -1,0 +1,5 @@
+{
+    getAliasByName(name: "alias1") {
+        name
+    }
+}

@@ -1,0 +1,5 @@
+{
+    getAllAliases {
+        name
+    }
+}

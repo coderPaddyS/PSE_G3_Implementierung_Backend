@@ -1,0 +1,12 @@
+{
+  "data": {
+    "getAllAliases": [
+      {
+        "name": "alias1"
+      },
+      {
+        "name": "alias2"
+      }
+    ]
+  }
+}
