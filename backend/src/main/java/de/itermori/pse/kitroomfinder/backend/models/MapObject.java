@@ -68,7 +68,7 @@ public class MapObject {
      *
      * @param name  The new name to set for the map object entity.
      */
-    private void setName(String name) {
+    public void setName(String name) {
         // Hibernate requires the setter for reading values from the database.
         this.name = name;
     }
@@ -87,7 +87,7 @@ public class MapObject {
      *
      * @param mapID  The new mapID to set for the map object entity.
      */
-    private void setMapID(Integer mapID) {
+    public void setMapID(Integer mapID) {
         // Hibernate requires the setter for reading values from the database.
         this.mapID = mapID;
     }

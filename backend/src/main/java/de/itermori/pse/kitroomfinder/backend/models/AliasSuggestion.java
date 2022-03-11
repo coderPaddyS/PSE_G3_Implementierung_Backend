@@ -89,7 +89,7 @@ public class AliasSuggestion {
      *
      * @param name  The new name to set for the alias suggestion.
      */
-    private void setName(String name) {
+    public void setName(String name) {
         // Hibernate requires the setter for reading values from the database.
         this.name = name;
     }
@@ -108,7 +108,7 @@ public class AliasSuggestion {
      *
      * @param mapID  The new mapID to set for the alias suggestion.
      */
-    private void setMapID(Integer mapID) {
+    public void setMapID(Integer mapID) {
         // Hibernate requires the setter for reading values from the database.
         this.mapID = mapID;
     }
@@ -127,7 +127,7 @@ public class AliasSuggestion {
      *
      * @param mapObject  The new name of the mapID to set for the alias suggestion.
      */
-    private void setMapObject(String mapObject) {
+    public void setMapObject(String mapObject) {
         // Hibernate requires the setter for reading values from the database.
         this.mapObject = mapObject;
     }
@@ -146,7 +146,7 @@ public class AliasSuggestion {
      *
      * @param suggester  The new suggester to set for the alias suggestion.
      */
-    private void setSuggester(String suggester) {
+    public void setSuggester(String suggester) {
         // Hibernate requires the setter for reading values from the database.
         this.suggester = suggester;
     }
@@ -165,7 +165,7 @@ public class AliasSuggestion {
      *
      * @param voters  The new voters to set for the alias suggestion.
      */
-    private void setVoters(String voters) {
+    public void setVoters(String voters) {
         // Hibernate requires the setter for reading values from the database.
         this.voters = voters;
     }
@@ -184,7 +184,7 @@ public class AliasSuggestion {
      *
      * @param posVotes  The new amount of positive votes to set for the alias suggestion.
      */
-    private void setPosVotes(Integer posVotes) {
+    public void setPosVotes(Integer posVotes) {
         // Hibernate requires the setter for reading values from the database.
         this.posVotes = posVotes;
     }
@@ -203,7 +203,7 @@ public class AliasSuggestion {
      *
      * @param negVotes  The new amount of negative votes to set for the alias suggestion.
      */
-    private void setNegVotes(Integer negVotes) {
+    public void setNegVotes(Integer negVotes) {
         // Hibernate requires the setter for reading values from the database.
         this.negVotes = negVotes;
     }
