@@ -2,10 +2,9 @@ package de.itermori.pse.kitroomfinder.backend.services;
 
 import de.itermori.pse.kitroomfinder.backend.models.MapObject;
 import de.itermori.pse.kitroomfinder.backend.repositories.MapObjectRepository;
+import java.util.stream.Stream;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.stream.Stream;
 
 /**
  * Provides a service for the model {@link MapObject}.
