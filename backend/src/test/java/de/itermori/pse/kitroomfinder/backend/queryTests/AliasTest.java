@@ -147,12 +147,42 @@ class AliasTest {
         }
     }
 
+    /**
+     * Tests the method {@link AliasQuery#getAmountEntriesAlias()} ()}
+     * @throws JSONException
+     * @throws IOException
+     */
     @Test
-    void getAmountEntriesAliastest() throws JSONException, IOException {
+    void getAmountEntriesAliasTest() throws JSONException, IOException {
         String testname = "getAmountEntriesAlias";
         aliasRepository.save(new Alias("alias1", 1, "50.34", 0));
         aliasRepository.save(new Alias("alias2", 2, "50.35", 0));
         UtilTests.validate(graphQLTestTemplate, testname, UtilTests.ADMIN);
     }
 
+    /**
+     * Tests the method {@link AliasQuery#getAllAliases()}
+     * @throws JSONException
+     * @throws IOException
+     */
+    @Test
+    void getAllAliasesTest() throws JSONException, IOException {
+        String testname = "getAllAliases";
+        aliasRepository.save(new Alias("alias1", 1, "50.34", 0));
+        aliasRepository.save(new Alias("alias2", 2, "50.35", 0));
+        UtilTests.validate(graphQLTestTemplate, testname, UtilTests.ADMIN);
+    }
+
+    /**
+     * Tests the method {@link AliasQuery#getAliasByName(String)}
+     * @throws JSONException
+     * @throws IOException
+     */
+    @Test
+    void getAliasByNameTest() throws JSONException, IOException {
+        String testname = "getAliasByName";
+        aliasRepository.save(new Alias("alias1", 1, "50.34", 0));
+        aliasRepository.save(new Alias("alias2", 2, "50.35", 0));
+        UtilTests.validate(graphQLTestTemplate, testname, UtilTests.ADMIN);
+    }
 }
