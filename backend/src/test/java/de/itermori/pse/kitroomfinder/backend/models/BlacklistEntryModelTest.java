@@ -22,6 +22,7 @@ class BlacklistEntryModelTest {
 
     @Test
     void testSetName() {
+        blacklistEntry.setName("forbidden2");
         assertEquals("forbidden2", blacklistEntry.getName());
     }
 
