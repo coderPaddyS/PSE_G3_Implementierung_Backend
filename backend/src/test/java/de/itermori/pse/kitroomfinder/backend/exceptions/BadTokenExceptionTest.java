@@ -1,6 +1,5 @@
 package de.itermori.pse.kitroomfinder.backend.exceptions;
 
-import de.itermori.pse.kitroomfinder.backend.models.Alias;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
