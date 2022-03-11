@@ -125,6 +125,19 @@ class AliasSuggestionTest {
      * Tests the method {@link AliasSuggestionMutation#suggestAlias(String, int, String)}.
      */
     @Test
+    void suggestAliasWithoutAuthentication() throws IOException {
+        String testname = "suggestAlias";
+        mapObjectRepository.save(new MapObject("50.34", 1));
+        graphQLTestTemplate.withClearHeaders();
+        graphQLTestTemplate.postForResource(format(GRAPHQL_QUERY_REQUEST_PATH, testname));
+        assertNull(aliasSuggestionRepository.findByNameAndMapID("alias", 1));
+    }
+
+
+    /**
+     * Tests the method {@link AliasSuggestionMutation#suggestAlias(String, int, String)}.
+     */
+    @Test
     void suggestAlias() throws IOException {
         try {
             String testname = "suggestAlias";
@@ -144,16 +157,6 @@ class AliasSuggestionTest {
         }
     }
 
-    /**
-     * Tests the method {@link AliasSuggestionMutation#suggestAlias(String, int, String)}.
-     */
-    @Test
-    void suggestAliasWithoutAuthentication() throws IOException {
-        String testname = "suggestAlias";
-        mapObjectRepository.save(new MapObject("50.34", 1));
-        graphQLTestTemplate.postForResource(format(GRAPHQL_QUERY_REQUEST_PATH, testname));
-        assertNull(aliasSuggestionRepository.findByNameAndMapID("alias", 1));
-    }
 
     /**
      * Tests the method {@link AliasSuggestionMutation#disapproveAliasSuggestion(String, int)}.
@@ -211,7 +214,7 @@ class AliasSuggestionTest {
 
         String testname = "voteForAlias";
         aliasSuggestionRepository.save(new AliasSuggestion("alias", 1, "50.34", "suggester"));
-
+        graphQLTestTemplate.withClearHeaders();
         graphQLTestTemplate.postForResource(format(GRAPHQL_QUERY_REQUEST_PATH, testname));
         int i = aliasSuggestionRepository.findByNameAndMapID("alias", 1).getPosVotes();
         assertEquals(0, (int) aliasSuggestionRepository

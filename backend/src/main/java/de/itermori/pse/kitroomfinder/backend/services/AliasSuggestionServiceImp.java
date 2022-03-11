@@ -65,6 +65,9 @@ public class AliasSuggestionServiceImp implements AliasSuggestionService {
     @Transactional
     @Override
     public boolean removeAliasSuggestion(String aliasSuggestion, int mapID) {
+        if (aliasSuggestionRepository.findByNameAndMapID(aliasSuggestion,mapID) == null) {
+            return false;
+        }
         aliasSuggestionRepository.deleteByNameAndID(aliasSuggestion, mapID);
         return true;
     }
