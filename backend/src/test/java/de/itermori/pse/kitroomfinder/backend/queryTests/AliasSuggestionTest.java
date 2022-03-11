@@ -12,9 +12,11 @@ import de.itermori.pse.kitroomfinder.backend.resolvers.mutationresolver.AliasSug
 import de.itermori.pse.kitroomfinder.backend.services.AliasService;
 import de.itermori.pse.kitroomfinder.backend.services.AliasSuggestionService;
 import de.itermori.pse.kitroomfinder.backend.services.BlacklistService;
+
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+
 import org.json.JSONException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -143,6 +145,17 @@ class AliasSuggestionTest {
     }
 
     /**
+     * Tests the method {@link AliasSuggestionMutation#suggestAlias(String, int, String)}.
+     */
+    @Test
+    void suggestAliasWithoutAuthentication() throws IOException {
+        String testname = "suggestAlias";
+        mapObjectRepository.save(new MapObject("50.34", 1));
+        graphQLTestTemplate.postForResource(format(GRAPHQL_QUERY_REQUEST_PATH, testname));
+        assertNull(aliasSuggestionRepository.findByNameAndMapID("alias", 1));
+    }
+
+    /**
      * Tests the method {@link AliasSuggestionMutation#disapproveAliasSuggestion(String, int)}.
      */
     @Test
@@ -188,6 +201,21 @@ class AliasSuggestionTest {
         } catch (IOException e) {
             fail(e.getMessage());
         }
+    }
+
+    /**
+     * Tests the method {@link AliasSuggestionMutation#voteForAliasSuggestion(String, int, String, Boolean)}.
+     */
+    @Test
+    void voteForAliasWithoutAuthorizationTest() throws IOException {
+
+        String testname = "voteForAlias";
+        aliasSuggestionRepository.save(new AliasSuggestion("alias", 1, "50.34", "suggester"));
+
+        graphQLTestTemplate.postForResource(format(GRAPHQL_QUERY_REQUEST_PATH, testname));
+        int i = aliasSuggestionRepository.findByNameAndMapID("alias", 1).getPosVotes();
+        assertEquals(0, (int) aliasSuggestionRepository
+                .findByNameAndMapID("alias", 1).getPosVotes());
     }
 
     @Test
