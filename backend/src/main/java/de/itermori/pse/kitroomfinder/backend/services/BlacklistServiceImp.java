@@ -54,6 +54,9 @@ public class BlacklistServiceImp implements BlacklistService{
     @Transactional
     @Override
     public boolean removeFromBlacklist(String blacklistedToRem) {
+        if (!isBlacklisted(blacklistedToRem)) {
+            return false;
+        }
         blacklistRepository.deleteByName(blacklistedToRem);
         return true;
     }

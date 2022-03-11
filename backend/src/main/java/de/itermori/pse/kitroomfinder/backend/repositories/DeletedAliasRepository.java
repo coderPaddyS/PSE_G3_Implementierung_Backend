@@ -38,5 +38,8 @@ public interface DeletedAliasRepository extends JpaRepository<DeletedAlias, Long
      */
     @Transactional
     void deleteByNameAndMapID(String name, int mapID);
+
+    @Transactional
+    Iterable<DeletedAlias> findByNameAndMapID(String name, int mapID);
     
 }
